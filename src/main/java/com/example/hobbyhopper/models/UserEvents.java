@@ -1,31 +1,43 @@
 package com.example.hobbyhopper.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="user_events")
 public class UserEvents {
 
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     private long userId;
 
     private long eventId;
 
     private boolean isOwner;
 
-    private int expertise;
+    @ManyToOne
+    @JoinColumn(name = "expertise_id")
+    private Expertise expertise;
 
-    public UserEvents(long eventId, boolean isOwner, int expertise) {
+
+
+
+
+    public UserEvents() {}
+
+    public UserEvents(long userId, long eventId, boolean isOwner, Expertise expertise) {
+        this.userId = userId;
         this.eventId = eventId;
         this.isOwner = isOwner;
         this.expertise = expertise;
     }
 
-    public UserEvents() {
 
-    }
+
+
 
     public long getUserId() {
         return userId;
@@ -51,11 +63,23 @@ public class UserEvents {
         isOwner = owner;
     }
 
-    public int getExpertise() {
+    public boolean isOwner() {
+        return isOwner;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Expertise getExpertise() {
         return expertise;
     }
 
-    public void setExpertise(int expertise) {
+    public void setExpertise(Expertise expertise) {
         this.expertise = expertise;
     }
 }

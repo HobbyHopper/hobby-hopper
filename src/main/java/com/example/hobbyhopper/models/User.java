@@ -4,10 +4,11 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name="users", uniqueConstraints= @UniqueConstraint(columnNames={"username", "email"}))
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +34,20 @@ public class Users {
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean isAdmin;
 
-    public Users(String username, String email, String password, String location, Calendar DOB, String image, Boolean isAdmin) {
+    @ManyToMany (cascade = CascadeType.ALL)
+    @JoinTable (name = "user_hobbies",
+            joinColumns ={@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="hobby_id")}
+    )
+    private List<Hobby> userHobbies;
+
+
+
+
+
+    public User() {}
+
+    public User(String username, String email, String password, String location, Calendar DOB, String image, Boolean isAdmin, List<Hobby> userHobbies) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -41,10 +55,7 @@ public class Users {
         this.DOB = DOB;
         this.image = image;
         this.isAdmin = isAdmin;
-    }
-
-    public Users() {
-
+        this.userHobbies = userHobbies;
     }
 
     public long getId() {
@@ -109,6 +120,14 @@ public class Users {
 
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
+    }
+
+    public List<Hobby> getUserHobbies() {
+        return userHobbies;
+    }
+
+    public void setUserHobbies(List<Hobby> userHobbies) {
+        this.userHobbies = userHobbies;
     }
 }
 
