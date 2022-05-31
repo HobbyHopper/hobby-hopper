@@ -1,6 +1,7 @@
 package com.example.hobbyhopper.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="expertise")
@@ -12,13 +13,22 @@ public class Expertise {
 
     private String expertise;
 
-    public Expertise(String expertise) {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "expertise")
+    private List<UserEvents> userEvents;
+
+
+
+
+    public Expertise() {}
+
+    public Expertise(String expertise, List<UserEvents> userEvents) {
         this.expertise = expertise;
+        this.userEvents = userEvents;
     }
 
-    public Expertise() {
 
-    }
+
+
 
     public long getId() {
         return id;
@@ -34,5 +44,13 @@ public class Expertise {
 
     public void setExpertise(String expertise) {
         this.expertise = expertise;
+    }
+
+    public List<UserEvents> getUserEvents() {
+        return userEvents;
+    }
+
+    public void setUserEvents(List<UserEvents> userEvents) {
+        this.userEvents = userEvents;
     }
 }

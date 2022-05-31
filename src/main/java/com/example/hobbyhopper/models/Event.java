@@ -4,10 +4,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name="events")
-public class Events {
+public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,14 +39,24 @@ public class Events {
 
     private boolean rsvpAble;
 
-    private String imageUrl;
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "event")
+    private List<Image> eventImages;
 
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private boolean isReported;
 
     private int categoryId;
 
-    public Events(LocalDateTime createdEvent, LocalDateTime updatedEvent, String eventName, String eventDescription, String referenceUrl, String address, Calendar startDateTime, Calendar endDateTime, boolean isAgeRestricted, boolean isPublic, boolean rsvpAble, String imageUrl, boolean isReported, int categoryId) {
+    @ManyToMany (cascade = CascadeType.ALL)
+    @JoinTable (name = "event_hobbies",
+    joinColumns ={@JoinColumn(name="event_id")},
+    inverseJoinColumns = {@JoinColumn(name="hobby_id")}
+    )
+    private List<Hobby> eventHobbies;
+
+    public Event() {}
+
+    public Event(LocalDateTime createdEvent, LocalDateTime updatedEvent, String eventName, String eventDescription, String referenceUrl, String address, Calendar startDateTime, Calendar endDateTime, boolean isAgeRestricted, boolean isPublic, boolean rsvpAble, List<Image> eventImages, boolean isReported, int categoryId, List<Hobby> eventHobbies) {
         this.createdEvent = createdEvent;
         this.updatedEvent = updatedEvent;
         this.eventName = eventName;
@@ -57,9 +68,10 @@ public class Events {
         this.isAgeRestricted = isAgeRestricted;
         this.isPublic = isPublic;
         this.rsvpAble = rsvpAble;
-        this.imageUrl = imageUrl;
+        this.eventImages = eventImages;
         this.isReported = isReported;
         this.categoryId = categoryId;
+        this.eventHobbies = eventHobbies;
     }
 
     public long getId() {
@@ -92,6 +104,14 @@ public class Events {
 
     public void setEventName(String eventName) {
         this.eventName = eventName;
+    }
+
+    public List<Image> getEventImages() {
+        return eventImages;
+    }
+
+    public void setEventImages(List<Image> eventImages) {
+        this.eventImages = eventImages;
     }
 
     public String getEventDescription() {
@@ -158,14 +178,6 @@ public class Events {
         this.rsvpAble = rsvpAble;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public boolean isReported() {
         return isReported;
     }
@@ -180,5 +192,13 @@ public class Events {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public List<Hobby> getEventHobbies() {
+        return eventHobbies;
+    }
+
+    public void setEventHobbies(List<Hobby> eventHobbies) {
+        this.eventHobbies = eventHobbies;
     }
 }
