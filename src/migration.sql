@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS users(
 );
 
 CREATE TABLE IF NOT EXISTS categories(
-                                         id INT AUTO_INCREMENT,
+                                         id INT NOT NULL AUTO_INCREMENT,
                                          category_name VARCHAR(255),
                                          PRIMARY KEY (id)
 );
@@ -43,33 +43,33 @@ CREATE TABLE IF NOT EXISTS events(
 );
 
 CREATE TABLE IF NOT EXISTS hobbies(
-                                      id INT AUTO_INCREMENT,
+                                      id INT NOT NULL AUTO_INCREMENT,
                                       hobby_name VARCHAR(255),
                                       PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS hobbies_users(
-                                            user_id INT AUTO_INCREMENT,
+                                            user_id INT,
                                             hobby_id INT,
                                             FOREIGN KEY (user_id) REFERENCES users(id),
                                             FOREIGN KEY (hobby_id) REFERENCES hobbies(id)
 );
 
 CREATE TABLE IF NOT EXISTS events_hobbies(
-                                             event_id INT AUTO_INCREMENT,
+                                             event_id INT,
                                              hobby_id INT,
                                              FOREIGN KEY (event_id) REFERENCES events(id),
                                              FOREIGN KEY (hobby_id) REFERENCES hobbies(id)
 );
 
 CREATE TABLE IF NOT EXISTS expertise(
-                                        id INT AUTO_INCREMENT,
+                                        id INT NOT NULL AUTO_INCREMENT,
                                         expertise VARCHAR(255),
                                         PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS users_events(
-                                           user_id INT AUTO_INCREMENT,
+                                           user_id INT,
                                            event_id INT,
                                            is_owner BOOLEAN,
                                            expertise INT,
