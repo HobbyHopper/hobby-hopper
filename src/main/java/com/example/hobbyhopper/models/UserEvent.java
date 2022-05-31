@@ -5,16 +5,18 @@ import java.util.List;
 
 @Entity
 @Table(name="user_events")
-public class UserEvents {
+public class UserEvent {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    private long userId;
-
-    private long eventId;
+    @ManyToOne
+    @JoinColumn (name="user_id")
+    private User user;
+    @ManyToOne
+    @JoinColumn (name = "event_id")
+    private Event event;
 
     private boolean isOwner;
 
@@ -26,34 +28,14 @@ public class UserEvents {
 
 
 
-    public UserEvents() {}
-
-    public UserEvents(long userId, long eventId, boolean isOwner, Expertise expertise) {
-        this.userId = userId;
-        this.eventId = eventId;
-        this.isOwner = isOwner;
-        this.expertise = expertise;
-    }
+    public UserEvent() {}
 
 
 
 
 
-    public long getUserId() {
-        return userId;
-    }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
 
-    public long getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(long eventId) {
-        this.eventId = eventId;
-    }
 
     public boolean getOwner() {
         return isOwner;

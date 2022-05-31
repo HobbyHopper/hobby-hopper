@@ -41,6 +41,9 @@ public class User {
     )
     private List<Hobby> userHobbies;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<UserEvent> userEvents;
+
 
 
 

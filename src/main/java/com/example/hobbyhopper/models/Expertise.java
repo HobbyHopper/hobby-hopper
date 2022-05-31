@@ -14,14 +14,14 @@ public class Expertise {
     private String expertise;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "expertise")
-    private List<UserEvents> userEvents;
+    private List<UserEvent> userEvents;
 
 
 
 
     public Expertise() {}
 
-    public Expertise(String expertise, List<UserEvents> userEvents) {
+    public Expertise(String expertise, List<UserEvent> userEvents) {
         this.expertise = expertise;
         this.userEvents = userEvents;
     }
@@ -46,11 +46,11 @@ public class Expertise {
         this.expertise = expertise;
     }
 
-    public List<UserEvents> getUserEvents() {
+    public List<UserEvent> getUserEvents() {
         return userEvents;
     }
 
-    public void setUserEvents(List<UserEvents> userEvents) {
+    public void setUserEvents(List<UserEvent> userEvents) {
         this.userEvents = userEvents;
     }
 }

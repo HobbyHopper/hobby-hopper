@@ -54,6 +54,9 @@ public class Event {
     )
     private List<Hobby> eventHobbies;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+    private List<UserEvent> userEvents;
+
     public Event() {}
 
     public Event(LocalDateTime createdEvent, LocalDateTime updatedEvent, String eventName, String eventDescription, String referenceUrl, String address, Calendar startDateTime, Calendar endDateTime, boolean isAgeRestricted, boolean isPublic, boolean rsvpAble, List<Image> eventImages, boolean isReported, int categoryId, List<Hobby> eventHobbies) {
