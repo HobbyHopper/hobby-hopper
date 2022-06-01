@@ -1,9 +1,12 @@
 package com.example.hobbyhopper.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -27,7 +30,9 @@ public class User {
 
     private String location;
 
-    private Calendar DOB;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dob;
 
     private String image;
 
@@ -50,19 +55,27 @@ public class User {
 
     public User() {}
 
-    public User(String username, String email, String password, String location, Calendar DOB, String image, Boolean isAdmin, List<Hobby> userHobbies) {
+    public User(String username, String email, String password, String location, Date dob, String image, Boolean isAdmin, List<Hobby> userHobbies) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.location = location;
-        this.DOB = DOB;
+        this.dob = dob;
         this.image = image;
         this.isAdmin = isAdmin;
         this.userHobbies = userHobbies;
     }
 
-    public User(User user) {
-
+    public User(User copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+        location = copy.location;
+        dob = copy.dob;
+        image = copy.image;
+        isAdmin = copy.isAdmin;
+        userHobbies = copy.userHobbies;
     }
 
     public long getId() {
@@ -105,12 +118,20 @@ public class User {
         this.location = location;
     }
 
-    public Calendar getDOB() {
-        return DOB;
+    public Date getDob() {
+        return dob;
     }
 
-    public void setDOB(Calendar DOB) {
-        this.DOB = DOB;
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public List<UserEvent> getUserEvents() {
+        return userEvents;
+    }
+
+    public void setUserEvents(List<UserEvent> userEvents) {
+        this.userEvents = userEvents;
     }
 
     public String getImage() {
