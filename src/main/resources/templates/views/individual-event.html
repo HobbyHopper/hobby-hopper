@@ -12,29 +12,49 @@
     <div th:replace="partials/partials.html :: header"></div>
 
     <!--Event Details Template-->
-<!--    <div class="card" style="width: 18rem;">-->
-<!--        <img src="..." class="card-img-top" alt="...">-->
-<!--        <div class="card-body">-->
-<!--            <h5 class="card-title">Card title</h5>-->
-<!--            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--        </div>-->
-<!--        <ul class="list-group list-group-flush">-->
-<!--            <li class="list-group-item">An item</li>-->
-<!--            <li class="list-group-item">A second item</li>-->
-<!--            <li class="list-group-item">A third item</li>-->
-<!--        </ul>-->
-<!--        <div class="card-body">-->
-<!--            <a href="#" class="card-link">Card link</a>-->
-<!--            <a href="#" class="card-link">Another link</a>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div class="card mx-auto" style="width: 80rem;">
+        <img src="https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg" class="img-fluid rounded mx-auto" alt="event-image">
+        <div class="card-body">
+            <h5 class="card-title">Event Title</h5>
+            <p class="card-text">Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. A atque dolorem hic laboriosam placeat veniam voluptatibus. At blanditiis, cum cupiditate deserunt enim fuga, impedit laboriosam odio provident quos rerum veniam?.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Date</li>
+            <li class="list-group-item">Time</li>
+            <li class="list-group-item">Location</li>
+            <li class="list-group-item">Age Restriction?</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">RSVP</a>
+            <a href="#" class="card-link">Report</a>
+        </div>
+    </div>
 
+    <!--Map-->
+    <div id='map' style='width: 400px; height: 300px;'></div>
 
     <!--Footer-->
     <div th:replace="partials/partials.html :: footer"></div>
 
     <!--Bootstrap JS Script Tag-->
     <script th:replace="partials/partials.html :: bootstrap-js"></script>
+
+    <!--External Script Tags-->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+    <script src="js/mapbox-geocoder-utils.js"></script>
+    <script src="js/keys.js"></script>
+
+    <!--Map Script-->
+    <script>
+		mapboxgl.accessToken = MAPBOX_API_TOKEN;
+
+		const map = new mapboxgl.Map({
+			container: 'map', // container ID
+			style: 'mapbox://styles/mapbox/streets-v11', // style URL
+			center: [-98.5, 29.435], // starting position [lng, lat]
+			zoom: 8.8 // starting zoom
+		});
+    </script>
 
 </body>
 </html>
