@@ -12,11 +12,11 @@
     <div th:replace="partials/partials.html :: header"></div>
 
     <!--Event Details Template-->
-    <div class="card mx-auto" style="width: 80rem;">
+    <div class="card mx-auto text-center" style="width: 80rem;">
         <img src="https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg" class="img-fluid rounded mx-auto" alt="event-image">
         <div class="card-body">
-            <h5 class="card-title">Event Title</h5>
-            <p class="card-text">Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. A atque dolorem hic laboriosam placeat veniam voluptatibus. At blanditiis, cum cupiditate deserunt enim fuga, impedit laboriosam odio provident quos rerum veniam?.</p>
+            <h5 class="card-title"> <span th:text="${event.eventName}"></span> </h5>
+            <p class="card-text text-start">Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. A atque dolorem hic laboriosam placeat veniam voluptatibus. At blanditiis, cum cupiditate deserunt enim fuga, impedit laboriosam odio provident quos rerum veniam?.</p>
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Date</li>
@@ -31,7 +31,7 @@
     </div>
 
     <!--Map-->
-    <div id='map' style='width: 400px; height: 300px;'></div>
+    <div id='map' class="mx-auto m-3 mb-10" style='width: 400px; height: 300px;'></div>
 
     <!--Footer-->
     <div th:replace="partials/partials.html :: footer"></div>
@@ -41,8 +41,8 @@
 
     <!--External Script Tags-->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
-    <script src="js/mapbox-geocoder-utils.js"></script>
-    <script src="js/keys.js"></script>
+    <script th:src="@{/js/mapbox-geocoder-utils.js}"></script>
+    <script th:src="@{/js/keys.js}"></script>
 
     <!--Map Script-->
     <script>
