@@ -48,7 +48,7 @@ public class User {
 
 
 
-    public User(User user) {}
+    public User() {}
 
     public User(String username, String email, String password, String location, Calendar DOB, String image, Boolean isAdmin, List<Hobby> userHobbies) {
         this.username = username;
@@ -59,6 +59,10 @@ public class User {
         this.image = image;
         this.isAdmin = isAdmin;
         this.userHobbies = userHobbies;
+    }
+
+    public User(User user) {
+
     }
 
     public long getId() {
