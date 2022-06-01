@@ -19,26 +19,29 @@
                      class="img-fluid" alt="HobbyHopper Logo">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form th:action="@{'/sign-up?error'}" method="POST" >
-                    <!-- Username input -->
+                <form th:action="@{/sign-up}" method="POST" th:object="${user}">
+                    <ul>
+                        <li th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></li>
+                        <li th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>
+                        <li th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></li>
+
+                    </ul>
+<!--                     Username input -->
                     <div class="form-outline">
                         <input type="text" id="username" class="form-control form-control-lg"
-                               placeholder="Enter a valid user name" />
-                        <label class="form-label" for="username">User name</label>
+                               placeholder="Enter a valid user name" th:field="*{username}"/>
                     </div>
 
                     <!-- Email input -->
                     <div class="form-outline">
                         <input type="email" id="email" class="form-control form-control-lg"
-                               placeholder="Enter email" />
-                        <label class="form-label" for="email">email</label>
+                               placeholder="Enter email" th:field="*{email}"/>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline">
                         <input type="password" id="password" class="form-control form-control-lg"
-                               placeholder="Enter password" />
-                        <label class="form-label" for="password">Password</label>
+                               placeholder="Enter password" th:field="*{password}"/>
                     </div>
 
                     <!-- Confirm password input -->
@@ -51,22 +54,19 @@
                     <!-- location input -->
                     <div class="form-outline">
                         <input type="text" id="location" class="form-control form-control-lg"
-                               placeholder="Enter location" />
-                        <label class="form-label" for="location">Location</label>
+                               placeholder="Enter location" th:field="*{location}"/>
                     </div>
 
                     <!-- DOB input -->
                     <div class="form-outline">
                         <input type="date" id="dob" class="form-control form-control-lg"
-                               placeholder="" />
-                        <label class="form-label" for="dob">Date of birth</label>
+                               placeholder="" th:field="*{dob}" value="2015-08-09"/>
                     </div>
 
-                     Image input
+                    <!--Image input-->
                     <div class="form-outline">
                         <input type="text" id="image" class="form-control form-control-lg"
-                               placeholder="" />
-                        <label class="form-label" for="image">Image</label>
+                               placeholder="" th:field="*{image}"/>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
@@ -75,7 +75,7 @@
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <input type="submit" value="Sign Up" class="btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                        <p class="small fw-bold mt-2 pt-1 mb-0">Have an Account? <a href="login.html" class="link-danger">Sign up</a></p>
+                        <p class="small fw-bold mt-2 pt-1 mb-0">Have an Account? <a href="login.html" class="link-danger">Login</a></p>
                     </div>
 
                 </form>
