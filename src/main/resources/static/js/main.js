@@ -7,7 +7,7 @@ img.addEventListener("click", ()=>{
         onFileUploadFinished(file){
             console.log(file.url);
             // document.getElementById("image").src= file.url;
-            // document.getElementById("image").value=file.url;
+            document.getElementById("image").value=file.url;
         }
     }
     client.picker(options).open();
