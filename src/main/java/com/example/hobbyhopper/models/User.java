@@ -48,7 +48,7 @@ public class User {
 
 
 
-    public User() {}
+    public User(User user) {}
 
     public User(String username, String email, String password, String location, Calendar DOB, String image, Boolean isAdmin, List<Hobby> userHobbies) {
         this.username = username;
