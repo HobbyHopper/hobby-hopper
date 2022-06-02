@@ -13,6 +13,8 @@ public class Expertise {
 
     private String expertise;
 
+    private String description;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "expertise")
     private List<UserEvent> userEvents;
 
