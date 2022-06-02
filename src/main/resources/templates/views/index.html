@@ -10,14 +10,16 @@
         <p class="lead fw-normal text-white-50 mb-0">Find Your Fun</p>
 <!--    Cards-->
     </div>
-    <div class="card" style="width: 18rem;" th:each="event : ${events}">
-        <img src="" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title" th:text="${event.eventName}"></h5>
-            <p class="card-text" th:text="${event.eventDescription}"></p>
-            <a href="#" class="btn btn-primary">View Details</a>
+    <section class="container d-flex flex-wrap">
+        <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${events}">
+            <img src="" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${event.eventName}"></h5>
+                <p class="card-text" th:text="${event.eventDescription}"></p>
+                <a href="#" class="btn btn-primary">View Details</a>
+            </div>
         </div>
-    </div>
+    </section>
 
 
 <script th:replace="partials/partials.html :: bootstrap-js"></script>
