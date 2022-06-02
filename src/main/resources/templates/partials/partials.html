@@ -33,7 +33,12 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li>
-
+                            <div th:if="${param.error}">
+                                Invalid Username and Password.
+                            </div>
+                            <div th:if="${param.logout}">
+                                You have been logged out.
+                            </div>
                             <form th:action="@{/login}" method="post">
                                 <label for="username">Username</label>
                                 <input id="username" name="username" type="text" >
