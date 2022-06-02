@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/partials.html :: head ('Profile')" ></head>
 <body>
+<ul th:replace="partials/partials.html :: navbar"></ul>
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
+    User ID: <span th:text="${#authentication.principal.id}"></span>
+    Email: <span th:text="${#authentication.principal.email}"></span>
+    location: <span th:text="${#authentication.principal.location}"></span>
+    D.O.B: <span th:text="${#authentication.principal.dob}"></span>
 
+    <h1><span th:text="${#authentication.principal.username}"></span></h1>
+    <img th:src="@{${#authentication.principal.image}}"/>
+
+</div>
 </body>
 </html>

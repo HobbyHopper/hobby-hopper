@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -17,14 +18,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
+    @NotNull
     @Min(5)
     private String username;
 
-    @NotBlank
+    @NotNull
     private String email;
 
-    @NotBlank
+    @NotNull
     @Min(10)
     private String password;
 
@@ -37,7 +38,7 @@ public class User {
     private String image;
 
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
-    private Boolean isAdmin;
+    private Boolean isAdmin = false;
 
     @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable (name = "user_hobbies",
@@ -48,9 +49,6 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<UserEvent> userEvents;
-
-
-
 
 
     public User() {}
