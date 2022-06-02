@@ -47,6 +47,7 @@ public class EventController {
     public String showCreateForm(Model model) {
 //     sends to create page and uses form model binding for creating a new event
         model.addAttribute("event", new Event());
+//        add expertise to constructor
         model.addAttribute("userEvent",new UserEvent());
 
         return "views/create-edit-event";
@@ -55,10 +56,10 @@ public class EventController {
     public String createEvent(@ModelAttribute Event event, @ModelAttribute UserEvent userEvent){
         User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        when creating a new event also sets the owner on UserEvent row and ties the two together
+//        event.set
         userEvent.setUser(user);
         userEvent.setEvent(event);
         userEvent.setOwner(true);
-//        userEvent.setExpertise();
 
         return "views/individual-event";
     }
