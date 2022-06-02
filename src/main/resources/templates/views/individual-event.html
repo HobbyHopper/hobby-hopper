@@ -53,21 +53,40 @@
             <p class="card-text"> Description: <span th:text="${event.eventDescription}"></span> </p>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Date of Event: <span th:text="${event.startDateTime.LONG_STANDALONE}"></span></li>
+            <li class="list-group-item">Date of Event: <span th:text="${event.startDateTime}"></span></li>
             <li class="list-group-item">Time</li>
             <li class="list-group-item">Location</li>
             <li class="list-group-item">Age Restriction?</li>
         </ul>
         <!--Buttons-->
         <div class="card-body">
-            <button th:if="${event.rsvpAble}" type="button" class="btn btn-success">RSVP</button>
-            <button type="button" class="btn btn-danger">Report</button>
+            <!--RSVP-->
+            <form th:if="${event.rsvpAble}" action="/event/rsvp" method="post">
+                <input hidden th:value="${event.getId()}">
+
+                <div class="dropdown">
+                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        RSVP
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Beginner</a></li>
+                        <li><a class="dropdown-item" href="#">Intermediate</a></li>
+                        <li><a class="dropdown-item" href="#">Advanced</a></li>
+                    </ul>
+                </div>
+
+            </form>
+            <!--Report-->
+            <form action="/event/report" method="post">
+                <input hidden th:value="${event.getId()}">
+                <button type="button" class="btn btn-danger">Report</button>
+            </form>
         </div>
     </div>
 
 
     <!--Map-->
-    <div id='map' class="mx-auto m-3 mb-10" style='width: 400px; height: 300px;'></div>
+    <div id='map' class="mx-auto m-3" style='width: 80%; height: 300px;'></div>
 
     <!--Footer-->
     <div th:replace="partials/partials.html :: footer"></div>
@@ -77,20 +96,15 @@
 
     <!--External Script Tags-->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
-    <script th:src="@{/js/mapbox-geocoder-utils.js}"></script>
     <script th:src="@{/js/keys.js}"></script>
 
-    <!--Map Script-->
+    <!--Map Scripts-->
+    <script th:src="@{/js/mapbox-geocoder-utils.js}"></script>
     <script>
-		mapboxgl.accessToken = MAPBOX_API_TOKEN;
-
-		const map = new mapboxgl.Map({
-			container: 'map', // container ID
-			style: 'mapbox://styles/mapbox/streets-v11', // style URL
-			center: [-98.5, 29.435], // starting position [lng, lat]
-			zoom: 8.8 // starting zoom
-		});
+        <!--TODO: Coordinates need to dynamically change with the location of the event that is stored in the database instead of being hard-coded-->
+        let centerCoords = [-98.5, 29.435];
     </script>
+    <script th:src="@{/js/mapbox.js}"></script>
 
 </body>
 </html>
