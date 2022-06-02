@@ -1,4 +1,4 @@
-use hobby_hopper_db;
+use hobby_hopper;
 
 
 INSERT INTO categories (category_name) VALUES ('indoor'),

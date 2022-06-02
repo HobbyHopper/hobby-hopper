@@ -13,9 +13,4 @@ public class HomeController {
         return "views/landing";
     }
 
-    @GetMapping
-    @RequestMapping("/events")
-    public String indexPage(){
-       return "views/index";
-    }
 }
