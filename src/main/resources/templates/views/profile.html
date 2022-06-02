@@ -2,18 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials/partials.html :: head ('Profile')" ></head>
-<body>
-<ul th:replace="partials/partials.html :: navbar"></ul>
-<div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.
-    User ID: <span th:text="${#authentication.principal.id}"></span>
-    Email: <span th:text="${#authentication.principal.email}"></span>
-    location: <span th:text="${#authentication.principal.location}"></span>
-    D.O.B: <span th:text="${#authentication.principal.dob}"></span>
+    <body>
+        <ul th:replace="partials/partials.html :: navbar"></ul>
+        <div sec:authorize="isAuthenticated()">
+            <div class="d-flex container-fluid mt-5">
+                <img th:src="@{${#authentication.principal.image}}"  class="mt-5 mx-3" id="profile-image"/>
+                <div class="col-5">
+                    <ul class="h4 mt-5">
+                        <li class="mt-3"><span th:text="${#authentication.principal.username}"></span></li>
+                        <li class="mt-3"><span th:text="${#authentication.principal.email}"></span></li>
+                        <li class="mt-3"><span th:text="${#authentication.principal.location}"></span></li>
+                    </ul>
+                </div>
+                <div class="text-uppercase d-flex flex-column ">
+                    <h1>RSVP Events</h1>
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
 
-    <h1><span th:text="${#authentication.principal.username}"></span></h1>
-    <img th:src="@{${#authentication.principal.image}}"/>
-
-</div>
-</body>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div class="container">
+                    <h1 class="text-uppercase my-5">created event</h1>
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div class="container">
+                    <h1 class="text-uppercase my-5">events for you</h1>
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                    <img th:src="@{images/logo.png}" alt="">
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
