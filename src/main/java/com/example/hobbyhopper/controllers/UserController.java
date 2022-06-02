@@ -23,6 +23,11 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @GetMapping("/profile")
+    public String showProfile(){
+        return "views/profile";
+    }
+
     @GetMapping("/sign-up")
     public String showSignupForm(Model model) {
         model.addAttribute("user", new User());
@@ -52,7 +57,6 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         userDao.save(user);
-
 
         return "redirect:/profile";
     }
