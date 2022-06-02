@@ -2,25 +2,68 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="partials/partials.html :: head ('Hobby Hopper: Find Your Fun!')"></head>
 <body>
-<!--    Jumbotron-->
     <nav th:replace="partials/partials.html :: navbar"></nav>
-    <div class="container-fluid bg-dark py-5 px-4 my-5 text-center text-white">
-<!--        <img class="bg-image" th:src="@{/images/little-frog.jpg}" width="800px" height="400px">-->
-        <h1 class="display-4 fw-bolder">Hobby Hopper</h1>
-        <p class="lead fw-normal text-white-50 mb-0">Find Your Fun</p>
-<!--    Cards-->
-    </div>
-    <div class="card" style="width: 18rem;" th:each="event : ${events}">
-        <img src="" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title" th:text="${event.eventName}"></h5>
-            <p class="card-text" th:text="${event.eventDescription}"></p>
-            <a href="#" class="btn btn-primary">View Details</a>
+    <header class="jumbotron text-center text-white">
+        <div class="jumbotron-content">
+            <div class="container-fluid px-5">
+                <h1 class="jumbotron-heading">Hobby Hopper</h1>
+                <h2 class="jumbotron-subheading">Find Your Fun!</h2>
+                <a class="btn btn-primary btn-xl rounded-pill mt-5" th:href="${'/events'}">View Events</a>
+            </div>
         </div>
-    </div>
+        <div class="bg-circle-1 bg-circle"></div>
+        <div class="bg-circle-2 bg-circle"></div>
+        </header>
+<!--        first content section-->
+        <section id="scroll">
+            <div class="circle-container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="p-5"><img class="img-fluid rounded-circle" th:src="@{/images/street-biking.jpg}"></div>
+                    </div>
 
-
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="p-5">
+                            <h2 class="display-4">For outdoor activities</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam, assumenda cum nam natus possimus ratione reiciendis rerum suscipit vero! Accusamus corporis deleniti minima molestias odit quia veniam. Qui, recusandae?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!--        second content section-->
+        <section>
+            <div class="circle-container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div><img class="img-fluid rounded-circle" th:src="@{/images/yoga.jpg}"></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <h2 class="display-4">For indoor activities</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid dignissimos dolorem esse exercitationem itaque optio quo sequi sunt. Adipisci animi blanditiis delectus, deserunt harum maxime nihil nisi quasi repellat vitae.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!--            third content section-->
+        <section>
+            <div class="circle-container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="p-5"><img class="img-fluid rounded-circle" th:src="@{/images/programming.jpg}"></div>
+                    </div>
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="p-5">
+                            <h2 class="display-4">For coming together</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid culpa dolorem illo laudantium minus placeat quidem sed! Commodi facere hic minima necessitatibus, officia quis similique sit temporibus unde vel?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer th:replace="partials/partials.html :: footer"></footer>
 <script th:replace="partials/partials.html :: bootstrap-js"></script>
 </body>
-
 </html>

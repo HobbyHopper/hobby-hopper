@@ -9,7 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     @GetMapping
-    public String landing(){
-       return "views/landing";
+    public String landingPage(){
+        return "views/landing";
+    }
+
+    @GetMapping
+    @RequestMapping("/events")
+    public String indexPage(){
+       return "views/index";
     }
 }
