@@ -41,7 +41,3 @@ insert into users ( dob, email, image, is_admin, location, password, username) v
 insert into users ( dob, email, image, is_admin, location, password, username) values ('2022-05-19', 'ishepeard2@geocities.com', 'http://dummyimage.com/190x100.png/5fa2dd/ffffff', true, '6 Jana Trail', 'eWhDktBMIR', 'yhavick2');
 insert into users ( dob, email, image, is_admin, location, password, username) values ( '2022-04-24', 'eaxelbee3@illinois.edu', 'http://dummyimage.com/241x100.png/cc0000/ffffff', true, '043 Emmet Road', 'MCDeCs9zkGe1', 'hbreeton3');
 insert into users ( dob, email, image, is_admin, location, password, username) values ( '2021-10-23', 'jwoloschin4@cornell.edu', 'http://dummyimage.com/110x100.png/dddddd/000000', false, '25 Rieder Road', 'klXsfPO8piua', 'jbilton4');
-
-
-
-
