@@ -34,15 +34,19 @@ public class UserController {
 
         System.out.println(user.getDob());
 
-        if (user.getUsername().length() < 3 || user.getPassword().length() < 8 || user.getEmail().isEmpty()) {
-            validation.addError(new FieldError("user", "username", "Username Error"));
-            validation.addError(new FieldError("user", "email", "Email Error"));
-            validation.addError(new FieldError("user", "password", "Password Error"));
-            if (validation.hasErrors()) {
-                model.addAttribute("errors", validation);
-                model.addAttribute("user", user);
-                return "views/sign-up";
-            }
+        if (user.getUsername().length() < 3) {
+            validation.addError(new FieldError("user", "username", "Username needs to be at least 3 characters long"));
+        }
+        if (user.getEmail().isEmpty()) {
+            validation.addError(new FieldError("user", "email", "Email cannot be empty"));
+        }
+        if (user.getPassword().length() < 8) {
+            validation.addError(new FieldError("user", "password", "Password needs to be 8 characters long"));
+        }
+        if (validation.hasErrors()) {
+            model.addAttribute("errors", validation);
+            model.addAttribute("user", user);
+            return "views/sign-up";
         }
 
         String hash = passwordEncoder.encode(user.getPassword());
@@ -52,4 +56,10 @@ public class UserController {
 
         return "redirect:/profile";
     }
+
+    @GetMapping("/login")
+    public String showLogin(){
+        return "partials/partials";
+    }
 }
+
