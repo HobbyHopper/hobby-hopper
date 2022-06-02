@@ -32,7 +32,7 @@ public class EventController {
 //pulls all events to show at landing page (still need to limit results to "public" events only)
         List<Event> events = eventDao.findAll();
         model.addAttribute("events", events);
-        return "views/landing";
+        return "views/index";
     }
 
     @GetMapping("/{id}")
