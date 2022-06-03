@@ -1,9 +1,13 @@
 package com.example.hobbyhopper.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,9 +33,11 @@ public class Event {
     private String address;
 
     @NotBlank
-    private Calendar startDateTime;
 
-    private Calendar endDateTime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:00")
+    private Date startDateTime;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:00")
+    private Date endDateTime;
 
     private boolean isAgeRestricted;
 
@@ -59,7 +65,8 @@ public class Event {
 
     public Event() {}
 
-    public Event(LocalDateTime createdEvent, LocalDateTime updatedEvent, String eventName, String eventDescription, String referenceUrl, String address, Calendar startDateTime, Calendar endDateTime, boolean isAgeRestricted, boolean isPublic, boolean rsvpAble, List<Image> eventImages, boolean isReported, int categoryId, List<Hobby> eventHobbies) {
+
+    public Event(LocalDateTime createdEvent, LocalDateTime updatedEvent, String eventName, String eventDescription, String referenceUrl, String address, Date startDateTime, Date endDateTime, boolean isAgeRestricted, boolean isPublic, boolean rsvpAble, List<Image> eventImages, boolean isReported, int categoryId, List<Hobby> eventHobbies) {
         this.createdEvent = createdEvent;
         this.updatedEvent = updatedEvent;
         this.eventName = eventName;
@@ -141,19 +148,19 @@ public class Event {
         this.address = address;
     }
 
-    public Calendar getStartDateTime() {
+    public Date getStartDateTime() {
         return startDateTime;
     }
 
-    public void setStartDateTime(Calendar startDateTime) {
+    public void setStartDateTime(Date startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-    public Calendar getEndDateTime() {
+    public Date getEndDateTime() {
         return endDateTime;
     }
 
-    public void setEndDateTime(Calendar endDateTime) {
+    public void setEndDateTime(Date endDateTime) {
         this.endDateTime = endDateTime;
     }
 
@@ -203,5 +210,12 @@ public class Event {
 
     public void setEventHobbies(List<Hobby> eventHobbies) {
         this.eventHobbies = eventHobbies;
+    }
+    public List<UserEvent> getUserEvents() {
+        return userEvents;
+    }
+
+    public void setUserEvents(List<UserEvent> userEvents) {
+        this.userEvents = userEvents;
     }
 }
