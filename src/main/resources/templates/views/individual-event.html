@@ -34,30 +34,14 @@
 
             <!--Loop that populates carousel with event photos from the database-->
 
-            <div th:each
+            <div th:each="image : ${images}">
 
-<!--            <div class="carousel-inner">-->
+                <div class="carousel-item active">
+                    <img th:src="${image.url}" class="d-block w-100" alt="...">
+                </div>
 
-<!--                <div class="carousel-item active">-->
-<!--                    <img src="https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg" class="d-block w-100" alt="...">-->
-<!--                </div>-->
+            </div>
 
-<!--                <div class="carousel-item">-->
-<!--                    <img src="https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg" class="d-block w-100" alt="...">-->
-<!--                </div>-->
-
-<!--                <div class="carousel-item">-->
-<!--                    <img src="https://www.runtastic.com/blog/wp-content/uploads/2021/05/rfto_blog_streak-running_thumbnail_1200x800.jpg" class="d-block w-100" alt="...">-->
-<!--                </div>-->
-
-<!--                <div class="carousel-item">-->
-<!--                    <img src="https://www.runtastic.com/blog/wp-content/uploads/2021/05/rfto_blog_streak-running_thumbnail_1200x800.jpg" class="d-block w-100" alt="...">-->
-<!--                </div>-->
-
-<!--                <div class="carousel-item">-->
-<!--                    <img src="https://www.runtastic.com/blog/wp-content/uploads/2021/05/rfto_blog_streak-running_thumbnail_1200x800.jpg" class="d-block w-100" alt="...">-->
-<!--                </div>-->
-<!--            </div>-->
             <!--End of loop that populates event photos from database-->
 
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
