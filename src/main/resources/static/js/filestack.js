@@ -1,9 +1,4 @@
 const img = document.getElementById("image");
-const eventImg1 = document.getElementById("event-image-1");
-const eventImg2 = document.getElementById("event-image-2");
-const eventImg3 = document.getElementById("event-image-3");
-const eventImg4 = document.getElementById("event-image-4");
-const eventImg5 = document.getElementById("event-image-5");
 
 function fileStackApi(domValue){
     domValue.addEventListener("click", ()=>{
@@ -20,12 +15,15 @@ function fileStackApi(domValue){
     });
 }
 
+function fileLoop(){
+    for(let i = 1; i <= 5; i++){
+         fileStackApi(document.getElementById("event-image-" + i));
+    }
+}
+
 fileStackApi(img);
-fileStackApi(eventImg1);
-fileStackApi(eventImg2);
-fileStackApi(eventImg3);
-fileStackApi(eventImg4);
-fileStackApi(eventImg5);
+
+fileLoop();
 
 
 
