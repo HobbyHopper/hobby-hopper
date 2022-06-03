@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title th:text="${event.eventName}"></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link  href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet'>
 </head>
 
 <body>
@@ -55,7 +56,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Date of Event: <span th:text="${event.startDateTime.DATE}"></span> </li>
             <li class="list-group-item">Start Time: <span th:text="${event.startDateTime.time}"></span> </li>
-            <li class="list-group-item">Location: <span th:text="${event.address}"></span> </li>
+            <li class="list-group-item">Location: <span id="address" th:text="${event.address}"></span> </li>
         </ul>
 
         <!--Todo: finish RSVP and Report button functionality-->
@@ -87,7 +88,7 @@
     </div>
 
 
-    <!--Map-->
+    <!--Map HTML Element-->
     <div id='map' class="mx-auto m-3" style='width: 80%; height: 300px;'></div>
 
     <!--Footer-->
@@ -96,25 +97,32 @@
     <!--Bootstrap JS Script Tag-->
     <script th:replace="partials/partials.html :: bootstrap-js"></script>
 
-    <!--External Script Tags-->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+    <!--Keys.js-->
     <script th:src="@{/js/keys.js}"></script>
 
     <!--Map Scripts-->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
     <script th:src="@{/js/mapbox-geocoder-utils.js}"></script>
+    <script th:src="@{/js/mapbox.js}"></script>
     <script>
-        <!--TODO: Coordinates need to dynamically change with the location of the event that is stored in the database instead of being hard-coded-->
-
-
+        "use strict";
         // let centerCoords = [-98.5, 29.435];
-        let address = 0;
+        // let centerCoords = [-94.179086, 31.795451];
 
-		let centerCoords = geocode(address, MAPBOX_API_TOKEN).then(function(data){
-			console.log(data);
+        let address = document.getElementById("address").textContent;
+        let centerCoords;
+
+        geocode(address, MAPBOX_API_TOKEN).then(function(data){
+            centerCoords = data;
+			runMap(centerCoords);
 		})
 
+
+
+
+
     </script>
-    <script th:src="@{/js/mapbox.js}"></script>
+
 
 </body>
 </html>
