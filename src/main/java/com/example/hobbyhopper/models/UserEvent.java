@@ -30,6 +30,12 @@ public class UserEvent {
 
     public UserEvent() {}
 
+    public UserEvent(User user, Event event, Expertise expertise) {
+        this.user = user;
+        this.event = event;
+        this.expertise = expertise;
+    }
+
     public User getUser() {
         return user;
     }
