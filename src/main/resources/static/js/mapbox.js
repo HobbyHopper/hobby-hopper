@@ -1,3 +1,4 @@
+//map variable created outside function in order to be accessed by any function
 let map;
 
 function runMap(center) {
@@ -17,6 +18,7 @@ function addAddressMarker(center, address) {
 
 	let popup = new mapboxgl.Popup({closeOnClick: false})
 		.setLngLat(center)
+		//TODO: edit styling on this html element, looks kinda ugly the way it is
 		.setHTML("<p>" + address + "</p>")
 		.addTo(map);
 
