@@ -41,3 +41,114 @@ insert into users ( dob, email, image, is_admin, location, password, username) v
 insert into users ( dob, email, image, is_admin, location, password, username) values ('2022-05-19', 'ishepeard2@geocities.com', 'http://dummyimage.com/190x100.png/5fa2dd/ffffff', true, '6 Jana Trail', 'eWhDktBMIR', 'yhavick2');
 insert into users ( dob, email, image, is_admin, location, password, username) values ( '2022-04-24', 'eaxelbee3@illinois.edu', 'http://dummyimage.com/241x100.png/cc0000/ffffff', true, '043 Emmet Road', 'MCDeCs9zkGe1', 'hbreeton3');
 insert into users ( dob, email, image, is_admin, location, password, username) values ( '2021-10-23', 'jwoloschin4@cornell.edu', 'http://dummyimage.com/110x100.png/dddddd/000000', false, '25 Rieder Road', 'klXsfPO8piua', 'jbilton4');
+
+
+insert into images (image_description, url, event_id) values
+                                                             ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 1),
+                                                             ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 1),
+                                                             ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 1),
+                                                             ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 1),
+                                                             ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 1);
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 2),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 2),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 2),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 2),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 2);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 3),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 3),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 3),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 3),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 3);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 4),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 4),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 4),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 4),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 4);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000',5),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff',5),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff',5),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 5),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg',5);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 6),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 6),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 6),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 6),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 6);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 7),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 7),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 7),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 7),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 7);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 8),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 8),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 8),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 8),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 8);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 9),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 9),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 9),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 9),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 9);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 10),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 10),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 10),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 10),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 10);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 11),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 11),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 11),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 11),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 11);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 12),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 12),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 12),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 12),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 12);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 13),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 13),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 13),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 13),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 13);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 14),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 14),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 14),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 14),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 14);
+
+insert into images (image_description, url, event_id) values
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/110x100.png/dddddd/000000', 15),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 15),
+                                                          ('very detailed and informative image description', 'http://dummyimage.com/241x100.png/cc0000/ffffff', 15),
+                                                          ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 15),
+                                                          ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 15);
+
+
+
+
+
+
