@@ -53,10 +53,9 @@
             <p class="card-text"> Description: <span th:text="${event.eventDescription}"></span> </p>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Date of Event: <span th:text="${event.startDateTime}"></span></li>
-            <li class="list-group-item">Time</li>
-            <li class="list-group-item">Location</li>
-            <li class="list-group-item">Age Restriction?</li>
+            <li class="list-group-item">Date of Event: <span th:text="${event.startDateTime.DATE}"></span> </li>
+            <li class="list-group-item">Start Time: <span th:text="${event.startDateTime.time}"></span> </li>
+            <li class="list-group-item">Location: <span th:text="${event.address}"></span> </li>
         </ul>
 
         <!--Todo: finish RSVP and Report button functionality-->
@@ -105,7 +104,15 @@
     <script th:src="@{/js/mapbox-geocoder-utils.js}"></script>
     <script>
         <!--TODO: Coordinates need to dynamically change with the location of the event that is stored in the database instead of being hard-coded-->
-        let centerCoords = [-98.5, 29.435];
+
+
+        // let centerCoords = [-98.5, 29.435];
+        let address = 0;
+
+		let centerCoords = geocode(address, MAPBOX_API_TOKEN).then(function(data){
+			console.log(data);
+		})
+
     </script>
     <script th:src="@{/js/mapbox.js}"></script>
 

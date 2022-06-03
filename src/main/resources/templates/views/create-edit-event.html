@@ -64,47 +64,70 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Event description. You may include details such as equipment necessary, weather considerations, and any other relevant information to the event."></textarea>
             </div>
 
-
         </div>
+
 
         <ul class="list-group list-group-flush">
 
             <!--Date of Event-->
             <li class="list-group-item">
-                <input type="date" name="date" class="form-control form-control-lg" placeholder=""/>
+                <label for="date"> Date of Event </label>
+                <input type="date" id="date" name="date" class="form-control form-control-lg" placeholder=""/>
             </li>
 
             <!--Event Start & End Time-->
             <li class="list-group-item">
-                <input type="time" name="start-time" class="form-control form-control-lg" placeholder="">
-                <input type="time" name="end-time" class="form-control form-control-lg" placeholder="">
+                <label for="start-time"> Start Time </label>
+                <input type="time" id="start-time" name="start-time" class="form-control form-control-lg" placeholder="">
+                <label for="end-time"> End Time </label>
+                <input type="time" id="end-time" name="end-time" class="form-control form-control-lg" placeholder="">
             </li>
 
             <!--Address-->
             <li class="list-group-item">
-                Location
+                <label for="address"> Event Address </label>
+                <input type="text" name="address" id="address">
             </li>
 
             <!--Category-->
+            <li>
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Category</option>
+                    <option name="category" value="1">Indoor</option>
+                    <option name="category" value="2">Outdoor</option>
+                    <option name="category" value="3">High Activity</option>
+                    <option name="category" value="4">Moderate Activity</option>
+                    <option name="category" value="5">Low Activity</option>
+                </select>
+            </li>
 
             <!--Reference URL-->
+            <label for="ref-url">Reference URL</label>
+            <input type="url" name="ref-url" id="ref-url">
 
             <!--Is it public?-->
+            <li class="list-group-item">
+                <label for="public"> Public Event? </label>
+                <input type="checkbox" id="public" name="public">
+            </li>
 
             <!--RSVPable-->
+            <li class="list-group-item">
+                <label for="rsvp"> Would you like users to RSVP? </label>
+                <input type="checkbox" id="rsvp" name="rsvp">
+            </li>
 
             <!--Age Restriction-->
             <li class="list-group-item">
                 <label for="age">Age Restriction</label>
                 <input type="checkbox" id="age" name="age-restriction">
-
             </li>
-
-
 
         </ul>
 
-    <!--.........................-->
+
+    </div>
+    <!--..........End of Form...............-->
 
     <!--Footer-->
     <div th:replace="partials/partials.html :: footer"></div>
