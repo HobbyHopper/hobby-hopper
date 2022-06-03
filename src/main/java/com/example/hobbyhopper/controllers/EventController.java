@@ -32,6 +32,7 @@ public class EventController {
 //pulls all events to show at landing page (still need to limit results to "public" events only)
         List<Event> events = eventDao.findAll();
         model.addAttribute("events", events);
+        System.out.println(events);
         return "views/index";
     }
 
@@ -95,6 +96,11 @@ public class EventController {
         eventDao.save(event);
 //        redirect to events/search page
         return "views/search";
+    }
+
+    @GetMapping("/search")
+    public String searchEvents(){
+        return"views/search";
     }
 
 
