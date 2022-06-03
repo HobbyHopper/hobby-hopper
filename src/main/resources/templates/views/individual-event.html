@@ -33,7 +33,6 @@
             </div>
 
             <!--Loop that populates carousel with event photos from the database-->
-
             <div th:each="image : ${images}">
 
                 <div class="carousel-item active">
@@ -42,8 +41,7 @@
 
             </div>
 
-            <!--End of loop that populates event photos from database-->
-
+            <!--Carousel navigation buttons-->
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
