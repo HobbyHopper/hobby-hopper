@@ -106,8 +106,6 @@
     <script th:src="@{/js/mapbox.js}"></script>
     <script>
         "use strict";
-        // let centerCoords = [-98.5, 29.435];
-        // let centerCoords = [-94.179086, 31.795451];
 
         let address = document.getElementById("address").textContent;
         let centerCoords;
@@ -115,6 +113,7 @@
         geocode(address, MAPBOX_API_TOKEN).then(function(data){
             centerCoords = data;
 			runMap(centerCoords);
+			addAddressMarker(centerCoords, address);
 		})
 
 
