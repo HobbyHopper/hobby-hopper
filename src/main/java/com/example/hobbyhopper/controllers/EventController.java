@@ -1,16 +1,17 @@
 package com.example.hobbyhopper.controllers;
 
 import com.example.hobbyhopper.models.Event;
+import com.example.hobbyhopper.models.Expertise;
 import com.example.hobbyhopper.models.User;
 import com.example.hobbyhopper.models.UserEvent;
 import com.example.hobbyhopper.repositories.EventRepository;
+import com.example.hobbyhopper.repositories.ExpertiseRepository;
 import com.example.hobbyhopper.repositories.UserEventRepository;
 import com.example.hobbyhopper.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -19,12 +20,14 @@ public class EventController {
     private final EventRepository eventDao;
     private final UserRepository userDao;
     private final UserEventRepository userEventDao;
+    private final ExpertiseRepository expertiseDao;
 
 
-    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao) {
+    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao) {
         this.eventDao = eventDao;
         this.userDao = userDao;
         this.userEventDao = userEventDao;
+        this.expertiseDao = expertiseDao;
     }
 
     @GetMapping()
@@ -52,17 +55,23 @@ public class EventController {
 //     sends to create page and uses form model binding for creating a new event
         model.addAttribute("event", new Event());
 
-        model.addAttribute("userEvent",new UserEvent());
+
+
 
 
         return "views/create-edit-event";
     }
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute Event event){
+    public String createEvent(@ModelAttribute Event event,@RequestParam(name="expertise") long expertiseId){
+        User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Event myEvent= eventDao.save(event);
+        UserEvent userEvent=new UserEvent(expertiseDao.getById(expertiseId));
+        userEvent.setUser(user);
+        userEvent.setEvent(myEvent);
+        userEvent.setOwner(true);
 
-        eventDao.save(event);
+        userEventDao.save(userEvent);
 
-//TODO change to id
         return "redirect:/event/"+event.getId();
     }
 
