@@ -2,6 +2,7 @@ package com.example.hobbyhopper.controllers;
 
 import com.example.hobbyhopper.models.User;
 import com.example.hobbyhopper.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,8 +38,6 @@ public class UserController {
     @PostMapping("/sign-up")
     public String saveUser(@Valid @ModelAttribute User user, BindingResult validation, Model model) {
 
-        System.out.println(user.getDob());
-
         if (user.getUsername().length() < 3) {
             validation.addError(new FieldError("user", "username", "Username needs to be at least 3 characters long"));
         }
@@ -60,6 +59,46 @@ public class UserController {
 
         return "redirect:/profile";
     }
+
+    @GetMapping("/user/update")
+    public String showUpdateForm(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", userDao.findById(user.getId()));
+        return "views/edit-user-info";
+    }
+
+    @PostMapping("/user/update")
+    public String updateTheForm(@Valid @ModelAttribute User user, BindingResult validation, Model model){
+        User userInfoPull = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User editUser = userDao.getById(userInfoPull.getId());
+
+        editUser.setUsername(user.getUsername());
+        editUser.setEmail(user.getEmail());
+        editUser.setImage(user.getImage());
+        editUser.setLocation(user.getLocation());
+
+        if(userInfoPull.getUsername().equals(editUser.getUsername())){
+            userDao.save(editUser);
+        } else if(userInfoPull.equals(editUser.getEmail())){
+            userDao.save(editUser);
+        } else if(userInfoPull.equals(editUser.getImage())){
+            userDao.save(editUser);
+        } else if(userInfoPull.equals(editUser.getLocation())){
+            userDao.save(editUser);
+        } else if(userDao.existsByUsername(user.getUsername()) || userDao.existsByEmail(user.getEmail())){
+            validation.addError(new FieldError("user", "username", "Username or email is already taken"));
+            if (validation.hasErrors()) {
+                model.addAttribute("errors", validation);
+                model.addAttribute("user", user);
+                return "views/edit-user-info";
+            }
+        } else if(!userInfoPull.getUsername().equals(editUser.getUsername()) && !userInfoPull.equals(editUser.getEmail())){
+            userDao.save(editUser);
+        }
+
+        return "redirect:/profile";
+    }
+
 
     @GetMapping("/login")
     public String showLogin(){
