@@ -38,6 +38,10 @@ public class UserController {
     @PostMapping("/sign-up")
     public String saveUser(@Valid @ModelAttribute User user, BindingResult validation, Model model) {
 
+        if(userDao.existsByUsername(user.getUsername()) || userDao.existsByEmail(user.getEmail())){
+            validation.addError(new FieldError("user", "username", "Username or email is taken"));
+        }
+
         if (user.getUsername().length() < 3) {
             validation.addError(new FieldError("user", "username", "Username needs to be at least 3 characters long"));
         }
