@@ -23,34 +23,62 @@
         <div id="carouselExampleIndicators" class="carousel slide w-75 mx-auto" data-bs-ride="true">
 
 
-            <div class="carousel-indicators">
+            <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
 
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+                <button th:if="${event.eventImages.size() > 2}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+                <button th:if="${event.eventImages.size() > 3}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+                <button th:if="${event.eventImages.size() > 5}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
             </div>
 
             <!--Loop that populates carousel with event photos from the database-->
-            <div th:each="image : ${images}">
 
-                <div class="carousel-item active">
-                    <img th:src="${image.url}" class="d-block w-100" alt="...">
-                </div>
+<!--                <div th:each="image : ${event.eventImages}">-->
+<!--                    <div th:if="${event.eventImages.get(0)}" class="carousel-item active ratio ratio-16x9">-->
+<!--                        <img th:src="${image.url}" class="d-block w-100" th:alt="${image.imageDescription}">-->
+<!--                    </div>-->
+<!--                    <div th:unless="${event.eventImages.get(0)}" class="carousel-item ratio ratio-16x9">-->
+<!--                        <img th:src="${image.url}" class="d-block w-100" th:alt="${image.imageDescription}">-->
+<!--                    </div>-->
+<!--                </div>-->
 
+            <div class="carousel-item active ratio ratio-16x9">
+                <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
+            </div>
+
+            <div th:if="${event.eventImages.size() > 1}" class="carousel-item ratio ratio-16x9">
+                <img th:src="${event.eventImages.get(1).url}" class="d-block w-100" th:alt="${event.eventImages.get(1).imageDescription}">
+            </div>
+
+            <div th:if="${event.eventImages.size() > 2}" class="carousel-item ratio ratio-16x9">
+                <img th:src="${event.eventImages.get(2).url}" class="d-block w-100" th:alt="${event.eventImages.get(2).imageDescription}">
+            </div>
+
+            <div th:if="${event.eventImages.size() > 3}" class="carousel-item ratio ratio-16x9">
+                <img th:src="${event.eventImages.get(3).url}" class="d-block w-100" th:alt="${event.eventImages.get(3).imageDescription}">
+            </div>
+
+            <div th:if="${event.eventImages.size() > 4}" class="carousel-item ratio ratio-16x9">
+                <img th:src="${event.eventImages.get(4).url}" class="d-block w-100" th:alt="${event.eventImages.get(4).imageDescription}">
             </div>
 
             <!--Carousel navigation buttons-->
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
 
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            <div th:if="${event.eventImages.size() > 1}">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
 
         </div>
         <!------End of image carousel; event details card below--------->
