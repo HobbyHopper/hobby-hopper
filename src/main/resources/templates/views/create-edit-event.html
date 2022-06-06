@@ -133,13 +133,13 @@
                 <input type="checkbox" id="age" name="age-restriction" th:field="*{ageRestricted}">
             </li>
         </ul>
-<!--            <label for="expertise">Expertise</label>-->
-<!--            <select id="expertise" form="create-event" class="form-select"  th:object="${userEvent}" th:field="*{expertise}">-->
-<!--                <option name="expertise" value="1">Beginner</option>-->
-<!--                <option name="expertise" value="2">Intermediate</option>-->
-<!--                <option name="expertise" value="3">Advanced</option>-->
+            <label for="expertise">Expertise</label>
+            <select id="expertise" name="expertise" class="form-select"  >
+                <option name="expertise" value="1">Beginner</option>
+                <option name="expertise" value="2">Intermediate</option>
+                <option name="expertise" value="3">Advanced</option>
 
-<!--            </select>-->
+            </select>
             <button type="submit">Create Event</button>
         </form>
     </div>
