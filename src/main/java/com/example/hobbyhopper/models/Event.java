@@ -37,6 +37,7 @@ public class Event {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
+
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
@@ -233,6 +234,7 @@ public class Event {
     public void setEventHobbies(List<Hobby> eventHobbies) {
         this.eventHobbies = eventHobbies;
     }
+
     public List<UserEvent> getUserEvents() {
         return userEvents;
     }

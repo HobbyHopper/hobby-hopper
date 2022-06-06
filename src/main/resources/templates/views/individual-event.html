@@ -107,9 +107,14 @@
             </form>
             <!--Report-->
             <form action="/event/report" method="post">
-                <input hidden th:value="${event.getId()}">
+                <input hidden th:value="${event.id}">
                 <button type="button" class="btn btn-danger">Report</button>
             </form>
+
+            <!--Edit-->
+<!--        <a th:if="${event.userEvents.get(0).user.username} == ${#authentication.getPrincipal().username}" class="btn btn-primary" th:href="'/event/create-edit-event/' + ${event.id}" role="button">Edit</a>            -->
+
+        <a class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
         </div>
     </div>
 

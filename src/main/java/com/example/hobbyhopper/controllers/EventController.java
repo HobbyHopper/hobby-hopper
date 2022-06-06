@@ -57,13 +57,29 @@ public class EventController {
 
         return "views/create-edit-event";
     }
+
+    @GetMapping("/edit/{id}")
+    public String editPost(@PathVariable long id, Model model) {
+
+        model.addAttribute("event", eventDao.getById(id));
+
+        return "views/create-edit-event";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updatePost(@PathVariable long id, @ModelAttribute Event event){
+        eventDao.save(event);
+
+        return "redirect:/event/" + event.getId();
+    }
+
     @PostMapping("/create")
     public String createEvent(@ModelAttribute Event event){
 
         eventDao.save(event);
 
 //TODO change to id
-        return "redirect:/event/"+event.getId();
+        return "redirect:/event/" + event.getId();
     }
 
     @PostMapping("/rsvp")
