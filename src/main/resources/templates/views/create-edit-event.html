@@ -70,17 +70,27 @@
 
         <ul class="list-group list-group-flush">
 
-            <!--Date of Event-->
+            <!--Start Date and time of Event-->
             <li class="list-group-item">
-                <label for="date"> Date and Time of Event </label>
+                <label for="date"> Start Date  of Event </label>
 
-                <input type="datetime-local" id="date" name="date" class="form-control form-control-lg" placeholder="" th:field="*{startDateTime}"  value="2021-10-18 09:28:16"/>
+                <input type="date" id="date" name="date" class="form-control form-control-lg" placeholder="" th:field="*{startDate}"  />
+            </li>
+            <li class="list-group-item">
+                <label for="start-time"> Start Time of Event </label>
+
+                <input type="time" id="start-time" name="date" class="form-control form-control-lg" placeholder="" th:field="*{startTime}"  />
             </li>
 
-            <!--Event Start & End Time-->
+            <!--Event  End date and time-->
             <li class="list-group-item">
-                <label for="end-time"> End Date and Time </label>
-                <input type="datetime-local" id="end-time" name="end-time" class="form-control form-control-lg" placeholder="" th:field="*{endDateTime}" value="2021-10-18 09:28:20">
+                <label for="end-date"> End Date </label>
+                <input type="date" id="end-date" name="end-time" class="form-control form-control-lg" placeholder="" th:field="*{endDate}">
+            </li>
+            <li class="list-group-item">
+                <label for="end-time"> End Time </label>
+
+                <input type="time" id="end-time" name="date" class="form-control form-control-lg" placeholder="" th:field="*{endTime}"  />
             </li>
 
             <!--Address-->
@@ -123,13 +133,13 @@
                 <input type="checkbox" id="age" name="age-restriction" th:field="*{ageRestricted}">
             </li>
         </ul>
-            <label for="expertise">Expertise</label>
-            <select id="expertise" form="create-event" class="form-select"  th:object="${userEvent}" th:field="*{expertise}">
-                <option name="expertise" value="1">Beginner</option>
-                <option name="expertise" value="2">Intermediate</option>
-                <option name="expertise" value="3">Advanced</option>
+<!--            <label for="expertise">Expertise</label>-->
+<!--            <select id="expertise" form="create-event" class="form-select"  th:object="${userEvent}" th:field="*{expertise}">-->
+<!--                <option name="expertise" value="1">Beginner</option>-->
+<!--                <option name="expertise" value="2">Intermediate</option>-->
+<!--                <option name="expertise" value="3">Advanced</option>-->
 
-            </select>
+<!--            </select>-->
             <button type="submit">Create Event</button>
         </form>
     </div>
