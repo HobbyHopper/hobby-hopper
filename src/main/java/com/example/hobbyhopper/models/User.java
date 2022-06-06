@@ -6,28 +6,30 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="users", uniqueConstraints= @UniqueConstraint(columnNames={"username", "email"}))
+@Table(name="users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
-    @Min(5)
+    @Column(unique = true, nullable = false)
+    @Size(min = 3)
     private String username;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @NotNull
-    @Min(10)
+    @Column(nullable = false)
+    @Size(min = 8)
     private String password;
+
 
     private String location;
 
