@@ -34,10 +34,16 @@ public class Event {
 
     @NotBlank
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:00")
-    private Date startDateTime;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:00")
-    private Date endDateTime;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date startDate;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date endDate;
+
+    private String startTime;
+
+    private String endTime;
 
     private boolean isAgeRestricted;
 
@@ -73,8 +79,8 @@ public class Event {
         this.eventDescription = eventDescription;
         this.referenceUrl = referenceUrl;
         this.address = address;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.startDate = startDateTime;
+        this.endDate = endDateTime;
         this.isAgeRestricted = isAgeRestricted;
         this.isPublic = isPublic;
         this.rsvpAble = rsvpAble;
@@ -148,20 +154,36 @@ public class Event {
         this.address = address;
     }
 
-    public Date getStartDateTime() {
-        return startDateTime;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStartDateTime(Date startDateTime) {
-        this.startDateTime = startDateTime;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEndDateTime() {
-        return endDateTime;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEndDateTime(Date endDateTime) {
-        this.endDateTime = endDateTime;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public boolean isAgeRestricted() {

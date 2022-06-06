@@ -58,20 +58,9 @@ public class EventController {
         return "views/create-edit-event";
     }
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute Event event, @ModelAttribute UserEvent userEvent){
-        List<UserEvent> userEvents=event.getUserEvents();
-        userEvents.add(userEvent);
-        event.setUserEvents(userEvents);
-//        takes user from session
-        System.out.println(event);
-        System.out.println(userEvent);
-//       attach event and owning user to UserEvent
-        userEvent.setOwner(true);
-//        adds UserEvent to Event UserEvent list
-        userEvents.add(userEvent);
-//        save Event and UserEvent
+    public String createEvent(@ModelAttribute Event event){
+
         eventDao.save(event);
-        userEventDao.save(userEvent);
 
 //TODO change to id
         return "redirect:/event/"+event.getId();
