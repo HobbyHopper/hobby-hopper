@@ -1,7 +1,8 @@
 const img = document.getElementById("image");
+const picker = document.querySelector(".picker")
 
 function fileStackApi(domValue){
-    domValue.addEventListener("click", ()=>{
+    picker.addEventListener("click", ()=>{
         const client = filestack.init(FILESTACK_API_TOKEN);
         const options =  {
             accept: ["image/*"],
