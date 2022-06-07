@@ -18,6 +18,7 @@
                 <form th:action="@{'/user/update?error'}" method="POST" th:object="${user}">
                     <ul>
                         <li th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></li>
+                        <li th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>
                     </ul>
                     <!--                     Username input -->
                     <div class="form-outline">
@@ -39,7 +40,8 @@
 
                     <!--Image input-->
                     <div class="form-outline mt-3">
-                        <input type="file" id="image" class="form-control form-control-lg"
+                        <button type="button" class="form-control form-control-lg picker">Upload image</button>
+                        <input type="hidden" id="edit-image" class="form-control form-control-lg"
                                placeholder="" th:field="*{image}"/>
                     </div>
 

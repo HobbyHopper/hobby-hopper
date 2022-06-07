@@ -1,8 +1,9 @@
 const img = document.getElementById("image");
-const picker = document.querySelector(".picker")
+const editImg = document.getElementById("edit-image");
+const picker = document.querySelector(".picker");
 
 function fileStackApi(domValue){
-    picker.addEventListener("click", ()=>{
+   picker.addEventListener("click", ()=>{
         const client = filestack.init(FILESTACK_API_TOKEN);
         const options =  {
             accept: ["image/*"],
@@ -18,13 +19,11 @@ function fileStackApi(domValue){
 
 function fileLoop(){
     for(let i = 1; i <= 5; i++){
-         fileStackApi(document.getElementById("event-image-" + i));
+        fileStackApi(document.getElementById("event-image-" + i));
     }
 }
 
 fileStackApi(img);
+fileStackApi(editImg);
 
 fileLoop();
-
-
-
