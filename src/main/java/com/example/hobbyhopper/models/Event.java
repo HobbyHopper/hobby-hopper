@@ -17,10 +17,12 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    private LocalDateTime createdEvent;
-
-    private LocalDateTime updatedEvent;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date createdEvent;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date updatedEvent;
 
     @NotBlank
     private String eventName;
@@ -73,7 +75,7 @@ public class Event {
     public Event() {}
 
 
-    public Event(LocalDateTime createdEvent, LocalDateTime updatedEvent, String eventName, String eventDescription, String referenceUrl, String address, Date startDateTime, Date endDateTime, boolean isAgeRestricted, boolean isPublic, boolean rsvpAble, List<Image> eventImages, boolean isReported, int categoryId, List<Hobby> eventHobbies) {
+    public Event(Date createdEvent, Date updatedEvent, String eventName, String eventDescription, String referenceUrl, String address, Date startDateTime, Date endDateTime, boolean isAgeRestricted, boolean isPublic, boolean rsvpAble, List<Image> eventImages, boolean isReported, int categoryId, List<Hobby> eventHobbies) {
         this.createdEvent = createdEvent;
         this.updatedEvent = updatedEvent;
         this.eventName = eventName;
@@ -99,19 +101,19 @@ public class Event {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedEvent() {
+    public Date getCreatedEvent() {
         return createdEvent;
     }
 
-    public void setCreatedEvent(LocalDateTime createdEvent) {
+    public void setCreatedEvent(Date createdEvent) {
         this.createdEvent = createdEvent;
     }
 
-    public LocalDateTime getUpdatedEvent() {
+    public Date getUpdatedEvent() {
         return updatedEvent;
     }
 
-    public void setUpdatedEvent(LocalDateTime updatedEvent) {
+    public void setUpdatedEvent(Date updatedEvent) {
         this.updatedEvent = updatedEvent;
     }
 

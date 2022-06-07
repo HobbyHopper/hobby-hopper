@@ -1,7 +1,7 @@
 package com.example.hobbyhopper.models;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name="user_events")
@@ -30,11 +30,16 @@ public class UserEvent {
 
     public UserEvent() {}
 
+    public UserEvent(Expertise expertise){
+        this.expertise=expertise;
+    }
+
     public UserEvent(User user, Event event, Expertise expertise) {
         this.user = user;
         this.event = event;
         this.expertise = expertise;
     }
+
 
     public User getUser() {
         return user;

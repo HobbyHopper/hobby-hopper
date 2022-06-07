@@ -8,23 +8,73 @@
 <!--        <img class="bg-image" th:src="@{/images/little-frog.jpg}" width="800px" height="400px">-->
         <h1 class="display-4 fw-bolder">Hobby Hopper</h1>
         <p class="lead fw-normal text-white-50 mb-0">Find Your Fun</p>
-<!--    Cards-->
     </div>
+<!--    Cards to display event information-->
     <section class="container d-flex flex-wrap">
         <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${events}">
-            <th:block th:each="image : ${event.eventImages}">
-                <img th:src="@{image.url}" class="card-img-top">
-            </th:block>
+<!--            <th:block th:each="image : ${event.eventImages}">-->
+<!--                <img th:src="${image.url}" class="card-img-top">-->
+<!--            </th:block>-->
+<!--    Image carousel within card-->
+            <div th:id="carouselExampleIndicators +${event.id}" class=" carousel slide w-100 mx-auto" data-bs-ride="true">
+                <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
+                    <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+                    <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+                    <button th:if="${event.eventImages.size() > 2}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+                    <button th:if="${event.eventImages.size() > 3}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+                    <button th:if="${event.eventImages.size() > 4}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                </div>
+
+            <div class="carousel-item active ratio ratio-16x9">
+                <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
+            </div>
+
+            <div th:if="${event.eventImages.size() > 1}" class="carousel-item ratio ratio-16x9">
+                <img th:src="${event.eventImages.get(1).url}" class="d-block w-100" th:alt="${event.eventImages.get(1).imageDescription}">
+            </div>
+
+            <div th:if="${event.eventImages.size() > 2}" class="carousel-item ratio ratio-16x9">
+                <img th:src="${event.eventImages.get(2).url}" class="d-block w-100" th:alt="${event.eventImages.get(2).imageDescription}">
+            </div>
+
+            <div th:if="${event.eventImages.size() > 3}" class="carousel-item ratio ratio-16x9">
+                <img th:src="${event.eventImages.get(3).url}" class="d-block w-100" th:alt="${event.eventImages.get(3).imageDescription}">
+            </div>
+
+            <div th:if="${event.eventImages.size() > 4}" class="carousel-item ratio ratio-16x9">
+                <img th:src="${event.eventImages.get(4).url}" class="d-block w-100" th:alt="${event.eventImages.get(4).imageDescription}">
+            </div>
+
+                <!--        Button functionality-->
+                <div th:if="${event.eventImages.size() > 1}">
+                    <button class="carousel-control-prev" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+            </div>
+
             <div class="card-body">
                 <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
 <!--                <h6 class="card-subtitle" th:text="${event.address}"></h6>-->
-                <h6 class="card-subtitle mb-1" th:text="${event.startDateTime.time}"></h6>
+                <h6 class="card-subtitle mb-1" th:text="${event.startDate}"></h6>
                 <p class="card-text" th:text="${event.eventDescription}"></p>
                 <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
             </div>
         </div>
     </section>
 
+<!--TODO: Only display public events for users that are not logged in-->
 
 <script th:replace="partials/partials.html :: bootstrap-js"></script>
 </body>
