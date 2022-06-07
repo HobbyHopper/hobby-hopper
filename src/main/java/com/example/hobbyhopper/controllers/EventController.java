@@ -43,7 +43,6 @@ public class EventController {
     public String individualEvent(@PathVariable long id, Model model) {
 //        pulls one event by "id" to display at individual events page
         Event event = eventDao.getById(id);
-
         model.addAttribute("event", event);
 
         return "views/individual-event";
@@ -54,10 +53,6 @@ public class EventController {
     public String showCreateForm(Model model) {
 //     sends to create page and uses form model binding for creating a new event
         model.addAttribute("event", new Event());
-
-
-
-
 
         return "views/create-edit-event";
     }
