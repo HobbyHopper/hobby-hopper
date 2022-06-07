@@ -2,11 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
     <meta charset="UTF-8">
-
-<!--    ****************-->
-    <!--TODO: At some point, add code so the title dynamically changes from Create Event to Edit Event-->
-<!--    ****************-->
-
     <title th:if="*{id == null}"> Create Event </title>
     <title th:if="*{id != null}"> Edit Event </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -19,9 +14,9 @@
     <!--Header-->
     <div th:replace="partials/partials.html :: header"></div>
 
-    <!--Create Event Form-->
 
-    <form th:object="${event}">
+
+
         <div class="card mx-auto text-center" style="width: 80rem;">
 
             <!--Image carousel-->
@@ -51,124 +46,121 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <!------End of image carousel; event details card below--------->
+            <!--End of image carousel-->
 
             <!--Create Event Form-->
 
-            <form th:if="*{id == null}" id="create-event" th:action="@{/event/create}" method="POST">
-
-            <div class="card-body">
-
-                <!--Title-->
-                <div class="mb-3">
-                    <label for="title">Event Title</label>
-                    <input type="text" class="form-control" id="title" placeholder="Event Title" th:field="*{eventName}">
-                </div>
-
-                <!--Description-->
-                <div class="mb-3">
-                    <label for="Description">Description</label><textarea class="form-control" id="Description" rows="3" placeholder="Event description. You may include details such as equipment necessary, weather considerations, and any other relevant information to the event." th:field="*{eventDescription}"></textarea>
-                </div>
-
-            </div>
-
-
-            <ul class="list-group list-group-flush">
-
-                <!--Start Date and time of Event-->
-                <li class="list-group-item">
-                    <label for="date"> Start Date  of Event </label>
-
-                    <input type="date" id="date" name="date" class="form-control form-control-lg" placeholder="" th:field="*{startDate}"  />
-                </li>
-                <li class="list-group-item">
-                    <label for="start-time"> Start Time of Event </label>
-
-                    <input type="time" id="start-time" name="date" class="form-control form-control-lg" placeholder="" th:field="*{startTime}"  />
-                </li>
-
-                <!--Event  End date and time-->
-                <li class="list-group-item">
-                    <label for="end-date"> End Date </label>
-                    <input type="date" id="end-date" name="end-time" class="form-control form-control-lg" placeholder="" th:field="*{endDate}">
-                </li>
-                <li class="list-group-item">
-                    <label for="end-time"> End Time </label>
-
-                    <input type="time" id="end-time" name="date" class="form-control form-control-lg" placeholder="" th:field="*{endTime}"  />
-                </li>
-
-                <!--Address-->
-                <li class="list-group-item">
-                    <label for="address"> Event Address </label>
-                    <input type="text" name="address" id="address" th:field="*{address}">
-                </li>
-
-                <!--Category-->
-                <li>
-                    <label for="categories">Category</label>
-                    <select id="categories" class="form-select" aria-label="Default select example" th:field="*{categoryId}">
-                        <option name="category" value="1">Indoor</option>
-                        <option name="category" value="2">Outdoor</option>
-                        <option name="category" value="3">High Activity</option>
-                        <option name="category" value="4">Moderate Activity</option>
-                        <option name="category" value="5">Low Activity</option>
-                    </select>
-                </li>
-
-                <!--Reference URL-->
-                <label for="ref-url">Reference URL</label>
-                <input type="url" name="ref-url" id="ref-url" th:field="*{referenceUrl}">
-
-                <!--Is it public?-->
-                <li class="list-group-item">
-                    <label for="public"> Public Event? </label>
-                    <input type="checkbox" id="public" name="public" th:field="*{public}">
-                </li>
-
-                <!--RSVPable-->
-                <li class="list-group-item">
-                    <label for="rsvp"> Would you like users to RSVP? </label>
-                    <input type="checkbox" id="rsvp" name="rsvp" th:field="*{rsvpAble}">
-                </li>
-
-                <!--Age Restriction-->
-                <li class="list-group-item">
-                    <label for="age">Age Restriction</label>
-                    <input type="checkbox" id="age" name="age-restriction" th:field="*{ageRestricted}">
-                </li>
-                <li>
-                    <label for="expertise">Expertise</label>
-                    <select id="expertise" name="expertise" class="form-select"  >
-                        <option name="expertise" value="1">Beginner</option>
-                        <option name="expertise" value="2">Intermediate</option>
-                        <option name="expertise" value="3">Advanced</option>
-
-                    </select>
-                    </li>
-            </ul>
-
-                <button type="submit"> Create Event </button>
-
-            </form>
-
-
-
-        <!--..........End Create Form...............-->
-
-        <!--Edit Form-->
-
-            <form th:if="*{id != null}"  id="edit-event" th:action="@{/event/edit/{id}(id=${event.getId()})}" method="POST">
+            <form th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{/event/create}" method="POST">
 
                 <div class="card-body">
 
-                    <!--Title-->
+                    <!--Event name (create)-->
+                    <div class="mb-3">
+                        <label for="title">Event Name</label>
+                        <input type="text" class="form-control" id="title" placeholder="Event Title" th:field="*{eventName}">
+                    </div>
+
+                    <!--Description (create)-->
+                    <div class="mb-3">
+                        <label for="Description">Description</label><textarea class="form-control" id="Description" rows="3" placeholder="Event description. You may include details such as equipment necessary, weather considerations, and any other relevant information to the event." th:field="*{eventDescription}"></textarea>
+                    </div>
+                </div>
+
+                <ul class="list-group list-group-flush">
+
+                    <!--Start date and time (create)-->
+                    <li class="list-group-item">
+                        <label for="date"> Start Date  of Event </label>
+
+                        <input type="date" id="date" name="date" class="form-control form-control-lg" placeholder="" th:field="*{startDate}"  />
+                    </li>
+                    <li class="list-group-item">
+                        <label for="start-time"> Start Time of Event </label>
+
+                        <input type="time" id="start-time" name="date" class="form-control form-control-lg" placeholder="" th:field="*{startTime}"  />
+                    </li>
+
+                    <!--End date and time (create)-->
+                    <li class="list-group-item">
+                        <label for="end-date"> End Date </label>
+                        <input type="date" id="end-date" name="end-time" class="form-control form-control-lg" placeholder="" th:field="*{endDate}">
+                    </li>
+                    <li class="list-group-item">
+                        <label for="end-time"> End Time </label>
+
+                        <input type="time" id="end-time" name="date" class="form-control form-control-lg" placeholder="" th:field="*{endTime}"  />
+                    </li>
+
+                    <!--Address (create)-->
+                    <li class="list-group-item">
+                        <label for="address"> Event Address </label>
+                        <input type="text" name="address" id="address" th:field="*{address}">
+                    </li>
+
+                    <!--Category (create)-->
+                    <li>
+                        <label for="categories">Category</label>
+                        <select id="categories" class="form-select" aria-label="Default select example" th:field="*{categoryId}">
+                            <option name="category" value="1">Indoor</option>
+                            <option name="category" value="2">Outdoor</option>
+                            <option name="category" value="3">High Activity</option>
+                            <option name="category" value="4">Moderate Activity</option>
+                            <option name="category" value="5">Low Activity</option>
+                        </select>
+                    </li>
+
+                    <!--Reference URL (create)-->
+                    <label for="ref-url">Reference URL</label>
+                    <input type="url" name="ref-url" id="ref-url" th:field="*{referenceUrl}">
+
+                    <!--Is it public? (create)-->
+                    <li class="list-group-item">
+                        <label for="public"> Public Event? </label>
+                        <input type="checkbox" id="public" name="public" th:field="*{public}">
+                    </li>
+
+                    <!--RSVPable (create)-->
+                    <li class="list-group-item">
+                        <label for="rsvp"> Would you like users to RSVP? </label>
+                        <input type="checkbox" id="rsvp" name="rsvp" th:field="*{rsvpAble}">
+                    </li>
+
+                    <!--Age Restriction (create)-->
+                    <li class="list-group-item">
+                        <label for="age">Age Restriction</label>
+                        <input type="checkbox" id="age" name="age-restriction" th:field="*{ageRestricted}">
+                    </li>
+                    <li>
+                        <label for="expertise">Expertise</label>
+                        <select id="expertise" name="expertise" class="form-select"  >
+                            <option name="expertise" value="1">Beginner</option>
+                            <option name="expertise" value="2">Intermediate</option>
+                            <option name="expertise" value="3">Advanced</option>
+
+                        </select>
+                        </li>
+                </ul>
+
+                <button type="submit" class="btn btn-success"> Create Event </button>
+
+            </form>
+            <!--End of the Create Form-->
+
+
+
+            <!--Edit Form-->
+
+            <form th:object="${event}" th:if="*{id != null}"  id="edit-event" th:action="@{/event/edit/{id}(id=${event.getId()})}" method="POST">
+
+                <div class="card-body">
+
+                    <!--Event name (edit)-->
                     <div class="mb-3">
                         <label for="edit-title">Event Title</label>
                         <input type="text" class="form-control" id="edit-title" placeholder="Event Title" th:field="*{eventName}">
                     </div>
 
-                    <!--Description-->
+                    <!--Description (edit)-->
                     <div class="mb-3">
                         <label for="Description">Description</label><textarea class="form-control" id="edit-description" rows="3" placeholder="Event description. You may include details such as equipment necessary, weather considerations, and any other relevant information to the event." th:field="*{eventDescription}"></textarea>
                     </div>
@@ -178,7 +170,7 @@
 
                 <ul class="list-group list-group-flush">
 
-                    <!--Start Date and time of Event-->
+                    <!--Start date and time (edit)-->
                     <li class="list-group-item">
                         <label for="edit-date"> Start Date  of Event </label>
 
@@ -190,7 +182,7 @@
                         <input type="time" id="edit-start-time" name="date" class="form-control form-control-lg" placeholder="" th:field="*{startTime}"  />
                     </li>
 
-                    <!--Event  End date and time-->
+                    <!--End date and time (edit)-->
                     <li class="list-group-item">
                         <label for="edit-end-date"> End Date </label>
                         <input type="date" id="edit-end-date" name="end-time" class="form-control form-control-lg" placeholder="" th:field="*{endDate}">
@@ -200,13 +192,13 @@
                         <input type="time" id="edit-end-time" name="date" class="form-control form-control-lg" placeholder="" th:field="*{endTime}"  />
                     </li>
 
-                    <!--Address-->
+                    <!--Address (edit)-->
                     <li class="list-group-item">
                         <label for="edit-address"> Event Address </label>
                         <input type="text" name="address" id="edit-address" th:field="*{address}">
                     </li>
 
-                    <!--Category-->
+                    <!--Category (edit)-->
                     <li>
                         <label for="edit-categories">Category</label>
                         <select id="edit-categories" class="form-select" aria-label="Default select example" th:field="*{categoryId}">
@@ -218,37 +210,38 @@
                         </select>
                     </li>
 
-                    <!--Reference URL-->
+                    <!--Reference URL (edit)-->
                     <label for="edit-ref-url">Reference URL</label>
                     <input type="url" name="ref-url" id="edit-ref-url" th:field="*{referenceUrl}">
 
-                    <!--Is it public?-->
+                    <!--Is it public? (edit)-->
                     <li class="list-group-item">
                         <label for="edit-public"> Public Event? </label>
                         <input type="checkbox" id="edit-public" name="public" th:field="*{public}">
                     </li>
 
-                    <!--RSVPable-->
+                    <!--RSVPable (edit)-->
                     <li class="list-group-item">
                         <label for="edit-rsvp"> Would you like users to RSVP? </label>
                         <input type="checkbox" id="edit-rsvp" name="rsvp" th:field="*{rsvpAble}">
                     </li>
 
-                    <!--Age Restriction-->
+                    <!--Age Restriction (edit)-->
                     <li class="list-group-item">
                         <label for="edit-age">Age Restriction</label>
                         <input type="checkbox" id="edit-age" name="age-restriction" th:field="*{ageRestricted}">
                     </li>
                 </ul>
 
-
-                <button type="submit"> Edit Event </button>
+                <button type="submit" class="btn btn-primary"> Submit Changes </button>
 
             </form>
+            <!--End of the Edit Form-->
 
-        <!--..........End Edit Form...............-->
         </div>
-    </form>
+
+
+
 
     <!--Footer-->
     <div th:replace="partials/partials.html :: footer"></div>
