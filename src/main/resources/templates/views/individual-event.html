@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -25,8 +25,7 @@
             <img th:src="@{http://dummyimage.com/110x100.png/dddddd/000000}">
         </div>
 
-
-
+        <!--if event has images, display carousel below-->
             <!--Image carousel-->
             <div th:if="${images.size() > 0}" id="carouselExampleIndicators" class="carousel slide w-75 mx-auto" data-bs-ride="true">
 
@@ -99,7 +98,7 @@
         <!--Buttons-->
         <div class="card-body">
             <!--RSVP-->
-            <form th:if="${event.rsvpAble}" action="/event/rsvp" method="post">
+            <form th:if="${event.rsvpAble}"  action="/event/rsvp" method="post">
                 <input hidden th:value="${event.getId()}">
 
                 <div class="dropdown">
@@ -121,9 +120,8 @@
             </form>
 
             <!--Edit-->
-<!--        <a th:if="${event.userEvents.get(0).user.username} == ${#authentication.getPrincipal().username}" class="btn btn-primary" th:href="'/event/create-edit-event/' + ${event.id}" role="button">Edit</a>            -->
 
-        <a th:if="${userEvent}" sec:authorize="isAuthenticated()" class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
+        <a th:if="${userIsOwner}" class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
 
         </div>
     </div>

@@ -39,26 +39,27 @@ public class EventController {
     @GetMapping("/{id}")
     public String individualEvent(@PathVariable long id, Model model) {
 
-        User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userDao.getById(userAccess.getId());
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Event event = eventDao.getById(id);
-        UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
-        if (userEvent != null) {
-            model.addAttribute("userEvent", userEvent);
+
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser"){
+
+            User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userDao.getById(userAccess.getId());
+            UserEvent userIsOwner = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
+
+            if (userIsOwner != null) {
+                model.addAttribute("userIsOwner", userIsOwner);
+            }
         }
 
-//        pulls one event by "id" to display at individual events page
-
+        //pulls one event by "id" to display at individual event page
         model.addAttribute("event", event);
 
-        System.out.println(event);
-
         List<Image> images = event.getEventImages();
-
         if (images != null) {
             model.addAttribute("images", images);
         }
-
 
         return "views/individual-event";
 
