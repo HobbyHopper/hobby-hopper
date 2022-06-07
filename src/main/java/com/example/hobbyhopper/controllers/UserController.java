@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -72,7 +73,7 @@ public class UserController {
     }
 
     @PostMapping("/user/update")
-    public String updateTheForm(@Valid @ModelAttribute User user, BindingResult validation, Model model){
+    public String updateTheForm(@Valid @ModelAttribute User user, BindingResult validation, Model model, HttpSession session){
         User userInfoPull = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User editUser = userDao.getById(userInfoPull.getId());
 
@@ -81,26 +82,33 @@ public class UserController {
         editUser.setImage(user.getImage());
         editUser.setLocation(user.getLocation());
 
-        if(userInfoPull.getUsername().equals(editUser.getUsername())){
-            userDao.save(editUser);
-        } else if(userInfoPull.equals(editUser.getEmail())){
-            userDao.save(editUser);
-        } else if(userInfoPull.equals(editUser.getImage())){
-            userDao.save(editUser);
-        } else if(userInfoPull.equals(editUser.getLocation())){
-            userDao.save(editUser);
-        } else if(userDao.existsByUsername(user.getUsername()) || userDao.existsByEmail(user.getEmail())){
-            validation.addError(new FieldError("user", "username", "Username or email is already taken"));
-            if (validation.hasErrors()) {
-                model.addAttribute("errors", validation);
-                model.addAttribute("user", user);
-                return "views/edit-user-info";
-            }
-        } else if(!userInfoPull.getUsername().equals(editUser.getUsername()) && !userInfoPull.equals(editUser.getEmail())){
+        if(user.getUsername().isEmpty()){
+            validation.addError(new FieldError("user", "username", "Username cannot be empty"));
+        }
+
+        if(user.getEmail().isEmpty()){
+            validation.addError(new FieldError("user", "email", "Email cannot be empty"));
+        }
+
+        if(userDao.existsByUsername(user.getUsername())){
+            validation.addError(new FieldError("user", "username", "Username is already taken"));
+        }
+
+
+        if(userDao.existsByEmail(user.getEmail())){
+            validation.addError(new FieldError("user", "email", "Email is already taken"));
+        }
+
+        if (validation.hasErrors()) {
+            model.addAttribute("errors", validation);
+            model.addAttribute("user", user);
+            return "views/edit-user-info";
+        }else{
             userDao.save(editUser);
         }
 
-        return "redirect:/profile";
+        session.invalidate();
+        return "redirect:/event";
     }
 
 
