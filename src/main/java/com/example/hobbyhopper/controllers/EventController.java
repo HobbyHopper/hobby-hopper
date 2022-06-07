@@ -1,9 +1,6 @@
 package com.example.hobbyhopper.controllers;
 
-import com.example.hobbyhopper.models.Event;
-import com.example.hobbyhopper.models.Expertise;
-import com.example.hobbyhopper.models.User;
-import com.example.hobbyhopper.models.UserEvent;
+import com.example.hobbyhopper.models.*;
 import com.example.hobbyhopper.repositories.EventRepository;
 import com.example.hobbyhopper.repositories.ExpertiseRepository;
 import com.example.hobbyhopper.repositories.UserEventRepository;
@@ -45,6 +42,15 @@ public class EventController {
         Event event = eventDao.getById(id);
         model.addAttribute("event", event);
 
+        System.out.println(event);
+
+        List<Image> images = event.getEventImages();
+
+        if (images != null) {
+            model.addAttribute("images", images);
+        }
+
+
         return "views/individual-event";
 
     }
@@ -59,9 +65,12 @@ public class EventController {
 
     @GetMapping("/edit/{id}")
     public String editPost(@PathVariable long id, Model model) {
-
-        model.addAttribute("event", eventDao.getById(id));
-
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Event event = eventDao.getById(id);
+        UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
+        if (userEvent != null) {
+            model.addAttribute("event", eventDao.getById(id));
+        }
         return "views/create-edit-event";
     }
 
