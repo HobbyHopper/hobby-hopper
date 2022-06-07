@@ -137,6 +137,15 @@
                     <label for="age">Age Restriction</label>
                     <input type="checkbox" id="age" name="age-restriction" th:field="*{ageRestricted}">
                 </li>
+                <li>
+                    <label for="expertise">Expertise</label>
+                    <select id="expertise" name="expertise" class="form-select"  >
+                        <option name="expertise" value="1">Beginner</option>
+                        <option name="expertise" value="2">Intermediate</option>
+                        <option name="expertise" value="3">Advanced</option>
+
+                    </select>
+                    </li>
             </ul>
 
                 <button type="submit"> Create Event </button>
