@@ -38,8 +38,17 @@ public class EventController {
 
     @GetMapping("/{id}")
     public String individualEvent(@PathVariable long id, Model model) {
-//        pulls one event by "id" to display at individual events page
+
+        User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getById(userAccess.getId());
         Event event = eventDao.getById(id);
+        UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
+        if (userEvent != null) {
+            model.addAttribute("userEvent", userEvent);
+        }
+
+//        pulls one event by "id" to display at individual events page
+
         model.addAttribute("event", event);
 
         System.out.println(event);
@@ -65,13 +74,17 @@ public class EventController {
 
     @GetMapping("/edit/{id}")
     public String editPost(@PathVariable long id, Model model) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getById(userAccess.getId());
         Event event = eventDao.getById(id);
         UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
         if (userEvent != null) {
-            model.addAttribute("event", eventDao.getById(id));
+            model.addAttribute("event", event);
+            return "views/create-edit-event";
+        } else {
+            return "redirect:/event/create-edit-event";
         }
-        return "views/create-edit-event";
+
     }
 
     @PostMapping("/edit/{id}")

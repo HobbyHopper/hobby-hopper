@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -123,7 +123,8 @@
             <!--Edit-->
 <!--        <a th:if="${event.userEvents.get(0).user.username} == ${#authentication.getPrincipal().username}" class="btn btn-primary" th:href="'/event/create-edit-event/' + ${event.id}" role="button">Edit</a>            -->
 
-        <a class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
+        <a th:if="${userEvent}" sec:authorize="isAuthenticated()" class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
+
         </div>
     </div>
 
