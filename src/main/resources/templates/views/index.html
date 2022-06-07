@@ -6,7 +6,7 @@
     <nav th:replace="partials/partials.html :: navbar"></nav>
     <div class="container-fluid bg-dark py-5 px-4 my-5 text-center text-white">
 <!--        <img class="bg-image" th:src="@{/images/little-frog.jpg}" width="800px" height="400px">-->
-        <h1 class="display-4 fw-bolder">Hobby Hopper</h1>
+        <h1 class="display-4 fw-bolder">Hobby Hoppr</h1>
         <p class="lead fw-normal text-white-50 mb-0">Find Your Fun</p>
     </div>
 <!--    Cards to display event information-->
@@ -29,7 +29,7 @@
 
 <!--                Carousel images-->
                 <div class="carousel-item active ratio ratio-16x9">
-                    <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}" th:href="${'/event/'+ event.id}">
+                    <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
                 </div>
 
                 <div th:if="${event.eventImages.size() > 1}" class="carousel-item ratio ratio-16x9">
@@ -65,7 +65,7 @@
 
             <div class="card-body">
                 <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
-                <h6 class="card-subtitle mb-1" th:text="${event.startDate}"></h6>
+                <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
                 <p class="card-text" th:text="${event.eventDescription}"></p>
                 <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
             </div>
@@ -74,6 +74,8 @@
 
 <!--TODO: Only display public events for users that are not logged in-->
 
+<!--List<Event> findAllByIsPublic(boolean isPublic);-->
+    <footer th:replace="partials/partials.html :: footer"></footer>
 <script th:replace="partials/partials.html :: bootstrap-js"></script>
 </body>
 
