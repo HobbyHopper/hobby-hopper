@@ -102,7 +102,7 @@ public class EventController {
     }
 
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute Event event,@RequestParam(name="expertise") long expertiseId){
+    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId){
         User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Event myEvent= eventDao.save(event);
         UserEvent userEvent=new UserEvent(expertiseDao.getById(expertiseId));
@@ -140,6 +140,29 @@ public class EventController {
     @GetMapping("/search")
     public String searchEvents(){
         return"views/search";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteEvent(@PathVariable long id){
+
+        //if statement below validates that there is a user logged in
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            System.out.println(user);
+            Event event = eventDao.getById(id);
+            System.out.println(event);
+            UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
+            System.out.println(userEvent);
+
+            //if statement below validates that the user of the event is the owner
+            if (userEvent != null) {
+                eventDao.delete(event);
+            }
+        }
+
+        return "views/index";
+
     }
 
 
