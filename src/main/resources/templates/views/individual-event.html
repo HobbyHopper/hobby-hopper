@@ -136,16 +136,20 @@
             </form>
 
             <!--Edit Button-->
-        <a th:if="${userIsOwner}" class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
+            <a th:if="${userIsOwner}" class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
 
             <!--Delete Button-->
-        <a th:if="${userIsOwner}" onclick="deleteEvent()" id="delete-button" type="button" class="btn btn-dark">Delete</a>
-        <script>
-            function deleteEvent() {
-				alert("Are you sure you want to delete your event?");
-                // document.getElementById("delete-button").innerHTML = "Hello World";
-            }
-        </script>
+            <a th:if="${userIsOwner}" onclick="confirmDeleteEvent()" id="delete-button" type="button" class="btn btn-dark">Delete</a>
+            <!--script below asks the user to confirm event deletion-->
+            <script>
+                let eventId = [[${event.id}]];
+				console.log(eventId);
+                function confirmDeleteEvent() {
+                    if(confirm("Are you sure you want to delete your event?")){
+                        window.location.replace("/event/delete/" + eventId);
+                    }
+                }
+            </script>
 
 
         </div>
