@@ -130,10 +130,16 @@
             </div>
 
             <!--Report Button-->
-            <form action="/event/report" method="post">
-                <input hidden th:value="${event.id}">
-                <button type="button" class="btn btn-danger">Report</button>
+            <form th:action="@{/event/report}" method="post">
+                <input hidden th:value="${event.id}" name="event-id">
+                <button type="submit" class="btn btn-danger" onclick="displayMessageWhenReported()">Report</button>
             </form>
+            <!--script displays a message when the report button is pressed-->
+            <script>
+                function displayMessageWhenReported() {
+					alert("A member of our team will review the post and take appropriate action.");
+				}
+            </script>
 
             <!--Edit Button-->
             <a th:if="${userIsOwner}" class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
@@ -143,7 +149,6 @@
             <!--script below asks the user to confirm event deletion-->
             <script>
                 let eventId = [[${event.id}]];
-				console.log(eventId);
                 function confirmDeleteEvent() {
                     if(confirm("Are you sure you want to delete your event?")){
                         window.location.replace("/event/delete/" + eventId);

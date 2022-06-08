@@ -46,7 +46,6 @@ public class EventController {
     @GetMapping("/{id}")
     public String individualEvent(@PathVariable long id, Model model) {
 
-        //pulls one event by "id" to display at individual event page
         Event event = eventDao.getById(id);
         model.addAttribute("event", event);
 
@@ -73,7 +72,6 @@ public class EventController {
 
     @GetMapping("/create-edit-event")
     public String showCreateForm(Model model) {
-//     sends to create page and uses form model binding for creating a new event
         model.addAttribute("event", new Event());
 
         return "views/create-edit-event";
@@ -128,13 +126,11 @@ public class EventController {
     }
 
     @PostMapping("/report")
-    public String reportEvent(@ModelAttribute Event event){
-//        change event reported status
-        event.setReported(true);
-//        save event
-        eventDao.save(event);
-//        redirect to events/search page
-        return "views/search";
+    public String reportEvent(@RequestParam ("event-id") long eventId, Model model){
+        Event event = eventDao.getById(eventId); //gets event with the event-id parameter sent from the view
+        event.setReported(true); //changes event reported status
+        eventDao.save(event);  //saves event
+        return "redirect:/event/" + event.getId();//redirects user to the same post that was reported
     }
 
     @GetMapping("/search")
