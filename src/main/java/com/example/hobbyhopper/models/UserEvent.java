@@ -11,9 +11,11 @@ public class UserEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @ManyToOne
     @JoinColumn (name="user_id")
     private User user;
+
     @ManyToOne
     @JoinColumn (name = "event_id")
     private Event event;
@@ -23,9 +25,6 @@ public class UserEvent {
     @ManyToOne
     @JoinColumn(name = "expertise_id")
     private Expertise expertise;
-
-
-
 
 
     public UserEvent() {}
@@ -40,6 +39,12 @@ public class UserEvent {
         this.expertise = expertise;
     }
 
+    public UserEvent(User user, Event event, boolean isOwner, Expertise expertise) {
+        this.user = user;
+        this.event = event;
+        this.isOwner = isOwner;
+        this.expertise = expertise;
+    }
 
     public User getUser() {
         return user;

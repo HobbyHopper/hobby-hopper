@@ -13,13 +13,13 @@ public class Category {
 
     private String categoryName;
 
+
+    public Category() {}
+
     public Category(String categoryName) {
         this.categoryName = categoryName;
     }
 
-    public Category() {
-
-    }
 
     public long getId() {
         return id;

@@ -29,7 +29,6 @@
             <!--Image carousel-->
             <div th:if="${images.size() > 0}" id="carouselExampleIndicators" class="carousel slide w-75 mx-auto" data-bs-ride="true">
 
-
                     <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 
@@ -43,7 +42,6 @@
                     </div>
 
                     <!--Images from the database-->
-
                     <div class="carousel-item active ratio ratio-16x9">
                         <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
                     </div>
@@ -65,7 +63,6 @@
                     </div>
 
                     <!--Carousel navigation buttons-->
-
                     <div th:if="${event.eventImages.size() > 1}">
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -80,9 +77,8 @@
 
                 </div>
 
-        <!------End of image carousel; event details card below--------->
 
-
+        <!--Event Info: name, description, start date & time, event address-->
         <div class="card-body">
             <h5 class="card-title"> <span th:text="${event.eventName}"></span> </h5>
             <p class="card-text"> Description: <span th:text="${event.eventDescription}"></span> </p>
@@ -97,31 +93,57 @@
 
         <!--Buttons-->
         <div class="card-body">
-            <!--RSVP-->
-            <form th:if="${event.rsvpAble}"  action="/event/rsvp" method="post">
-                <input hidden th:value="${event.getId()}">
 
-                <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        RSVP
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Beginner</a></li>
-                        <li><a class="dropdown-item" href="#">Intermediate</a></li>
-                        <li><a class="dropdown-item" href="#">Advanced</a></li>
-                    </ul>
+            <!--RSVP Button-->
+            <div th:if="${event.rsvpAble}" class="dropdown">
+                <div class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    RSVP
                 </div>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-            </form>
-            <!--Report-->
+                    <li>
+                        <form th:action="@{/event/rsvp}" method="post">
+                            <input hidden name="event-id" th:value="${event.id}">
+                            <input hidden name="expertise" value="1">
+                            <button type="submit"> Beginner </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form th:action="@{/event/rsvp}" method="post">
+                            <input hidden name="event-id" th:value="${event.id}">
+                            <input hidden name="expertise" value="2">
+                            <button type="submit"> Intermediate </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form th:action="@{/event/rsvp}" method="post">
+                            <input hidden name="event-id" th:value="${event.id}">
+                            <input hidden name="expertise" value="3">
+                            <button type="submit"> Advanced </button>
+                        </form>
+                    </li>
+
+                </ul>
+            </div>
+
+            <!--Report Button-->
             <form action="/event/report" method="post">
                 <input hidden th:value="${event.id}">
                 <button type="button" class="btn btn-danger">Report</button>
             </form>
 
-            <!--Edit-->
-
+            <!--Edit Button-->
         <a th:if="${userIsOwner}" class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
+
+            <!--Delete Button-->
+        <a th:if="${userIsOwner}" onclick="deleteEvent()" id="delete-button" type="button" class="btn btn-dark">Delete</a>
+        <script>
+            function deleteEvent() {
+				alert("Are you sure you want to delete your event?");
+                // document.getElementById("delete-button").innerHTML = "Hello World";
+            }
+        </script>
+
 
         </div>
     </div>
