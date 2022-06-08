@@ -29,10 +29,17 @@ public class EventController {
 
     @GetMapping()
     public String showLandingEvents(Model model) {
-//pulls all events to show at landing page (still need to limit results to "public" events only)
-        List<Event> events = eventDao.findAll();
-        model.addAttribute("events", events);
-        System.out.println(events);
+//pulls all events to show at landing page if the user is logged ing
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+            List<Event> events = eventDao.findAll();
+            model.addAttribute("events", events);
+            System.out.println(events);}
+//        if user is anonymous it will show only public event
+        else  {
+            List <Event> events=eventDao.findAllByIsPublic(true);
+            model.addAttribute("events", events);
+        }
+
         return "views/index";
     }
 
@@ -111,15 +118,18 @@ public class EventController {
     }
 
     @PostMapping("/rsvp")
-    public String rsvpToEvent(@ModelAttribute Event event){
+    public String rsvpToEvent(@ModelAttribute Event event,@RequestParam ("expertise") long id){
 //        get user from session
         User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Access Expertise
+        Expertise expertise= expertiseDao.getById(id);
 //        create new user event
         UserEvent userEvent=new UserEvent();
 //        attach non owner user and event to userEvent
         userEvent.setEvent(event);
         userEvent.setUser(user);
         userEvent.setOwner(false);
+        userEvent.setExpertise(expertise);
 //        save userEvent
         userEventDao.save(userEvent);
 //
