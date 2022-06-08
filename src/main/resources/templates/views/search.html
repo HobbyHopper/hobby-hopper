@@ -4,23 +4,90 @@
 <head th:replace="partials/partials.html :: head ('Search')" ></head>
 <body>
 
-<nav th:replace="partials/partials.html :: navbar" ></nav>
-<h1>Search Results</h1>
-<div th:fragment="footer" class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-            </a>
-            <span class="text-muted">Find Your Fun!</span>
-
-            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-                <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-                <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-            </ul>
+    <nav th:replace="partials/partials.html :: navbar" ></nav>
+    <div class="container-fluid">
+<!--    categories sidebar-->
+        <div class="col-3 position-fixed">
+            <h3 class="text-center">Search by category</h3>
+            <nav>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" xlink:href="#">Link 1</a>
+                    <a class="list-group-item list-group-item-action" xlink:href="#">Link 2</a>
+                    <a class="list-group-item list-group-item-action" xlink:href="#">Link 3</a>
+                    <a class="list-group-item list-group-item-action" xlink:href="#">Link 4</a>
+                    <a class="list-group-item list-group-item-action" xlink:href="#">Link 5</a>
+                </div>
+            </nav>
         </div>
-    </footer>
-</div>
+<!--        Events-->
+        <div class="col-9">
+            <section id="event-cards" class="container d-flex flex-wrap">
+                <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${events}">
+
+                    <!--    Image carousel within card-->
+                    <div th:id="carouselExampleIndicators +${event.id}" class=" carousel slide overflow-hidden w-100 mx-auto" data-bs-interval="false">
+                        <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
+                            <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+                            <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+                            <button th:if="${event.eventImages.size() > 2}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+                            <button th:if="${event.eventImages.size() > 3}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+                            <button th:if="${event.eventImages.size() > 4}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                        </div>
+
+                        <!--                Carousel images-->
+                        <div class="carousel-item active ratio ratio-16x9">
+                            <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
+                        </div>
+
+                        <div th:if="${event.eventImages.size() > 1}" class="carousel-item ratio ratio-16x9">
+                            <img th:src="${event.eventImages.get(1).url}" class="d-block w-100" th:alt="${event.eventImages.get(1).imageDescription}">
+                        </div>
+
+                        <div th:if="${event.eventImages.size() > 2}" class="carousel-item ratio ratio-16x9">
+                            <img th:src="${event.eventImages.get(2).url}" class="d-block w-100" th:alt="${event.eventImages.get(2).imageDescription}">
+                        </div>
+
+                        <div th:if="${event.eventImages.size() > 3}" class="carousel-item ratio ratio-16x9">
+                            <img th:src="${event.eventImages.get(3).url}" class="d-block w-100" th:alt="${event.eventImages.get(3).imageDescription}">
+                        </div>
+
+                        <div th:if="${event.eventImages.size() > 4}" class="carousel-item ratio ratio-16x9">
+                            <img th:src="${event.eventImages.get(4).url}" class="d-block w-100" th:alt="${event.eventImages.get(4).imageDescription}">
+                        </div>
+
+                        <!--        Side button functionality-->
+                        <div th:if="${event.eventImages.size() > 1}">
+                            <button class="carousel-control-prev" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+
+                            <button class="carousel-control-next" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                        <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                        <p class="card-text" th:text="${event.eventDescription}"></p>
+                        <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+
+<!--    <footer th:replace="partials/partials.html :: footer"></footer>-->
+    <script th:replace="partials/partials.html :: bootstrap-js"></script>
 </body>
 </html>
