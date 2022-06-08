@@ -85,6 +85,7 @@ public class UserController {
         editUser.setEmail(user.getEmail());
         editUser.setImage(user.getImage());
         editUser.setLocation(user.getLocation());
+        editUser.setPassword(user.getPassword());
 
         if(user.getUsername().isEmpty()){
             validation.addError(new FieldError("user", "username", "Username cannot be empty"));
@@ -94,13 +95,17 @@ public class UserController {
             validation.addError(new FieldError("user", "email", "Email cannot be empty"));
         }
 
-        if(userDao.existsByUsername(user.getUsername())){
+        if(userDao.existsByUsername(user.getUsername()) && !userInfoPull.getUsername().equals(editUser.getUsername())){
             validation.addError(new FieldError("user", "username", "Username is already taken"));
         }
 
 
-        if(userDao.existsByEmail(user.getEmail())){
+        if(userDao.existsByEmail(user.getEmail()) && !userInfoPull.getEmail().equals(editUser.getEmail())){
             validation.addError(new FieldError("user", "email", "Email is already taken"));
+        }
+
+        if(!user.getPassword().equals(user.getConfirm())){
+            validation.addError(new FieldError("user", "confirm", "Password mismatch"));
         }
 
         if (validation.hasErrors()) {
