@@ -14,6 +14,11 @@ public interface HobbiesRepository extends JpaRepository <Hobby,Long> {
     @Query(" from Hobby h where h.hobbyName like %:term%")
     List<Hobby> searchByNameLike(@Param("term") String term);
 
+    boolean existsByHobbyNameIgnoreCase(String hobbyName);
+
+
+
+
 
 
 }
