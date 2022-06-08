@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -95,7 +98,7 @@
         <div class="card-body">
 
             <!--RSVP Button-->
-            <div th:if="${event.rsvpAble}" class="dropdown">
+            <div sec:authorize="isAuthenticated()" th:if="${event.rsvpAble and userIsOwner==null}" class="dropdown">
                 <div class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     RSVP
                 </div>
