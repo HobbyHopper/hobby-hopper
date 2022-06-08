@@ -1,6 +1,10 @@
 package com.example.hobbyhopper.controllers;
 
+import com.example.hobbyhopper.models.Event;
+import com.example.hobbyhopper.models.Hobby;
 import com.example.hobbyhopper.models.User;
+import com.example.hobbyhopper.models.UserEvent;
+import com.example.hobbyhopper.repositories.HobbiesRepository;
 import com.example.hobbyhopper.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,23 +15,52 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
     private final UserRepository userDao;
     private final PasswordEncoder passwordEncoder;
+    private final HobbiesRepository hobbyDao;
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder) {
+
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, HobbiesRepository hobbyDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
+        this.hobbyDao = hobbyDao;
     }
 
     @GetMapping("/profile")
-    public String showProfile(){
+    public String showProfile(Model model){
+        model.addAttribute("hobby", new Hobby());
         return "views/profile";
+    }
+
+    @PostMapping("/add-hobbies")
+    public String addHobbies(@ModelAttribute Hobby hobby){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User hobbyUser = userDao.getById(user.getId());
+
+        if(hobbyDao.existsByHobbyNameIgnoreCase(hobby.getHobbyName())){
+            hobby = hobbyDao.findByHobbyName(hobby.getHobbyName());
+        }
+
+        if(hobbyUser.getUserHobbies() != null){
+            hobbyUser.getUserHobbies().add(hobby);
+        }else{
+            List<Hobby> hobbies = new ArrayList<>();
+            hobbies.add(hobby);
+            hobbyUser.setUserHobbies(hobbies);
+        }
+
+
+        hobbyDao.save(hobby);
+        return "redirect:/profile";
     }
 
     @GetMapping("/sign-up")
