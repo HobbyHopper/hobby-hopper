@@ -52,6 +52,10 @@ public class UserController {
         if (user.getPassword().length() < 8) {
             validation.addError(new FieldError("user", "password", "Password needs to be 8 characters long"));
         }
+
+        if(!user.getPassword().equals(user.getConfirm())){
+            validation.addError(new FieldError("user", "confirm", "Password mismatch"));
+        }
         if (validation.hasErrors()) {
             model.addAttribute("errors", validation);
             model.addAttribute("user", user);

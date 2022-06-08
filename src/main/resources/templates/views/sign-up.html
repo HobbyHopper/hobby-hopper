@@ -19,6 +19,7 @@
                         <li th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></li>
                         <li th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>
                         <li th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></li>
+                        <li th:if="${#fields.hasErrors('password')}" th:errors="*{confirm}"></li>
                     </ul>
 <!--                     Username input -->
                     <div class="form-outline">
@@ -41,7 +42,7 @@
                     <!-- Confirm password input -->
                     <div class="form-outline mt-3">
                         <input type="password" id="confirm" class="form-control form-control-lg"
-                               placeholder="Confirm password" />
+                               placeholder="Confirm password" th:field="*{confirm}"/>
                     </div>
 
                     <!-- location input -->
