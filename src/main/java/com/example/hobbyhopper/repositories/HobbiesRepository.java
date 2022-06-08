@@ -20,4 +20,5 @@ public interface HobbiesRepository extends JpaRepository <Hobby,Long> {
 
 
 
+
 }
