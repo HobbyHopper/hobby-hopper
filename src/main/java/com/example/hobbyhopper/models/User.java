@@ -30,6 +30,9 @@ public class User {
     @Size(min = 8)
     private String password;
 
+    @Transient
+    @Size(min=8)
+    private String confirm;
 
     private String location;
 
@@ -108,6 +111,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirm() {
+        return confirm;
+    }
+
+    public void setConfirm(String confirm) {
+        this.confirm = confirm;
     }
 
     public String getLocation() {
