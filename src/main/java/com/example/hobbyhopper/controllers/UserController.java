@@ -120,6 +120,16 @@ public class UserController {
         return "redirect:/event";
     }
 
+    @GetMapping("/user/delete")
+    public String deleteButton(@Valid @ModelAttribute User user, HttpSession session){
+        User userInfoPull = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User deleteUser = userDao.getById(userInfoPull.getId());
+        userDao.delete(deleteUser);
+        session.invalidate();
+
+        return "redirect:/event";
+    }
+
 
     @GetMapping("/login")
     public String showLogin(){

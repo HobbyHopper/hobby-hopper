@@ -17,9 +17,11 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdEvent;
+
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedEvent;
@@ -35,7 +37,6 @@ public class Event {
     private String address;
 
     @NotBlank
-
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
@@ -64,16 +65,17 @@ public class Event {
 
     @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable (name = "event_hobbies",
-    joinColumns ={@JoinColumn(name="event_id")},
-    inverseJoinColumns = {@JoinColumn(name="hobby_id")}
+        joinColumns ={@JoinColumn(name="event_id")},
+        inverseJoinColumns = {@JoinColumn(name="hobby_id")}
     )
     private List<Hobby> eventHobbies;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     private List<UserEvent> userEvents;
 
-    public Event() {}
 
+
+    public Event() {}
 
     public Event(Date createdEvent, Date updatedEvent, String eventName, String eventDescription, String referenceUrl, String address, Date startDateTime, Date endDateTime, boolean isAgeRestricted, boolean isPublic, boolean rsvpAble, List<Image> eventImages, boolean isReported, int categoryId, List<Hobby> eventHobbies) {
         this.createdEvent = createdEvent;
