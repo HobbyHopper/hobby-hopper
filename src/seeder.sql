@@ -146,6 +146,18 @@ insert into images (image_description, url, event_id) values
                                                           ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 15);
 
 
+INSERT INTO event_hobbies (event_id, hobby_id) VALUES (2,1),
+                                                   (2,2),
+                                                   (2,3),
+                                                   (4,3),
+                                                   (4,4),
+                                                   (4,1),
+                                                   (6,4),
+                                                   (6,8),
+                                                   (6,2),
+                                                   (8,6),
+                                                   (8,7),
+                                                   (8,3);
 
 
 
