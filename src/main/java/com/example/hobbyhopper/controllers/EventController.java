@@ -1,14 +1,13 @@
 package com.example.hobbyhopper.controllers;
 
 import com.example.hobbyhopper.models.*;
-import com.example.hobbyhopper.repositories.EventRepository;
-import com.example.hobbyhopper.repositories.ExpertiseRepository;
-import com.example.hobbyhopper.repositories.UserEventRepository;
-import com.example.hobbyhopper.repositories.UserRepository;
+import com.example.hobbyhopper.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,13 +17,15 @@ public class EventController {
     private final UserRepository userDao;
     private final UserEventRepository userEventDao;
     private final ExpertiseRepository expertiseDao;
+    private final HobbiesRepository hobbyDao;
 
 
-    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao) {
+    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao,  HobbiesRepository hobbyDao) {
         this.eventDao = eventDao;
         this.userDao = userDao;
         this.userEventDao = userEventDao;
         this.expertiseDao = expertiseDao;
+        this.hobbyDao = hobbyDao;
     }
 
     @GetMapping()
@@ -134,8 +135,42 @@ public class EventController {
     }
 
     @GetMapping("/search")
-    public String searchEvents(){
-        return"views/search";
+    public String searchEvents(@RequestParam(name = "search") String search) {
+//        Get all events
+        List<Event> allEvents=eventDao.findAll();
+//        search all events by title and store them
+        List<Event> eventsByTitle = eventDao.searchByTitleLike(search);
+//        Create empty event list to hold all events linked to a hobby
+        List<Event> hobbyEvents=new ArrayList<>();
+//confirm event by title works
+        for (Event event : eventsByTitle) {
+            System.out.println(event.getId());
+        }
+//       store all hobbies with name matching query in a list
+        List<Hobby> hobbyList = hobbyDao.searchByNameLike(search);
+//        Confirm search hobby works
+        for (Hobby hobby : hobbyList) {
+            System.out.println(hobby.getHobbyName());
+        }
+
+//        for(Event event:allEvents){
+//            if(event.getEventHobbies()!= null){
+//                List<Hobby> eventHobbies=event.getEventHobbies();
+//                for (int i=0;i<hobbyList.size()-1;i++){
+//                    for(int e=0;e<eventHobbies.size()-1;i++){
+//                     if (hobbyList.get(i).getHobbyName().equalsIgnoreCase(eventHobbies.get(e).getHobbyName())) {
+//                         hobbyEvents.add(event);
+//
+//                     }
+//                    }
+//                }
+//            }
+//        }
+//        System.out.println(hobbyEvents);
+
+
+
+        return "views/search";
     }
 
     @GetMapping("/delete/{id}")

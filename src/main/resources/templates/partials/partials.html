@@ -64,9 +64,10 @@
                 </li>
             </ul>
             <form class="d-flex" th:action="@{event/search}" method="get">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="title">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+
             <ul>
                 <li sec:authorize="isAuthenticated()" class="mt-3">
                     <form th:action="@{/logout}" th:method="post">
