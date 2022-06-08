@@ -46,9 +46,11 @@ public class EventController {
     @GetMapping("/{id}")
     public String individualEvent(@PathVariable long id, Model model) {
 
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        //pulls one event by "id" to display at individual event page
         Event event = eventDao.getById(id);
+        model.addAttribute("event", event);
 
+        //if there is a user logged in, and they are the owner of the event, add the "userIsOwner" attribute to the model in order to allow certain functionality like edit and delete to the event view
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser"){
 
             User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -59,9 +61,6 @@ public class EventController {
                 model.addAttribute("userIsOwner", userIsOwner);
             }
         }
-
-        //pulls one event by "id" to display at individual event page
-        model.addAttribute("event", event);
 
         List<Image> images = event.getEventImages();
         if (images != null) {
@@ -118,22 +117,14 @@ public class EventController {
     }
 
     @PostMapping("/rsvp")
-    public String rsvpToEvent(@ModelAttribute Event event,@RequestParam ("expertise") long id){
-//        get user from session
-        User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Access Expertise
-        Expertise expertise= expertiseDao.getById(id);
-//        create new user event
-        UserEvent userEvent=new UserEvent();
-//        attach non owner user and event to userEvent
-        userEvent.setEvent(event);
-        userEvent.setUser(user);
-        userEvent.setOwner(false);
-        userEvent.setExpertise(expertise);
-//        save userEvent
+    public String rsvpToEvent(@RequestParam ("event-id") long eventId, @RequestParam ("expertise") long expertiseId){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Event event = eventDao.getById(eventId);
+        Expertise expertise = expertiseDao.getById(expertiseId);
+        UserEvent userEvent = new UserEvent(user, event, false, expertise);
         userEventDao.save(userEvent);
-//
-        return "views/individual-event";
+
+        return "redirect:/event/"+eventId;
     }
 
     @PostMapping("/report")
