@@ -18,14 +18,16 @@ public class EventController {
     private final UserEventRepository userEventDao;
     private final ExpertiseRepository expertiseDao;
     private final HobbiesRepository hobbyDao;
+    private final CategoryController categoryDao;
 
 
-    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao,  HobbiesRepository hobbyDao) {
+    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao, HobbiesRepository hobbyDao, CategoryController categoryDao) {
         this.eventDao = eventDao;
         this.userDao = userDao;
         this.userEventDao = userEventDao;
         this.expertiseDao = expertiseDao;
         this.hobbyDao = hobbyDao;
+        this.categoryDao = categoryDao;
     }
 
     @GetMapping()
@@ -140,34 +142,53 @@ public class EventController {
         List<Event> allEvents=eventDao.findAll();
 //        search all events by title and store them
         List<Event> eventsByTitle = eventDao.searchByTitleLike(search);
-//        Create empty event list to hold all events linked to a hobby
-        List<Event> hobbyEvents=new ArrayList<>();
-//confirm event by title works
-        for (Event event : eventsByTitle) {
-            System.out.println(event.getId());
-        }
-//       store all hobbies with name matching query in a list
+//        Create empty event list to hold all events linked to a hobby name search
+        List<Event> eventsByHobby=new ArrayList<>();
+//        Create empty event list to hold all events linked by category name search
+        List<Event> eventsByCategory=new ArrayList<>();
+//       store all hobbies/categories with name matching query in a list
         List<Hobby> hobbyList = hobbyDao.searchByNameLike(search);
-//        Confirm search hobby works
-        for (Hobby hobby : hobbyList) {
-            System.out.println(hobby.getHobbyName());
-        }
+        List<Category> categoryList= categoryDao.searchByNameLike(search);
 
-        for(Event event:allEvents){
-            if(event.getEventHobbies()!= null){
-                List<Hobby> eventHobbies=event.getEventHobbies();
-                for (Hobby hobbySearch:hobbyList){
-                    for(Hobby hobby:eventHobbies){
-                     if (hobbySearch.getHobbyName().equals(hobby.getHobbyName())) {
-                         hobbyEvents.add(event);
-                     }
+//  loop through events and find all events associated with similar hobby names
+        for(Event event:allEvents) {
+            if (event.getEventHobbies() != null) {
+                List<Hobby> eventHobbies = event.getEventHobbies();
+                for (Hobby hobbySearch : hobbyList) {
+                    for (Hobby hobby : eventHobbies) {
+                        if (hobbySearch.getHobbyName().equals(hobby.getHobbyName())) {
+                            eventsByHobby.add(event);
+                        }
                     }
                 }
             }
         }
-        for (Event event:hobbyEvents){
-            System.out.println(event.getId());
-        }
+         for(Event event:allEvents)  {
+             for(Category categorySearch:categoryList){
+                 if(event.getCategoryId()==categorySearch.getId()){
+                     eventsByCategory.add(event);
+                 }
+             }
+         }
+
+//         confirm search category works
+//        for(Category category:categoryList){
+//            System.out.println(category);
+//        }
+
+//            confirm event by title works
+//        for (Event event : eventsByTitle) {
+//           System.out.println(event.getId());
+//        }
+
+//        confirm search by similar hobbies works
+//        for (Event event:eventsByHobby){
+//            System.out.println(event.getId());
+//        }
+//        Confirm search hobby works
+//        for (Hobby hobby : hobbyList) {
+//            System.out.println(hobby.getHobbyName());
+//        }
 
 
 
