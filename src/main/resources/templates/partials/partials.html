@@ -15,8 +15,8 @@
 <body>
 <!--Navbar with links-->
 <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid shadow p-3 mb-5 bg-body rounded">
-        <span class="navbar-brand mb-0 h1">Hobby Hoppr</span>
+    <div class="container-fluid shadow p-3 mb-0 bg-body rounded">
+        <a class="navbar-brand mb-0 h1" th:href="@{/}">Hobby Hoppr</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -63,8 +63,9 @@
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex" th:action="@{event/search}" method="get">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+
+            <form class="d-flex" action="/event/search" method="get">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="title">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
@@ -88,7 +89,8 @@
     </div>
 <!---->
 <!--This is the footer -->
-    <footer th:fragment="" class="bg-dark text-center text-white py-3 my-4 border-top">
+
+    <footer th:fragment="" class="bg-dark text-center text-white py-3 fixed-bottom">
         <div class="container-fluid p-4 mb-0">
 <!--            Social media links-->
             <div id="socials" class="mb-4">
