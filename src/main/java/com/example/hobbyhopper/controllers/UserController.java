@@ -45,14 +45,26 @@ public class UserController {
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getById(userAccess.getId());
         List<Event> createdEvents= new ArrayList<>();
+        List<Event> userRsvpEvents= new ArrayList<>();
         List<UserEvent> isOwnerUserEvents= userEventDao.findAllByUserAndIsOwner(user,true);
-        for (UserEvent userEvent:isOwnerUserEvents){
-         Event userCreatedEvent= eventDao.findByUserEvents(userEvent);
-         createdEvents.add(userCreatedEvent);
+        List<UserEvent> isNotOwnerUserEvents=userEventDao.findAllByUserAndIsOwner(user,false);
+        if(isOwnerUserEvents!=null){
+            for (UserEvent userEvent:isOwnerUserEvents){
+             Event userCreatedEvent= eventDao.findByUserEvents(userEvent);
+             createdEvents.add(userCreatedEvent);
+            }
+         model.addAttribute("createdEvents",createdEvents);
+        }
+        if(isNotOwnerUserEvents!=null) {
+            for (UserEvent userEvent : isNotOwnerUserEvents) {
+                Event userRsvpEvent = eventDao.findByUserEvents(userEvent);
+                userRsvpEvents.add(userRsvpEvent);
+            }
+            model.addAttribute("userRsvpEvents",userRsvpEvents);
         }
 
 
-        model.addAttribute("createdEvents",createdEvents);
+
         model.addAttribute("hobby", new Hobby());
         return "views/profile";
     }
