@@ -22,6 +22,12 @@
     <!--Event Details Card-->
     <div class="card mx-auto text-center" style="width: 80rem;">
 
+        <!--Event name-->
+        <h2 class="card-title m-1"> <span th:text="${event.eventName}"></span> </h2>
+        <div class="card-body">
+            <p class="card-text" th:text="${event.eventDescription}"></p>
+        </div>
+
         <!--if event has no images, display hard-coded image below-->
 
         <div th:if="${images.size() == 0}">
@@ -30,7 +36,7 @@
 
         <!--if event has images, display carousel below-->
             <!--Image carousel-->
-            <div th:if="${images.size() > 0}" id="carouselExampleIndicators" class="carousel slide w-75 mx-auto" data-bs-ride="true">
+            <div th:if="${images.size() > 0}" id="carouselExampleIndicators" class="carousel slide w-50 mx-auto" data-bs-ride="true">
 
                     <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -81,18 +87,27 @@
                 </div>
 
 
-        <!--Event Info: name, description, start date & time, event address-->
-        <div class="card-body">
-            <h5 class="card-title"> <span th:text="${event.eventName}"></span> </h5>
-            <p class="card-text"> Description: <span th:text="${event.eventDescription}"></span> </p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Date of Event: <span th:text="${event.startDate}"></span> </li>
-            <li class="list-group-item">Start Time: <span th:text="${event.startTime}"></span> </li>
-            <li class="list-group-item">Location: <span id="address" th:text="${event.address}"></span> </li>
-        </ul>
 
-        <!--Todo: finish RSVP and Report button functionality-->
+
+        <blockquote class="blockquote">
+            <p>Event starts
+                <!--Day-->
+                on <span th:text="${event.startDate.getDay()}"></span>
+                <!--Month-->
+                <span th:text="${month}"></span>
+                <!--Time-->
+                at <span th:text="${EventService.formatTime(event.startTime)}"></span>
+            </p>
+        </blockquote>
+        <blockquote th:if="${event.endDate != null and event.endTime != null}" class="blockquote">
+            <p>Event ends on <span th:text="${event.endDate}"></span> at <span th:text="${EventService.formatTime(event.endTime)}"></span></p>
+        </blockquote>
+
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Category: <span th:text="${category.getCategoryName()}"></span> </li>
+            <li hidden class="list-group-item">Location: <span id="address" th:text="${event.address}"></span> </li>
+        </ul>
 
         <!--Buttons-->
         <div class="card-body">
@@ -128,6 +143,9 @@
 
                 </ul>
             </div>
+
+
+
 
             <!--Report Button-->
             <form th:action="@{/event/report}" method="post">

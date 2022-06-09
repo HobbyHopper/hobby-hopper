@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventService {
 
-    public static String formatTime(String time){
+    public String formatTime(String time){
 
         int firstTwoDigits = Integer.parseInt(time.substring(0,2));
         String lastTwoDigits = time.substring(3);
@@ -28,13 +28,23 @@ public class EventService {
 
     }
 
-
-    public static void main(String[] args) {
-        String time = "00:00";
-        String formattedTime = formatTime(time);
-        System.out.println(time + " formatted through formatTime() looks like " + formattedTime);
+    public String getMonthString(int month){
+        return switch (month) {
+            case 1 -> "January";
+            case 2 -> "February";
+            case 3 -> "March";
+            case 4 -> "April";
+            case 5 -> "May";
+            case 6 -> "June";
+            case 7 -> "July";
+            case 8 -> "August";
+            case 9 -> "September";
+            case 10 -> "October";
+            case 11 -> "November";
+            case 12 -> "December";
+            default -> null;
+        };
     }
-
 
 }
 

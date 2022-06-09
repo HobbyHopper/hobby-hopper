@@ -2,6 +2,7 @@ package com.example.hobbyhopper.controllers;
 
 import com.example.hobbyhopper.models.*;
 import com.example.hobbyhopper.repositories.*;
+import com.example.hobbyhopper.services.EventService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ public class EventController {
     private final HobbiesRepository hobbyDao;
     private final CategoryController categoryDao;
     private final ImageRepository imageDao;
+    private final EventService eventService = new EventService();
 
 
     public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao, HobbiesRepository hobbyDao, CategoryController categoryDao, ImageRepository imageDao) {
@@ -50,17 +52,21 @@ public class EventController {
 
     @GetMapping("/{id}")
     public String individualEvent(@PathVariable long id, Model model) {
+        model.addAttribute("EventService", eventService);
 
         Event event = eventDao.getById(id);
         model.addAttribute("event", event);
 
-        //if there is a user logged in, and they are the owner of the event, add the "userIsOwner" attribute to the model in order to allow certain functionality like edit and delete to the event view
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser"){
+        String month = eventService.getMonthString( event.getStartDate().getMonth() + 1 );
+        model.addAttribute("month", month);
 
+        Category category = categoryDao.getById((long) event.getCategoryId());
+        model.addAttribute("category", category);
+
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser"){
             User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = userDao.getById(userAccess.getId());
             UserEvent userIsOwner = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
-
             if (userIsOwner != null) {
                 model.addAttribute("userIsOwner", userIsOwner);
             }
@@ -70,6 +76,8 @@ public class EventController {
         if (images != null) {
             model.addAttribute("images", images);
         }
+
+
 
         return "views/individual-event";
 
