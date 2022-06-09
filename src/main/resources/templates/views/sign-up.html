@@ -19,7 +19,7 @@
                         <li th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></li>
                         <li th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>
                         <li th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></li>
-                        <li th:if="${#fields.hasErrors('password')}" th:errors="*{confirm}"></li>
+                        <li th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}"></li>
                     </ul>
 <!--                     Username input -->
                     <div class="form-outline">
@@ -59,8 +59,8 @@
 
                     <!--Image input-->
                     <div class="form-outline mt-3">
-                        <button type="button"  class="form-control form-control-lg picker">Upload image</button>
-                        <input type="hidden" id="image" class="form-control form-control-lg"
+                        <button type="button" class="form-control form-control-lg picker">Upload image</button>
+                        <input type="hidden" id="image" class="form-control form-control-lg image"
                                placeholder="" th:field="*{image}"/>
                     </div>
 

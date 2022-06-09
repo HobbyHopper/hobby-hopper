@@ -1,29 +1,27 @@
-const img = document.getElementById("image");
-const editImg = document.getElementById("edit-image");
-const picker = document.querySelector(".picker");
+const img = document.getElementsByClassName("image");
+const picker = document.getElementsByClassName("picker");
 
-function fileStackApi(domValue){
-   picker.addEventListener("click", ()=>{
-        const client = filestack.init(FILESTACK_API_TOKEN);
-        const options =  {
-            accept: ["image/*"],
-            onFileUploadFinished(file){
-                console.log(file.url);
-                // document.getElementById("image").src= file.url;
-                domValue.value=file.url;
-            }
+
+function fileStackApi(){
+    for (let j=0; j < img.length; j++) {
+        for (let i = 0; i < picker.length; i++) {
+            picker[i].addEventListener("click", () => {
+                const client = filestack.init(FILESTACK_API_TOKEN);
+                const options = {
+                    accept: ["image/*"],
+                    maxFiles: 5,
+                    maxSize: 500 * 500,
+                    onFileUploadFinished(file) {
+                        img[j].value = file.url;
+                    }
+                }
+                client.picker(options).open();
+            });
         }
-        client.picker(options).open();
-    });
-}
-
-function fileLoop(){
-    for(let i = 1; i <= 5; i++){
-        fileStackApi(document.getElementById("event-image-" + i));
     }
 }
 
-fileStackApi(img);
-fileStackApi(editImg);
 
-fileLoop();
+
+fileStackApi();
+
