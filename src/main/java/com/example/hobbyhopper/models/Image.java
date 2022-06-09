@@ -26,6 +26,11 @@ public class Image {
         this.event = event;
     }
 
+    public Image(String url, Event event) {
+        this.url = url;
+        this.event = event;
+    }
+
     public long getId() {
         return id;
     }

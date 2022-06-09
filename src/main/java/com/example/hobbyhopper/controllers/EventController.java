@@ -1,14 +1,13 @@
 package com.example.hobbyhopper.controllers;
 
 import com.example.hobbyhopper.models.*;
-import com.example.hobbyhopper.repositories.EventRepository;
-import com.example.hobbyhopper.repositories.ExpertiseRepository;
-import com.example.hobbyhopper.repositories.UserEventRepository;
-import com.example.hobbyhopper.repositories.UserRepository;
+import com.example.hobbyhopper.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,13 +17,19 @@ public class EventController {
     private final UserRepository userDao;
     private final UserEventRepository userEventDao;
     private final ExpertiseRepository expertiseDao;
+    private final HobbiesRepository hobbyDao;
+    private final CategoryController categoryDao;
+    private final ImageRepository imageDao;
 
 
-    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao) {
+    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao, HobbiesRepository hobbyDao, CategoryController categoryDao, ImageRepository imageDao) {
         this.eventDao = eventDao;
         this.userDao = userDao;
         this.userEventDao = userEventDao;
         this.expertiseDao = expertiseDao;
+        this.hobbyDao = hobbyDao;
+        this.categoryDao = categoryDao;
+        this.imageDao = imageDao;
     }
 
     @GetMapping()
@@ -46,9 +51,10 @@ public class EventController {
     @GetMapping("/{id}")
     public String individualEvent(@PathVariable long id, Model model) {
 
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         Event event = eventDao.getById(id);
+        model.addAttribute("event", event);
 
+        //if there is a user logged in, and they are the owner of the event, add the "userIsOwner" attribute to the model in order to allow certain functionality like edit and delete to the event view
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser"){
 
             User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -59,9 +65,6 @@ public class EventController {
                 model.addAttribute("userIsOwner", userIsOwner);
             }
         }
-
-        //pulls one event by "id" to display at individual event page
-        model.addAttribute("event", event);
 
         List<Image> images = event.getEventImages();
         if (images != null) {
@@ -74,7 +77,6 @@ public class EventController {
 
     @GetMapping("/create-edit-event")
     public String showCreateForm(Model model) {
-//     sends to create page and uses form model binding for creating a new event
         model.addAttribute("event", new Event());
 
         return "views/create-edit-event";
@@ -96,14 +98,29 @@ public class EventController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updatePost(@PathVariable long id, @ModelAttribute Event event){
+    public String updatePost(@RequestParam(name="images") List<String> imageUrl, @PathVariable long id, @ModelAttribute Event event){
+        List<Image> imageList = new ArrayList<>();
+        List<Image> eventImages = event.getEventImages();
+
         eventDao.save(event);
+
+        if(event.getEventImages() == null){
+            eventImages = imageList;
+        }
+            for(String url: imageUrl){
+                Image image = new Image(url, event);
+                eventImages.add(image);
+            }
+            event.setEventImages(eventImages);
+
+            eventDao.save(event);
 
         return "redirect:/event/" + event.getId();
     }
 
+
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute Event event,@RequestParam(name="expertise") long expertiseId){
+    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId){
         User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Event myEvent= eventDao.save(event);
         UserEvent userEvent=new UserEvent(expertiseDao.getById(expertiseId));
@@ -118,37 +135,104 @@ public class EventController {
     }
 
     @PostMapping("/rsvp")
-    public String rsvpToEvent(@ModelAttribute Event event,@RequestParam ("expertise") long id){
-//        get user from session
-        User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Access Expertise
-        Expertise expertise= expertiseDao.getById(id);
-//        create new user event
-        UserEvent userEvent=new UserEvent();
-//        attach non owner user and event to userEvent
-        userEvent.setEvent(event);
-        userEvent.setUser(user);
-        userEvent.setOwner(false);
-        userEvent.setExpertise(expertise);
-//        save userEvent
+    public String rsvpToEvent(@RequestParam ("event-id") long eventId, @RequestParam ("expertise") long expertiseId){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Event event = eventDao.getById(eventId);
+        Expertise expertise = expertiseDao.getById(expertiseId);
+        UserEvent userEvent = new UserEvent(user, event, false, expertise);
         userEventDao.save(userEvent);
-//
-        return "views/individual-event";
+
+        return "redirect:/event/"+eventId;
     }
 
     @PostMapping("/report")
-    public String reportEvent(@ModelAttribute Event event){
-//        change event reported status
-        event.setReported(true);
-//        save event
-        eventDao.save(event);
-//        redirect to events/search page
-        return "views/search";
+    public String reportEvent(@RequestParam ("event-id") long eventId, Model model){
+        Event event = eventDao.getById(eventId); //gets event with the event-id parameter sent from the view
+        event.setReported(true); //changes event reported status
+        eventDao.save(event);  //saves event
+        return "redirect:/event/" + event.getId();//redirects user to the same post that was reported
     }
 
     @GetMapping("/search")
-    public String searchEvents(){
-        return"views/search";
+    public String searchEvents(@RequestParam(name = "search") String search) {
+//        Get all events
+        List<Event> allEvents=eventDao.findAll();
+//        search all events by title and store them
+        List<Event> eventsByTitle = eventDao.searchByTitleLike(search);
+//        Create empty event list to hold all events linked to a hobby name search
+        List<Event> eventsByHobby=new ArrayList<>();
+//        Create empty event list to hold all events linked by category name search
+        List<Event> eventsByCategory=new ArrayList<>();
+//       store all hobbies/categories with name matching query in a list
+        List<Hobby> hobbyList = hobbyDao.searchByNameLike(search);
+        List<Category> categoryList= categoryDao.searchByNameLike(search);
+
+//  loop through events and find all events associated with similar hobby names
+        for(Event event:allEvents) {
+            if (event.getEventHobbies() != null) {
+                List<Hobby> eventHobbies = event.getEventHobbies();
+                for (Hobby hobbySearch : hobbyList) {
+                    for (Hobby hobby : eventHobbies) {
+                        if (hobbySearch.getHobbyName().equals(hobby.getHobbyName())) {
+                            eventsByHobby.add(event);
+                        }
+                    }
+                }
+            }
+        }
+         for(Event event:allEvents)  {
+             for(Category categorySearch:categoryList){
+                 if(event.getCategoryId()==categorySearch.getId()){
+                     eventsByCategory.add(event);
+                 }
+             }
+         }
+
+//         confirm search category works
+//        for(Category category:categoryList){
+//            System.out.println(category);
+//        }
+
+//            confirm event by title works
+//        for (Event event : eventsByTitle) {
+//           System.out.println(event.getId());
+//        }
+
+//        confirm search by similar hobbies works
+//        for (Event event:eventsByHobby){
+//            System.out.println(event.getId());
+//        }
+//        Confirm search hobby works
+//        for (Hobby hobby : hobbyList) {
+//            System.out.println(hobby.getHobbyName());
+//        }
+
+
+
+        return "views/search";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteEvent(@PathVariable long id){
+
+        //if statement below validates that there is a user logged in
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
+
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            System.out.println(user);
+            Event event = eventDao.getById(id);
+            System.out.println(event);
+            UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
+            System.out.println(userEvent);
+
+            //if statement below validates that the user of the event is the owner
+            if (userEvent != null) {
+                eventDao.delete(event);
+            }
+        }
+
+        return "views/index";
+
     }
 
 

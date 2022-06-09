@@ -63,10 +63,12 @@
                     </ul>
                 </li>
             </ul>
+
             <form class="d-flex" action="/event/search" method="get">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="title">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+
             <ul>
                 <li sec:authorize="isAuthenticated()" class="mt-3">
                     <form th:action="@{/logout}" th:method="post">
@@ -87,6 +89,7 @@
     </div>
 <!---->
 <!--This is the footer -->
+
     <footer th:fragment="" class="bg-dark text-center text-white py-3 fixed-bottom">
         <div class="container-fluid p-4 mb-0">
 <!--            Social media links-->

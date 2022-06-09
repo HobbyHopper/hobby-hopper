@@ -1,6 +1,7 @@
 package com.example.hobbyhopper.repositories;
 
 import com.example.hobbyhopper.models.Event;
+import com.example.hobbyhopper.models.Hobby;
 import com.example.hobbyhopper.models.Image;
 import com.example.hobbyhopper.models.UserEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,7 +19,6 @@ public interface EventRepository extends JpaRepository <Event, Long> {
 
     List<Event> findByCategoryId(int categoryId);
 
-    List<Event> findByUserEvents(UserEvent userEvents);
 
 
 
