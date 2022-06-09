@@ -4,7 +4,9 @@ import com.example.hobbyhopper.models.Event;
 import com.example.hobbyhopper.models.Hobby;
 import com.example.hobbyhopper.models.User;
 import com.example.hobbyhopper.models.UserEvent;
+import com.example.hobbyhopper.repositories.EventRepository;
 import com.example.hobbyhopper.repositories.HobbiesRepository;
+import com.example.hobbyhopper.repositories.UserEventRepository;
 import com.example.hobbyhopper.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +17,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -27,16 +28,31 @@ public class UserController {
     private final UserRepository userDao;
     private final PasswordEncoder passwordEncoder;
     private final HobbiesRepository hobbyDao;
+    private final UserEventRepository userEventDao;
+    private final EventRepository eventDao;
 
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, HobbiesRepository hobbyDao) {
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, HobbiesRepository hobbyDao, UserEventRepository userEventDao, EventRepository eventDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.hobbyDao = hobbyDao;
+        this.userEventDao = userEventDao;
+        this.eventDao = eventDao;
     }
 
     @GetMapping("/profile")
     public String showProfile(Model model){
+        User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getById(userAccess.getId());
+        List<Event> createdEvents= new ArrayList<>();
+        List<UserEvent> isOwnerUserEvents= userEventDao.findAllByUserAndIsOwner(user,true);
+        for (UserEvent userEvent:isOwnerUserEvents){
+         Event userCreatedEvent= eventDao.findByUserEvents(userEvent);
+         createdEvents.add(userCreatedEvent);
+        }
+
+
+        model.addAttribute("createdEvents",createdEvents);
         model.addAttribute("hobby", new Hobby());
         return "views/profile";
     }

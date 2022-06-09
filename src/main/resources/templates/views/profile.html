@@ -16,10 +16,21 @@
                 </div>
                 <div class="text-uppercase d-flex flex-column ">
                     <h1>RSVP Events</h1>
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-
+                    <div class="card-body">
+                        <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                        <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                        <p class="card-text" th:text="${event.eventDescription}"></p>
+                        <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                    </div>  <div class="card-body">
+                    <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                    <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                    <p class="card-text" th:text="${event.eventDescription}"></p>
+                    <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                </div>  <div class="card-body">
+                    <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                    <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                    <p class="card-text" th:text="${event.eventDescription}"></p>
+                    <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
                 </div>
             </div>
             <div>
@@ -40,36 +51,54 @@
             <div>
                 <div class="container">
                     <h1 class="text-uppercase my-5">created event</h1>
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2" th:text="${createdEvents[0].eventName}"></h5>
+                        <h6 class="card-subtitle my-1" th:text="${createdEvents[0].startDate}"></h6>
+                        <p class="card-text" th:text="${createdEvents[0].eventDescription}"></p>
+                        <a th:href="${'/event/'+ createdEvents[0].id}" class="btn btn-primary">View Details</a>
+                    </div>  <div class="card-body">
+                    <h5 class="card-title mb-2" th:text="${createdEvents[1].eventName}"></h5>
+                    <h6 class="card-subtitle my-1" th:text="${createdEvents[1].startDate}"></h6>
+                    <p class="card-text" th:text="${createdEvents[1].eventDescription}"></p>
+                    <a th:href="${'/event/'+ createdEvents[1].id}" class="btn btn-primary">View Details</a>
+                </div>  <div class="card-body">
+                    <h5 class="card-title mb-2" th:text="${createdEvents[2].eventName}"></h5>
+                    <h6 class="card-subtitle my-1" th:text="${createdEvents[2].startDate}"></h6>
+                    <p class="card-text" th:text="${event.eventDescription}"></p>
+                    <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                </div>  <div class="card-body">
+                    <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                    <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                    <p class="card-text" th:text="${event.eventDescription}"></p>
+                    <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                </div>
                 </div>
             </div>
             <hr>
             <div>
                 <div class="container">
                     <h1 class="text-uppercase my-5">events for you</h1>
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
-                    <img th:src="@{images/logo.png}" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                        <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                        <p class="card-text" th:text="${event.eventDescription}"></p>
+                        <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                    </div>  <div class="card-body">
+                    <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                    <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                    <p class="card-text" th:text="${event.eventDescription}"></p>
+                    <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                </div>  <div class="card-body">
+                    <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                    <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                    <p class="card-text" th:text="${event.eventDescription}"></p>
+                    <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                </div>  <div class="card-body">
+                    <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                    <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                    <p class="card-text" th:text="${event.eventDescription}"></p>
+                    <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                </div>
                 </div>
             </div>
         </div>
