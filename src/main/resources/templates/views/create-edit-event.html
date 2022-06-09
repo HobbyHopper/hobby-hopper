@@ -140,6 +140,12 @@
                         </select>
                         </li>
                 </ul>
+                <!--Image input-->
+                <div class="form-outline mt-3">
+                    <button type="button" class="form-control form-control-lg picker">Upload images</button>
+                    <input type="hidden" id="edit-image" class="form-control form-control-lg image"
+                           placeholder=""/>
+                </div>
 
                 <button type="submit" class="btn btn-success"> Create Event </button>
 
@@ -233,6 +239,14 @@
                     </li>
                 </ul>
 
+                <div class="form-outline mt-3">
+                    <button type="button" class="form-control form-control-lg picker">Upload image</button>
+                    <input type="hidden" id="image" class="form-control form-control-lg image"
+                           placeholder="" name="images"/>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                </div>
                 <button type="submit" class="btn btn-primary"> Submit Changes </button>
 
             </form>
@@ -252,7 +266,11 @@
     <!--External Script Tags-->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
     <script th:src="@{/js/mapbox-geocoder-utils.js}"></script>
-    <script th:src="@{/js/keys.js}"></script>
+    <script th:replace="partials/partials.html :: bootstrap-js" ></script>
+    <script th:replace="partials/partials.html :: file-stack" ></script>
+    <script th:replace="partials/partials.html :: file-js" ></script>
+    <script th:replace="partials/partials.html :: map-js" ></script>
+    <script th:replace="partials/partials.html :: keys-js" ></script>
 
 
 </body>

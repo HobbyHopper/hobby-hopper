@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="partials/partials.html :: head ('Upload Event Images')" ></head>
+<body>
+
+<nav th:replace="partials/partials.html :: navbar" ></nav>
+
+<section class="vh-100">
+    <div class="container h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5 text-center mb-md-5 mb-lg-5 mb-xl-5">
+                <img th:src="@{/images/logo.png}"
+                     class="img-fluid" alt="HobbyHopper Logo">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form th:action="@{'/event-images?error'}" method="POST" th:object="${eventImage}">
+                    <!--Image input-->
+                    <div class="form-outline mt-3">
+                        <button type="button" class="form-control form-control-lg picker">Upload image</button>
+                        <input type="hidden" id="image" class="form-control form-control-lg image"
+                               placeholder="" th:field="*{image}"/>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <input type="submit" value="Upload" class="btn btn-primary btn-lg"
+                               style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:replace="partials/partials.html :: bootstrap-js" ></script>
+<script th:replace="partials/partials.html :: file-stack" ></script>
+<script th:replace="partials/partials.html :: file-js" ></script>
+<script th:replace="partials/partials.html :: map-js" ></script>
+<script th:replace="partials/partials.html :: keys-js" ></script>
+
+</body>
+</html>
