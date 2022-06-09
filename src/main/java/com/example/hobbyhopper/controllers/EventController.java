@@ -153,20 +153,21 @@ public class EventController {
             System.out.println(hobby.getHobbyName());
         }
 
-//        for(Event event:allEvents){
-//            if(event.getEventHobbies()!= null){
-//                List<Hobby> eventHobbies=event.getEventHobbies();
-//                for (int i=0;i<hobbyList.size()-1;i++){
-//                    for(int e=0;e<eventHobbies.size()-1;i++){
-//                     if (hobbyList.get(i).getHobbyName().equalsIgnoreCase(eventHobbies.get(e).getHobbyName())) {
-//                         hobbyEvents.add(event);
-//
-//                     }
-//                    }
-//                }
-//            }
-//        }
-//        System.out.println(hobbyEvents);
+        for(Event event:allEvents){
+            if(event.getEventHobbies()!= null){
+                List<Hobby> eventHobbies=event.getEventHobbies();
+                for (Hobby hobbySearch:hobbyList){
+                    for(Hobby hobby:eventHobbies){
+                     if (hobbySearch.getHobbyName().equals(hobby.getHobbyName())) {
+                         hobbyEvents.add(event);
+                     }
+                    }
+                }
+            }
+        }
+        for (Event event:hobbyEvents){
+            System.out.println(event.getId());
+        }
 
 
 
