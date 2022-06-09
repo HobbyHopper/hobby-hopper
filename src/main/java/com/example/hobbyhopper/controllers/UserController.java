@@ -52,6 +52,9 @@ public class UserController {
             for (UserEvent userEvent:isOwnerUserEvents){
              Event userCreatedEvent= eventDao.findByUserEvents(userEvent);
              createdEvents.add(userCreatedEvent);
+             if (createdEvents.size()==3){
+                 break;
+             }
             }
          model.addAttribute("createdEvents",createdEvents);
         }
@@ -59,6 +62,9 @@ public class UserController {
             for (UserEvent userEvent : isNotOwnerUserEvents) {
                 Event userRsvpEvent = eventDao.findByUserEvents(userEvent);
                 userRsvpEvents.add(userRsvpEvent);
+                if(userRsvpEvents.size()==3){
+                    break;
+                }
             }
             model.addAttribute("userRsvpEvents",userRsvpEvents);
         }
