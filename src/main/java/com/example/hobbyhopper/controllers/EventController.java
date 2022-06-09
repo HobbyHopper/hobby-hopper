@@ -19,15 +19,17 @@ public class EventController {
     private final ExpertiseRepository expertiseDao;
     private final HobbiesRepository hobbyDao;
     private final CategoryController categoryDao;
+    private final ImageRepository imageDao;
 
 
-    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao, HobbiesRepository hobbyDao, CategoryController categoryDao) {
+    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao, HobbiesRepository hobbyDao, CategoryController categoryDao, ImageRepository imageDao) {
         this.eventDao = eventDao;
         this.userDao = userDao;
         this.userEventDao = userEventDao;
         this.expertiseDao = expertiseDao;
         this.hobbyDao = hobbyDao;
         this.categoryDao = categoryDao;
+        this.imageDao = imageDao;
     }
 
     @GetMapping()
@@ -96,11 +98,26 @@ public class EventController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updatePost(@PathVariable long id, @ModelAttribute Event event){
+    public String updatePost(@RequestParam(name="images") List<String> imageUrl, @PathVariable long id, @ModelAttribute Event event){
+        List<Image> imageList = new ArrayList<>();
+        List<Image> eventImages = event.getEventImages();
+
         eventDao.save(event);
+
+        if(event.getEventImages() == null){
+            eventImages = imageList;
+        }
+            for(String url: imageUrl){
+                Image image = new Image(url, event);
+                eventImages.add(image);
+            }
+            event.setEventImages(eventImages);
+
+            eventDao.save(event);
 
         return "redirect:/event/" + event.getId();
     }
+
 
     @PostMapping("/create")
     public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId){

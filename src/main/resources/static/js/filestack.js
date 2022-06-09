@@ -10,8 +10,9 @@ function fileStackApi(){
                 const options = {
                     accept: ["image/*"],
                     maxFiles: 5,
-                    maxSize: 500 * 500,
                     onFileUploadFinished(file) {
+                        console.log(file.url)
+                        // let imageArr = [];
                         img[j].value = file.url;
                     }
                 }
