@@ -8,7 +8,7 @@
     <nav th:replace="partials/partials.html :: navbar" ></nav>
     <div class="container-fluid">
 <!--    categories sidebar-->
-        <div class="side-nav">
+        <div class="side-nav pt-2 p-1">
             <ul class="list-group">
                 <li class="nav-item mb-2"><a class="" xlink:href="#">Indoor</a></li>
                 <li class="nav-item mb-2"><a class="" xlink:href="#">Outdoor</a></li>
@@ -19,7 +19,7 @@
         </div>
 
 <!--        event cards-->
-        <div class="main col-9">
+        <div class="main col-9 h-100">
             <section id="event-cards" class="container d-flex flex-wrap">
                 <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${events}">
 
@@ -86,7 +86,7 @@
         </div>
     </div>
 
-<!--    <footer th:replace="partials/partials.html :: footer"></footer>-->
+    <footer th:replace="partials/partials.html :: footer" class="fixed-bottom"></footer>
     <script th:replace="partials/partials.html :: bootstrap-js"></script>
 </body>
 </html>
