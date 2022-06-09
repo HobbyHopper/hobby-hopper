@@ -62,3 +62,14 @@ a{
 #socials .btn{
     border-radius: 100%;
 }
+
+/*------------------------------------------*/
+
+.main{
+    margin-left: 200px;
+}
+.side-nav{
+    font-size: 28px;
+    height: 100%;
+    width: 200px;
+}

@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="partials/partials.html :: head ('Search')" ></head>
+<head th:replace="partials/partials.html :: head ('Search')">
+</head>
 <body>
 
     <nav th:replace="partials/partials.html :: navbar" ></nav>
     <div class="container-fluid">
 <!--    categories sidebar-->
-        <div class="col-3 position-fixed">
-            <h3 class="text-center">Search by category</h3>
-            <nav>
-                <div class="list-group">
-                    <a class="list-group-item list-group-item-action" xlink:href="#">Indoor</a>
-                    <a class="list-group-item list-group-item-action" xlink:href="#">Outdoor</a>
-                    <a class="list-group-item list-group-item-action" xlink:href="#">High Intensity</a>
-                    <a class="list-group-item list-group-item-action" xlink:href="#">Moderate Intensity</a>
-                    <a class="list-group-item list-group-item-action" xlink:href="#">Low Intensity</a>
-                </div>
-            </nav>
+        <div class="side-nav">
+            <ul class="list-group">
+                <li class="nav-item mb-2"><a class="" xlink:href="#">Indoor</a></li>
+                <li class="nav-item mb-2"><a class="" xlink:href="#">Outdoor</a></li>
+                <li class="nav-item mb-2"><a class="" xlink:href="#">High Intensity</a></li>
+                <li class="nav-item mb-2"><a class="" xlink:href="#">Moderate Intensity</a></li>
+                <li class="nav-item mb-2"><a class="" xlink:href="#">Low Intensity</a></li>
+            </ul>
         </div>
-<!--        Events-->
-        <div class="col-9">
+
+<!--        event cards-->
+        <div class="main col-9">
             <section id="event-cards" class="container d-flex flex-wrap">
                 <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${events}">
 
