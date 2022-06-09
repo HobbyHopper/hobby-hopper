@@ -154,7 +154,7 @@ public class EventController {
     }
 
     @GetMapping("/search")
-    public String searchEvents(@RequestParam(name = "search") String search) {
+    public String searchEvents(@RequestParam(name = "search") String search, Model model) {
 //        Get all events
         List<Event> allEvents=eventDao.findAll();
 //        search all events by title and store them
@@ -163,6 +163,8 @@ public class EventController {
         List<Event> eventsByHobby=new ArrayList<>();
 //        Create empty event list to hold all events linked by category name search
         List<Event> eventsByCategory=new ArrayList<>();
+//        combine all search results into one list
+        List<Event> searchEvents=new ArrayList<>();
 //       store all hobbies/categories with name matching query in a list
         List<Hobby> hobbyList = hobbyDao.searchByNameLike(search);
         List<Category> categoryList= categoryDao.searchByNameLike(search);
@@ -175,6 +177,7 @@ public class EventController {
                     for (Hobby hobby : eventHobbies) {
                         if (hobbySearch.getHobbyName().equals(hobby.getHobbyName())) {
                             eventsByHobby.add(event);
+                            searchEvents.add(event);
                         }
                     }
                 }
@@ -184,8 +187,12 @@ public class EventController {
              for(Category categorySearch:categoryList){
                  if(event.getCategoryId()==categorySearch.getId()){
                      eventsByCategory.add(event);
+                     searchEvents.add(event);
                  }
              }
+         }
+         for (Event event:eventsByTitle){
+             searchEvents.add(event);
          }
 
 //         confirm search category works
@@ -206,7 +213,10 @@ public class EventController {
 //        for (Hobby hobby : hobbyList) {
 //            System.out.println(hobby.getHobbyName());
 //        }
-
+        model.addAttribute("searchEvents",searchEvents);
+        model.addAttribute("eventsByTitle",eventsByTitle);
+        model.addAttribute("eventsByCategory",eventsByCategory);
+        model.addAttribute("eventsByHobby",eventsByHobby);
 
 
         return "views/search";
