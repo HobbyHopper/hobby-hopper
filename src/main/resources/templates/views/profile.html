@@ -7,107 +7,235 @@
 <div sec:authorize="isAuthenticated()">
     <div class="d-flex container-fluid mt-5">
         <img th:src="@{${#authentication.principal.image}}" class="mt-5 mx-3" id="profile-image"/>
-        <div class="col-5">
+        <div class="col-3">
             <ul class="h4 mt-5">
                 <li class="mt-3"><span th:text="${#authentication.principal.username}"></span></li>
                 <li class="mt-3"><span th:text="${#authentication.principal.email}"></span></li>
                 <li class="mt-3"><span th:text="${#authentication.principal.location}"></span></li>
+                <li>  <div>
+                        <form th:action="@{/add-hobbies}" method="post" th:object="${hobby}">
+                            <div class="form-outline">
+                                <input type="text" id="username" class="form-control form-control-lg"
+                                       placeholder="Enter Hobby" th:field="*{hobbyName}"/>
+                            </div>
+                            <div class="text-center text-lg-start mt-4 pt-2">
+                                <input type="submit" value="Add hobby" class="btn btn-primary btn-lg"
+                                       style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                            </div>
+                        </form>
+                    </div>
+                </li>
             </ul>
         </div>
-        <div class="text-uppercase d-flex flex-column ">
+        <div th:if="${userRsvpEvents}" class="text-uppercase d-flex flex-column ">
             <h1>RSVP Events</h1>
-            <div class="card-body">
-                <h5 class="card-title mb-2" th:text="${userRsvpEvents[0].eventName}"></h5>
-                <h6 class="card-subtitle my-1" th:text="${userRsvpEvents[0].startDate}"></h6>
-                <p class="card-text" th:text="${userRsvpEvents[0].eventDescription}"></p>
-                <a th:href="${'/event/'+ userRsvpEvents[0].id}" class="btn btn-primary">View Details</a>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title mb-2" th:text="${userRsvpEvents[1].eventName}"></h5>
-                <h6 class="card-subtitle my-1" th:text="${userRsvpEvents[1].startDate}"></h6>
-                <p class="card-text" th:text="${userRsvpEvents[1].eventDescription}"></p>
-                <a th:href="${'/event/'+ userRsvpEvents[1].id}" class="btn btn-primary">View Details</a>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title mb-2" th:text="${userRsvpEvents[2].eventName}"></h5>
-                <h6 class="card-subtitle my-1" th:text="${userRsvpEvents[2].startDate}"></h6>
-                <p class="card-text" th:text="${userRsvpEvents[2].eventDescription}"></p>
-                <a th:href="${'/event/'+ userRsvpEvents[2].id}" class="btn btn-primary">View Details</a>
-            </div>
+            <section id="UserRsvpEvent-cards" class="container d-flex flex-wrap">
+                <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${userRsvpEvents}">
+
+                    <!--    Image carousel within card-->
+                    <div th:id="carouselExampleIndicators +${event.id}" class=" carousel slide overflow-hidden w-100 mx-auto" data-bs-interval="false">
+                        <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
+                            <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+                            <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+                            <button th:if="${event.eventImages.size() > 2}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+                            <button th:if="${event.eventImages.size() > 3}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+                            <button th:if="${event.eventImages.size() > 4}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                        </div>
+
+                        <!--                Carousel images-->
+                        <div class="carousel-item active ratio ratio-16x9">
+                            <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
+                        </div>
+
+                        <div th:if="${event.eventImages.size() > 1}" class="carousel-item ratio ratio-16x9">
+                            <img th:src="${event.eventImages.get(1).url}" class="d-block w-100" th:alt="${event.eventImages.get(1).imageDescription}">
+                        </div>
+
+                        <div th:if="${event.eventImages.size() > 2}" class="carousel-item ratio ratio-16x9">
+                            <img th:src="${event.eventImages.get(2).url}" class="d-block w-100" th:alt="${event.eventImages.get(2).imageDescription}">
+                        </div>
+
+                        <div th:if="${event.eventImages.size() > 3}" class="carousel-item ratio ratio-16x9">
+                            <img th:src="${event.eventImages.get(3).url}" class="d-block w-100" th:alt="${event.eventImages.get(3).imageDescription}">
+                        </div>
+
+                        <div th:if="${event.eventImages.size() > 4}" class="carousel-item ratio ratio-16x9">
+                            <img th:src="${event.eventImages.get(4).url}" class="d-block w-100" th:alt="${event.eventImages.get(4).imageDescription}">
+                        </div>
+
+                        <!--        Side button functionality-->
+                        <div th:if="${event.eventImages.size() > 1}">
+                            <button class="carousel-control-prev" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+
+                            <button class="carousel-control-next" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                        <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                        <p class="card-text" th:text="${event.eventDescription}"></p>
+                        <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div>
-            <form th:action="@{/add-hobbies}" method="post" th:object="${hobby}">
-                <div class="form-outline">
-                    <input type="text" id="username" class="form-control form-control-lg"
-                           placeholder="Enter Hobby" th:field="*{hobbyName}"/>
-                </div>
-                <div class="text-center text-lg-start mt-4 pt-2">
-                    <input type="submit" value="Add hobby" class="btn btn-primary btn-lg"
-                           style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                </div>
-            </form>
-        </div>
-        <hr>
-        <div>
-            <div class="container">
-                <h1 class="text-uppercase my-5">created event</h1>
-                <div class="card-body">
-                    <h5 class="card-title mb-2" th:text="${createdEvents[0].eventName}"></h5>
-                    <h6 class="card-subtitle my-1" th:text="${createdEvents[0].startDate}"></h6>
-                    <p class="card-text" th:text="${createdEvents[0].eventDescription}"></p>
-                    <a th:href="${'/event/'+ createdEvents[0].id}" class="btn btn-primary">View Details</a>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title mb-2" th:text="${createdEvents[1].eventName}"></h5>
-                    <h6 class="card-subtitle my-1" th:text="${createdEvents[1].startDate}"></h6>
-                    <p class="card-text" th:text="${createdEvents[1].eventDescription}"></p>
-                    <a th:href="${'/event/'+ createdEvents[1].id}" class="btn btn-primary">View Details</a>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title mb-2" th:text="${createdEvents[2].eventName}"></h5>
-                    <h6 class="card-subtitle my-1" th:text="${createdEvents[2].startDate}"></h6>
-                    <p class="card-text" th:text="${createdEvents[2].eventDescription}"></p>
-                    <a th:href="${'/event/'+ createdEvents[2].id}" class="btn btn-primary">View Details</a>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title mb-2" th:text="${createdEvents[3].eventName}"></h5>
-                    <h6 class="card-subtitle my-1" th:text="${createdEvents[3].startDate}"></h6>
-                    <p class="card-text" th:text="${createdEvents[3].eventDescription}"></p>
-                    <a th:href="${'/event/'+ createdEvents[3].id}" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div>
-            <div class="container">
-                <h1 class="text-uppercase my-5">events for you</h1>
-                <div class="card-body">
-                    <h5 class="card-title mb-2" th:text="${userRsvpEvents[0].eventName}"></h5>
-                    <h6 class="card-subtitle my-1" th:text="${userRsvpEvents[0].startDate}"></h6>
-                    <p class="card-text" th:text="${userRsvpEvents[0].eventDescription}"></p>
-                    <a th:href="${'/event/'+ userRsvpEvents[0].id}" class="btn btn-primary">View Details</a>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title mb-2" th:text="${userRsvpEvents[0].eventName}"></h5>
-                    <h6 class="card-subtitle my-1" th:text="${userRsvpEvents[0].startDate}"></h6>
-                    <p class="card-text" th:text="${userRsvpEvents[0].eventDescription}"></p>
-                    <a th:href="${'/event/'+ userRsvpEvents[0].id}" class="btn btn-primary">View Details</a>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title mb-2" th:text="${userRsvpEvents[0].eventName}"></h5>
-                    <h6 class="card-subtitle my-1" th:text="${userRsvpEvents[0].startDate}"></h6>
-                    <p class="card-text" th:text="${userRsvpEvents[0].eventDescription}"></p>
-                    <a th:href="${'/event/'+ userRsvpEvents[0].id}" class="btn btn-primary">View Details</a>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title mb-2" th:text="${userRsvpEvents[0].eventName}"></h5>
-                    <h6 class="card-subtitle my-1" th:text="${userRsvpEvents[0].startDate}"></h6>
-                    <p class="card-text" th:text="${userRsvpEvents[0].eventDescription}"></p>
-                    <a th:href="${'/event/'+ userRsvpEvents[0].id}" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
+        <div th:unless="${userRsvpEvents}" class="text-uppercase d-flex flex-column" >
+            <a th:href="@{/event}">Click Here to Find Events to RSVP to!</a>
         </div>
     </div>
+        <hr>
+        <div>
+            <div th:if="${createdEvents}" class="container d-flex-row">
+                <h1 class="text-uppercase my-5">created event</h1>
+                <section id="createdEvent-cards" class="container d-flex flex-wrap">
+                    <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${createdEvents}">
+
+                        <!--    Image carousel within card-->
+                        <div th:id="carouselExampleIndicators +${event.id}" class=" carousel slide overflow-hidden w-100 mx-auto" data-bs-interval="false">
+                            <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
+                                <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+                                <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+                                <button th:if="${event.eventImages.size() > 2}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+                                <button th:if="${event.eventImages.size() > 3}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+                                <button th:if="${event.eventImages.size() > 4}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                            </div>
+
+                            <!--                Carousel images-->
+                            <div class="carousel-item active ratio ratio-16x9">
+                                <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
+                            </div>
+
+                            <div th:if="${event.eventImages.size() > 1}" class="carousel-item ratio ratio-16x9">
+                                <img th:src="${event.eventImages.get(1).url}" class="d-block w-100" th:alt="${event.eventImages.get(1).imageDescription}">
+                            </div>
+
+                            <div th:if="${event.eventImages.size() > 2}" class="carousel-item ratio ratio-16x9">
+                                <img th:src="${event.eventImages.get(2).url}" class="d-block w-100" th:alt="${event.eventImages.get(2).imageDescription}">
+                            </div>
+
+                            <div th:if="${event.eventImages.size() > 3}" class="carousel-item ratio ratio-16x9">
+                                <img th:src="${event.eventImages.get(3).url}" class="d-block w-100" th:alt="${event.eventImages.get(3).imageDescription}">
+                            </div>
+
+                            <div th:if="${event.eventImages.size() > 4}" class="carousel-item ratio ratio-16x9">
+                                <img th:src="${event.eventImages.get(4).url}" class="d-block w-100" th:alt="${event.eventImages.get(4).imageDescription}">
+                            </div>
+
+                            <!--        Side button functionality-->
+                            <div th:if="${event.eventImages.size() > 1}">
+                                <button class="carousel-control-prev" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+
+                                <button class="carousel-control-next" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                            <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                            <p class="card-text" th:text="${event.eventDescription}"></p>
+                            <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div th:unless="${createdEvents}">
+                <a th:href="@{event/create}">Click Here to Create an Event</a>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <div th:if="${userHobbyEvents}" class="container d-flex-row">
+                <h1 class="text-uppercase my-5">events for you</h1>
+                <section id="event-cards" class="container d-flex flex-wrap">
+                    <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${userHobbyEvents}">
+
+                        <!--    Image carousel within card-->
+                        <div th:id="carouselExampleIndicators +${event.id}" class=" carousel slide overflow-hidden w-100 mx-auto" data-bs-interval="false">
+                            <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
+                                <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+                                <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+                                <button th:if="${event.eventImages.size() > 2}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+                                <button th:if="${event.eventImages.size() > 3}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+                                <button th:if="${event.eventImages.size() > 4}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                            </div>
+
+                            <!--                Carousel images-->
+                            <div class="carousel-item active ratio ratio-16x9">
+                                <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
+                            </div>
+
+                            <div th:if="${event.eventImages.size() > 1}" class="carousel-item ratio ratio-16x9">
+                                <img th:src="${event.eventImages.get(1).url}" class="d-block w-100" th:alt="${event.eventImages.get(1).imageDescription}">
+                            </div>
+
+                            <div th:if="${event.eventImages.size() > 2}" class="carousel-item ratio ratio-16x9">
+                                <img th:src="${event.eventImages.get(2).url}" class="d-block w-100" th:alt="${event.eventImages.get(2).imageDescription}">
+                            </div>
+
+                            <div th:if="${event.eventImages.size() > 3}" class="carousel-item ratio ratio-16x9">
+                                <img th:src="${event.eventImages.get(3).url}" class="d-block w-100" th:alt="${event.eventImages.get(3).imageDescription}">
+                            </div>
+
+                            <div th:if="${event.eventImages.size() > 4}" class="carousel-item ratio ratio-16x9">
+                                <img th:src="${event.eventImages.get(4).url}" class="d-block w-100" th:alt="${event.eventImages.get(4).imageDescription}">
+                            </div>
+
+                            <!--        Side button functionality-->
+                            <div th:if="${event.eventImages.size() > 1}">
+                                <button class="carousel-control-prev" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+
+                                <button class="carousel-control-next" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
+                            <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                            <p class="card-text" th:text="${event.eventDescription}"></p>
+                            <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div th:unless="${userHobbyEvents}">
+            <h1>Add Hobbies to your list to See Events Here!</h1>
+        </div>
+
 </div>
 </body>
 </html>
