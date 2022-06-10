@@ -21,7 +21,7 @@
 <!--        event cards-->
         <div class="main col-9 h-100">
             <section id="event-cards" class="container d-flex flex-wrap">
-                <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${events}">
+                <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${eventsByTitle}">
 
                     <!--    Image carousel within card-->
                     <div th:id="carouselExampleIndicators +${event.id}" class=" carousel slide overflow-hidden w-100 mx-auto" data-bs-interval="false">
