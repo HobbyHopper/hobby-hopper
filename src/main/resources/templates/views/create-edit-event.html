@@ -147,6 +147,16 @@
                            placeholder=""/>
                 </div>
 
+                <!--Creation date (hidden input)-->
+                <input hidden id="current-date-create" name="current-date">
+                <!--script below gets the current date and assigns the value to the element above-->
+                <script>
+					var today = new Date();
+					var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+					let currentDateElement = document.getElementById("current-date-create");
+					currentDateElement.setAttribute("value", date);
+                </script>
+
                 <button type="submit" class="btn btn-success"> Create Event </button>
 
             </form>
@@ -246,6 +256,18 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                 </div>
+
+                <!--Creation date (hidden input)-->
+                <input hidden id="current-date-edit" name="current-date">
+                <!--script below gets the current date and assigns the value to the element above-->
+                <script>
+					var today = new Date();
+					var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+					let currentDateElement = document.getElementById("current-date-edit");
+					currentDateElement.setAttribute("value", date);
+                </script>
+
+
                 <button type="submit" class="btn btn-primary"> Submit Changes </button>
 
             </form>
