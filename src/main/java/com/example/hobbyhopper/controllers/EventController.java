@@ -57,8 +57,11 @@ public class EventController {
         Event event = eventDao.getById(id);
         model.addAttribute("event", event);
 
-        String month = eventService.getMonthString( event.getStartDate().getMonth() + 1 );
-        model.addAttribute("month", month);
+        String startDateMonth = eventService.getMonthString( event.getStartDate().getMonth() + 1 );
+        model.addAttribute("startDateMonth", startDateMonth);
+
+        String endDateMonth = eventService.getMonthString( event.getEndDate().getMonth() + 1 );
+        model.addAttribute("endDateMonth", endDateMonth);
 
         Category category = categoryDao.getById((long) event.getCategoryId());
         model.addAttribute("category", category);

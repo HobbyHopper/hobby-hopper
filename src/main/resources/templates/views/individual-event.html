@@ -87,21 +87,39 @@
                 </div>
 
 
-
-
-        <blockquote class="blockquote">
-            <p>Event starts
-                <!--Day-->
+        <!--date & time format for same day events-->
+        <div>
+            <blockquote class="blockquote">
+                Event starts
+                <!--Start Day-->
                 on <span th:text="${event.startDate.getDay()}"></span>
-                <!--Month-->
-                <span th:text="${month}"></span>
-                <!--Time-->
+                <!--Start Month-->
+                <span th:text="${startDateMonth}"></span>
+                <!--Start Time-->
+                from <span th:text="${EventService.formatTime(event.startTime)}"></span>
+                <!--End Time-->
+                to <span th:text="${EventService.formatTime(event.endTime)}"></span>
+            </blockquote>
+        </div>
+
+        <!--date & time format for multi-day events-->
+        <div th:if="${event.startDate != event.endDate}">
+            <blockquote class="blockquote">
+                Event lasts
+                <!--Start Day-->
+                from <span th:text="${event.startDate.getDay()}"></span>
+                <!--Start Month-->
+                <span th:text="${startDateMonth}"></span>
+                <!--Start Time-->
                 at <span th:text="${EventService.formatTime(event.startTime)}"></span>
-            </p>
-        </blockquote>
-        <blockquote th:if="${event.endDate != null and event.endTime != null}" class="blockquote">
-            <p>Event ends on <span th:text="${event.endDate}"></span> at <span th:text="${EventService.formatTime(event.endTime)}"></span></p>
-        </blockquote>
+                <!--End Day-->
+                to <span th:text="${event.endDate.getDay()}"></span>
+                <!--End Month-->
+                <span th:text="${endDateMonth}"></span>
+                <!--End Time-->
+                at <span th:text="${EventService.formatTime(event.endTime)}"></span>
+            </blockquote>
+        </div>
 
 
         <ul class="list-group list-group-flush">
