@@ -71,11 +71,13 @@ a{
     margin-left: 200px;
 }
 .side-nav{
+    position: fixed;
     min-height: 100%;
     z-index: 1;
     font-size: 25px;
     height: 100%;
     width: 200px;
 }
-.side-nav a:hover{
+.side-nav a:hover {
     color: #818181;
+}
