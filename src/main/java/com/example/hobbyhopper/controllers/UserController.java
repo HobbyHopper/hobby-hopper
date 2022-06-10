@@ -48,7 +48,7 @@ public class UserController {
         List<Event> userRsvpEvents= new ArrayList<>();
         List<UserEvent> isOwnerUserEvents= userEventDao.findAllByUserAndIsOwner(user,true);
         List<UserEvent> isNotOwnerUserEvents=userEventDao.findAllByUserAndIsOwner(user,false);
-        if(isOwnerUserEvents!=null){
+        if(isOwnerUserEvents.size()!=0){
             for (UserEvent userEvent:isOwnerUserEvents){
              Event userCreatedEvent= eventDao.findByUserEvents(userEvent);
              createdEvents.add(userCreatedEvent);
@@ -58,7 +58,7 @@ public class UserController {
             }
          model.addAttribute("createdEvents",createdEvents);
         }
-        if(isNotOwnerUserEvents!=null) {
+        if(isNotOwnerUserEvents.size()!=0) {
             for (UserEvent userEvent : isNotOwnerUserEvents) {
                 Event userRsvpEvent = eventDao.findByUserEvents(userEvent);
                 userRsvpEvents.add(userRsvpEvent);
