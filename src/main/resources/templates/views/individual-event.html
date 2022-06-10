@@ -22,7 +22,7 @@
     <!--Event Details Card-->
     <div class="card mx-auto text-center" style="width: 80rem;">
 
-        <!--Event name-->
+        <!--Event name & description-->
         <h2 class="card-title m-1"> <span th:text="${event.eventName}"></span> </h2>
         <div class="card-body">
             <p class="card-text" th:text="${event.eventDescription}"></p>
@@ -36,7 +36,7 @@
 
         <!--if event has images, display carousel below-->
             <!--Image carousel-->
-            <div th:if="${images.size() > 0}" id="carouselExampleIndicators" class="carousel slide w-50 mx-auto" data-bs-ride="true">
+            <div th:if="${images.size() > 0}" id="carouselExampleIndicators" class="carousel carousel-fade slide w-50 mx-auto" data-bs-ride="true">
 
                     <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -162,9 +162,6 @@
                 </ul>
             </div>
 
-
-
-
             <!--Report Button-->
             <form th:action="@{/event/report}" method="post">
                 <input hidden th:value="${event.id}" name="event-id">
@@ -214,7 +211,7 @@
     <script th:src="@{/js/mapbox-geocoder-utils.js}"></script>
     <script th:src="@{/js/mapbox.js}"></script>
 
-    <!--Script that centers map and adds marker on event address-->
+    <!--script that centers map and adds marker on event address-->
     <script>
         "use strict";
 
