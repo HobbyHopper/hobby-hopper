@@ -98,6 +98,10 @@ public class EventController {
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getById(userAccess.getId());
         Event event = eventDao.getById(id);
+        List<Image> images = event.getEventImages();
+        if (images != null) {
+            model.addAttribute("images", images);
+        }
         UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
         if (userEvent != null) {
             model.addAttribute("event", event);
@@ -129,9 +133,21 @@ public class EventController {
         return "redirect:/event/" + event.getId();
     }
 
+    @PostMapping("/delete-image")
+    public String deleteImage(@RequestParam(name="id") long id, Model model){
+        Image image = imageDao.getById(id);
+        Event event = image.getEvent();
+
+        model.addAttribute("event", event);
+
+        imageDao.deleteById(id);
+
+        return "redirect:/event/edit/" + event.getId();
+    }
+
 
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId){
+    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images") List<String> imageUrl){
         User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Event myEvent= eventDao.save(event);
         UserEvent userEvent=new UserEvent(expertiseDao.getById(expertiseId));
@@ -139,10 +155,24 @@ public class EventController {
         userEvent.setEvent(myEvent);
         userEvent.setOwner(true);
 
+        List<Image> eventImages = event.getEventImages();
+        List<Image> imageList = new ArrayList<>();
+
         userEventDao.save(userEvent);
 
-        return "redirect:/event/"+event.getId();
 
+        if(event.getEventImages() == null){
+            eventImages = imageList;
+        }
+        for(String url: imageUrl){
+            Image image = new Image(url, event);
+            eventImages.add(image);
+        }
+        event.setEventImages(eventImages);
+
+        eventDao.save(event);
+
+        return "redirect:/event/"+event.getId();
     }
 
     @PostMapping("/rsvp")
