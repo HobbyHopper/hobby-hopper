@@ -15,37 +15,6 @@
     <div th:replace="partials/partials.html :: header"></div>
 
 
-
-
-        <div class="card mx-auto text-center" style="width: 80rem;">
-
-            <!--Image carousel-->
-            <div id="carouselExampleIndicators" class="carousel slide w-75 mx-auto" data-bs-ride="true">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://www.runtastic.com/blog/wp-content/uploads/2021/05/rfto_blog_streak-running_thumbnail_1200x800.jpg" class="d-block w-100" alt="...">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
             <!--End of image carousel-->
 
             <!--Create Event Form-->
@@ -142,13 +111,12 @@
                 </ul>
                 <!--Image input-->
                 <div class="form-outline mt-3">
-                    <button type="button" class="form-control form-control-lg picker">Upload images</button>
-                    <input type="hidden" id="edit-image" class="form-control form-control-lg image"
-                           placeholder=""/>
+                    <button type="button" class="form-control form-control-lg picker">Upload image</button>
+                    <div id="image-url"></div>
                 </div>
 
                 <!--Creation date (hidden input)-->
-                <input hidden id="current-date-create" name="current-date">
+                <input hidden id="current-date-create" name="current-date" th:field="*{createdEvent}">
                 <!--script below gets the current date and assigns the value to the element above-->
                 <script>
 					var today = new Date();
@@ -165,10 +133,93 @@
 
 
             <!--Edit Form-->
+    <div class="card-body" th:object="${event}" th:if="*{id != null}">
+        <div class="card mx-auto text-center" style="width: 80rem;">
 
-            <form th:object="${event}" th:if="*{id != null}"  id="edit-event" th:action="@{/event/edit/{id}(id=${event.getId()})}" method="POST">
+            <div th:if="${images.size() > 0}" id="carouselExampleIndicators" class="carousel slide w-50 mx-auto" data-bs-ride="true">
 
-                <div class="card-body">
+                <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+                    <button th:if="${event.eventImages.size() > 2}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+                    <button th:if="${event.eventImages.size() > 3}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+                    <button th:if="${event.eventImages.size() > 4}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                </div>
+
+                <!--Images from the database-->
+
+                <div class="carousel-item active ratio ratio-16x9">
+                    <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <form th:action="@{/event/delete-image}" method="post">
+                            <input type="hidden" th:value="${event.eventImages.get(0).id}" name="id">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div th:if="${event.eventImages.size() > 1}" class="carousel-item ratio ratio-16x9">
+                    <img th:src="${event.eventImages.get(1).url}" class="d-block w-100" th:alt="${event.eventImages.get(1).imageDescription}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <form th:action="@{/event/delete-image}" method="post">
+                            <input type="hidden" th:value="${event.eventImages.get(1).id}" name="id">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div th:if="${event.eventImages.size() > 2}" class="carousel-item ratio ratio-16x9">
+                    <img th:src="${event.eventImages.get(2).url}" class="d-block w-100" th:alt="${event.eventImages.get(2).imageDescription}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <form th:action="@{/event/delete-image}" method="post">
+                            <input type="hidden" th:value="${event.eventImages.get(2).id}" name="id">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div th:if="${event.eventImages.size() > 3}" class="carousel-item ratio ratio-16x9">
+                    <img th:src="${event.eventImages.get(3).url}" class="d-block w-100" th:alt="${event.eventImages.get(3).imageDescription}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <form th:action="@{/event/delete-image}" method="post">
+                            <input type="hidden" th:value="${event.eventImages.get(3).id}" name="id">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div th:if="${event.eventImages.size() > 4}" class="carousel-item ratio ratio-16x9">
+                    <img th:src="${event.eventImages.get(4).url}" class="d-block w-100" th:alt="${event.eventImages.get(4).imageDescription}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <form th:action="@{/event/delete-image}" method="post">
+                            <input type="hidden" th:value="${event.eventImages.get(4).id}" name="id">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!--Carousel navigation buttons-->
+                <div th:if="${event.eventImages.size() > 1}">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <form id="edit-event" th:action="@{/event/edit/{id}(id=${event.getId()})}" method="POST">
+
+
 
                     <!--Event name (edit)-->
                     <div class="mb-3">
@@ -180,8 +231,6 @@
                     <div class="mb-3">
                         <label for="Description">Description</label><textarea class="form-control" id="edit-description" rows="3" placeholder="Event description. You may include details such as equipment necessary, weather considerations, and any other relevant information to the event." th:field="*{eventDescription}"></textarea>
                     </div>
-
-                </div>
 
 
                 <ul class="list-group list-group-flush">
@@ -254,15 +303,16 @@
                     <div id="image-url"></div>
                 </div>
 
+
                 <div class="d-flex justify-content-between align-items-center">
                 </div>
 
                 <!--Creation date (hidden input)-->
-                <input hidden id="current-date-edit" name="current-date">
+                <input hidden id="current-date-edit" name="current-date" th:field="*{updatedEvent}">
                 <!--script below gets the current date and assigns the value to the element above-->
                 <script>
-					var today = new Date();
-					var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+					let today = new Date();
+					let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 					let currentDateElementForEditEvent = document.getElementById("current-date-edit");
 					currentDateElementForEditEvent.setAttribute("value", date);
                 </script>
