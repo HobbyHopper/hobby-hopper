@@ -1,10 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="partials/partials.html :: head ('Login')" ></head>
 <body>
+
+<nav th:replace="partials/partials.html :: navbar" ></nav>
+
+<section class="vh-100">
+    <div class="container h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5 text-center mb-md-5 mb-lg-5 mb-xl-5">
+                <img th:src="@{/images/logo.png}"
+                     class="img-fluid" alt="HobbyHopper Logo">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <h2>Log in</h2>
+                <form th:action="@{/login}" method="POST">
+                    <div th:if="${param.error}">
+                        Invalid Username or Password.
+                    </div>
+                    <div th:if="${param.logout}">
+                        You have been logged out.
+                    </div>
+                    <!--                     Username input -->
+                    <div class="form-outline">
+                        <input type="text" id="username" class="form-control form-control-lg"
+                               placeholder="Enter a valid user name" name="username"/>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mt-3">
+                        <input type="password" id="password" class="form-control form-control-lg"
+                               placeholder="Enter password" name="password"/>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <input type="submit" value="Login" class="btn btn-primary btn-lg"
+                               style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:replace="partials/partials.html :: bootstrap-js" ></script>
+<script th:replace="partials/partials.html :: file-stack" ></script>
+<script th:replace="partials/partials.html :: file-js" ></script>
+<script th:replace="partials/partials.html :: map-js" ></script>
+<script th:replace="partials/partials.html :: keys-js" ></script>
+<script th:replace="partials/partials.html :: environment-keys" ></script>
 
 </body>
 </html>
