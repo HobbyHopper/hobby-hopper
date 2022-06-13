@@ -202,7 +202,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String showLogin(){
-        return "partials/partials";
+        return "views/login";
     }
 }
 
