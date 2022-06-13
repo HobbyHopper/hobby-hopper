@@ -12,6 +12,8 @@ public interface UserEventRepository extends JpaRepository<UserEvent,Long> {
 
     UserEvent findByEventAndUserAndIsOwner(Event event, User user, boolean isOwner);
 
+    UserEvent findByEventAndUserAndIsOwnerFalse(Event event, User user);
+
     List<UserEvent> findAllByUserAndIsOwner(User user,Boolean isOwner);
 
     UserEvent findByUser(User user);

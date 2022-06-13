@@ -28,6 +28,11 @@
             <p class="card-text" th:text="${event.eventDescription}"></p>
         </div>
 
+        <!--User has RSVP'd message-->
+        <div th:if="${userHasRSVPd != null}" class="alert alert-success" role="alert">
+            You have RSVP'd to this event!
+        </div>
+
         <!--if event has no images, display hard-coded image below-->
 
         <div th:if="${images.size() == 0}">
@@ -131,7 +136,7 @@
         <div class="card-body">
 
             <!--RSVP Button-->
-            <div sec:authorize="isAuthenticated()" th:if="${event.rsvpAble and userIsOwner==null}" class="dropdown">
+            <div sec:authorize="isAuthenticated()" th:if="${event.rsvpAble and userIsOwner==null and userHasRSVPd == null}" class="dropdown">
                 <div class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     RSVP
                 </div>
