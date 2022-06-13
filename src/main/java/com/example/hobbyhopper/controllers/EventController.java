@@ -155,11 +155,11 @@ public class EventController {
         userEvent.setUser(user);
         userEvent.setEvent(myEvent);
         userEvent.setOwner(true);
+        userEventDao.save(userEvent);
 
         List<Image> eventImages = event.getEventImages();
         List<Image> imageList = new ArrayList<>();
 
-        userEventDao.save(userEvent);
 
 
         if(event.getEventImages() == null){
