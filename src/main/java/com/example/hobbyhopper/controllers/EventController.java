@@ -67,13 +67,16 @@ public class EventController {
         Category category = categoryDao.getById((long) event.getCategoryId());
         model.addAttribute("category", category);
 
+        //if user is logged in...
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser"){
             User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = userDao.getById(userAccess.getId());
             UserEvent userIsOwner = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
-            if (userIsOwner != null) {
-                model.addAttribute("userIsOwner", userIsOwner);
-            }
+            UserEvent userHasRSVPd = userEventDao.findByEventAndUserAndIsOwnerFalse(event, user);
+            //if user is owner of event, add model attribute
+            if (userIsOwner != null) model.addAttribute("userIsOwner", userIsOwner);
+            //if user is not owner and user is rsvp'd to the event, add model attribute
+            if (userIsOwner == null && userHasRSVPd != null) model.addAttribute("userHasRSVPd", userHasRSVPd);
         }
 
         List<Image> images = event.getEventImages();
