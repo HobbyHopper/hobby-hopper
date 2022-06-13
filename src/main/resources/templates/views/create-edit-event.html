@@ -78,6 +78,31 @@
                         </select>
                     </li>
 
+                    <!--Hobbies (create)-->
+<!--                    <div th:if="${userHobbies != null}" class="dropdown-check-list">-->
+<!--&lt;!&ndash;                        <button class="btn btn-secondary dropdown-toggle" type="button" id="hobbiesDropdown" data-bs-toggle="dropdown" aria-expanded="false">&ndash;&gt;-->
+<!--&lt;!&ndash;                            Hobbies&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--                        <span class="anchor">Hobbies</span>-->
+<!--                        <ul class="dropdown-menu items" aria-labelledby="dropdownMenuButton1">-->
+<!--                            <li th:each="hobby : ${userHobbies}">-->
+<!--                                <div class="form-check">-->
+<!--                                    <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}" th:id="${hobby.hobbyName}">-->
+<!--                                    <label th:text="${hobby.hobbyName}" class="form-check-label" th:for="${hobby.hobbyName}"></label>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+
+                    <label for="hobbies">Hobbies</label>
+                    <div id="hobbies" class="container d-flex">
+                        <div th:each="hobby : ${userHobbies}" class="form-check">
+                            <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}" id="flexCheckDefault">
+                            <label th:text="${hobby.hobbyName}" class="form-check-label" for="flexCheckDefault"></label>
+                        </div>
+                    </div>
+
+
                     <!--Reference URL (create)-->
                     <label for="ref-url">Reference URL</label>
                     <input type="url" name="ref-url" id="ref-url" th:field="*{referenceUrl}">

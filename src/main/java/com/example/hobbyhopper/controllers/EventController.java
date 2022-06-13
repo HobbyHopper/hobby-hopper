@@ -89,6 +89,16 @@ public class EventController {
 
     @GetMapping("/create-edit-event")
     public String showCreateForm(Model model) {
+        User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userDao.getById(userAccess.getId());
+
+        System.out.println(userAccess.getId());
+
+        List<Hobby> userHobbies = user.getUserHobbies();
+
+        model.addAttribute("userHobbies", userHobbies);
+
         model.addAttribute("event", new Event());
 
         return "views/create-edit-event";
@@ -148,19 +158,29 @@ public class EventController {
 
 
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images") List<String> imageUrl){
-        User user=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images") List<String> imageUrl, @RequestParam(name="hobbies") List<Long> hobbyIds){
+        User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User user = userDao.getById(userAccess.getId());
+
         Event myEvent= eventDao.save(event);
+
         UserEvent userEvent=new UserEvent(expertiseDao.getById(expertiseId));
         userEvent.setUser(user);
         userEvent.setEvent(myEvent);
         userEvent.setOwner(true);
         userEventDao.save(userEvent);
 
+        List<Hobby> eventHobbies = new ArrayList<>();
+
+        for (long hobbyId : hobbyIds) {
+            Hobby hobby = hobbyDao.getById(hobbyId);
+            eventHobbies.add(hobby);
+        }
+        event.setEventHobbies(eventHobbies);
+
         List<Image> eventImages = event.getEventImages();
         List<Image> imageList = new ArrayList<>();
-
-
 
         if(event.getEventImages() == null){
             eventImages = imageList;
