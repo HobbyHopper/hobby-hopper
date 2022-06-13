@@ -17,6 +17,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -104,7 +105,7 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public String saveUser(@Valid @ModelAttribute User user, BindingResult validation, Model model) {
+    public String saveUser(@Valid @ModelAttribute User user, BindingResult validation, Model model, @RequestParam(name="images") String images) {
 
         if(userDao.existsByUsername(user.getUsername()) || userDao.existsByEmail(user.getEmail())){
             validation.addError(new FieldError("user", "username", "Username or email is taken"));
@@ -129,6 +130,7 @@ public class UserController {
             return "views/sign-up";
         }
 
+        user.setImage(images);
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         userDao.save(user);
@@ -144,13 +146,13 @@ public class UserController {
     }
 
     @PostMapping("/user/update")
-    public String updateTheForm(@Valid @ModelAttribute User user, BindingResult validation, Model model, HttpSession session){
+    public String updateTheForm(@Valid @ModelAttribute User user, BindingResult validation, Model model, HttpSession session, @RequestParam(name="images") String images){
         User userInfoPull = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User editUser = userDao.getById(userInfoPull.getId());
 
         editUser.setUsername(user.getUsername());
         editUser.setEmail(user.getEmail());
-        editUser.setImage(user.getImage());
+        editUser.setImage(images);
         editUser.setLocation(user.getLocation());
         String hash = passwordEncoder.encode(user.getPassword());
         editUser.setPassword(hash);
