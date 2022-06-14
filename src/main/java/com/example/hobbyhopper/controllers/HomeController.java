@@ -13,4 +13,9 @@ public class HomeController {
         return "views/landing";
     }
 
+    @GetMapping("about")
+    public String aboutUsPage(){
+        return "views/about";
+    }
+
 }

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="partials/partials.html :: head ('About Us')"></head>
+<body>
+    <nav th:replace="partials/partials.html :: navbar"></nav>
+<!--    Banner-->
+    <div class="mini-jumbo1 container-fluid bg-dark py-5 px-4 my-5 text-center text-white">
+        <h1 class="display-4 fw-bolder">Meet Our Team</h1>
+<!--        <p class="lead fw-normal text-white-50 mb-0">Find Your Fun</p>-->
+    </div>
+<!--    Mo's about section-->
+    <div class="social-container mb-4">
+        <section>
+            <div class="circle-container px-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="p-5"><img class="img-fluid rounded-circle" th:src="@{/images/mo-headshot.jpg}"></div>
+                    </div>
+
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="p-5">
+                            <h2 class="display-4">Estebahn "Mo" Molina</h2>
+                            <div class="socials">
+                                <a class="btn btn-outline-dark btn-floating m-1 px-3" role="button" href="https://alumni.codeup.com/students/1515">
+                                    <i class="fa-solid fa-info"></i>
+                                </a>
+                                <a class="btn btn-floating btn-outline-dark m-1" role="button" href="https://www.linkedin.com/in/estebahn-molina/">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                                <a class="btn btn-outline-dark btn-floating m-1" role="button" href="https://github.com/M-Estebahn">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <!--    Kaylah's about section-->
+        <section>
+            <div class="circle-container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div><img class="img-fluid rounded-circle" th:src="@{/images/kaylah-headshot.jpg}"></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <h2 class="display-4">Kaylah Andrews</h2>
+                            <div class="socials">
+                                <a class="btn btn-outline-dark btn-floating m-1 px-3" role="button" href="https://alumni.codeup.com/students/1524">
+                                    <i class="fa-solid fa-info"></i>
+                                </a>
+                                <a class="btn btn-floating btn-outline-dark m-1" role="button" href="https://www.linkedin.com/in/kaylah-andrews8/">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                                <a class="btn btn-outline-dark btn-floating m-1" role="button" href="https://github.com/kayandrews8">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <!--    Shaz's about section-->
+        <section>
+            <div class="circle-container px-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 order-lg-2">
+                        <div class="p-5"><img class="img-fluid rounded-circle" th:src="@{/images/shaz-headshot.png}"></div>
+                    </div>
+
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="p-5">
+                            <h2 class="display-4">Shaz Soto-Munet</h2>
+                            <div class="socials">
+                                <a class="btn btn-outline-dark btn-floating m-1 px-3" role="button" href="https://alumni.codeup.com/students/1522">
+                                    <i class="fa-solid fa-info"></i>
+                                </a>
+                                <a class="btn btn-floating btn-outline-dark m-1" role="button" href="https://www.linkedin.com/in/shazsotomunet/">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                                <a class="btn btn-outline-dark btn-floating m-1" role="button" href="https://github.com/Shaz-Soto-Munet">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <!--    Will's about section-->
+        <section>
+            <div class="circle-container px-5">
+                <div class="row gx-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div><img class="img-fluid rounded-circle" th:src="@{/images/will-headshot.jpg}"></div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <h2 class="display-4">William Mejia</h2>
+                            <div class="socials">
+                                <a class="btn btn-outline-dark btn-floating m-1 px-3" role="button" href="https://alumni.codeup.com/students/1521">
+                                    <i class="fa-solid fa-info"></i>
+                                </a>
+                                <a class="btn btn-floating btn-outline-dark m-1" role="button" href="https://www.linkedin.com/in/william-mejiadiaz/">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                                <a class="btn btn-outline-dark btn-floating m-1" role="button" href="https://github.com/williamxmejia">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer th:replace="partials/partials.html :: footer"></footer>
+    <div th:replace="partials/partials.html :: bootstrap-js"></div>
+</body>
+</html>

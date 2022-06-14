@@ -37,6 +37,9 @@
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" th:href="@{/user/update}">Update personal information</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/about}">About Us</a>
+                </li>
             </ul>
 
             <form class="d-flex" action="/event/search" method="get">
@@ -68,7 +71,7 @@
     <footer th:fragment="" class="bg-dark text-center text-white py-3">
         <div class="container-fluid p-4 mb-0">
 <!--            Social media links-->
-            <div id="socials" class="mb-4">
+            <div class="socials mb-4">
                 <a class="btn btn-outline-light btn-floating m-1" role="button" href="#">
                     <i class="fa-brands fa-facebook"></i>
                 </a>
@@ -82,10 +85,6 @@
                     <i class="fa-brands fa-github"></i>
                 </a>
             </div>
-<!--                Copyright-->
-                <div class="text-center p-4 mb-0" style="background-color: rgba(0, 0, 0, 0.2)">
-                    © 2022 Copyright:
-                </div>
         </div>
     </footer>
 
