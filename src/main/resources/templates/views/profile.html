@@ -97,6 +97,12 @@
     </div>
         <hr>
         <div>
+            <div th:if="${userHobbies.size()>0}"  class="container-fluid d-flex flex-wrap">
+                <h1>Here are your Hobbies</h1>
+                <ul th:each="hobby:${userHobbies}">
+                <li><a th:href="@{/event/search?search={name}(name=${hobby.hobbyName})}"><span th:text="${hobby.hobbyName}"></span></a><a th:href="@{user/delete-hobby/{id}(id=${hobby.id})}">Delete</a></li>
+                </ul>
+            </div>
             <div th:if="${createdEvents}" class="container d-flex-row">
                 <h1 class="text-uppercase my-5">created event</h1>
                 <section id="createdEvent-cards" class="container d-flex flex-wrap">
