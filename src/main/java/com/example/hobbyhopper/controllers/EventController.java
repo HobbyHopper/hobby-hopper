@@ -127,7 +127,7 @@ public class EventController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updatePost(@RequestParam(name="images") List<String> imageUrl, @PathVariable long id, @ModelAttribute Event event){
+    public String updatePost(@RequestParam(name="images", required = false) List<String> imageUrl, @PathVariable long id, @ModelAttribute Event event){
         List<Image> imageList = new ArrayList<>();
         List<Image> eventImages = event.getEventImages();
 
@@ -161,7 +161,7 @@ public class EventController {
 
 
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images") List<String> imageUrl, @RequestParam(name="hobbies") List<Long> hobbyIds){
+    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images", required = false) List<String> imageUrl, @RequestParam(name="hobbies") List<Long> hobbyIds){
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userDao.getById(userAccess.getId());

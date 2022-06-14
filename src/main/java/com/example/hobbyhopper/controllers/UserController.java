@@ -105,7 +105,7 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public String saveUser(@Valid @ModelAttribute User user, BindingResult validation, Model model, @RequestParam(name="images") String images) {
+    public String saveUser(@Valid @ModelAttribute User user, BindingResult validation, Model model, @RequestParam(name="images", required = false) String images) {
 
         if(userDao.existsByUsername(user.getUsername()) || userDao.existsByEmail(user.getEmail())){
             validation.addError(new FieldError("user", "username", "Username or email is taken"));
@@ -146,7 +146,7 @@ public class UserController {
     }
 
     @PostMapping("/user/update")
-    public String updateTheForm(@Valid @ModelAttribute User user, BindingResult validation, Model model, HttpSession session, @RequestParam(name="images") String images){
+    public String updateTheForm(@Valid @ModelAttribute User user, BindingResult validation, Model model, HttpSession session, @RequestParam(name="images", required = false) String images){
         User userInfoPull = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User editUser = userDao.getById(userInfoPull.getId());
 
