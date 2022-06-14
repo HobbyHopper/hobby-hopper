@@ -14,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -45,10 +42,18 @@ public class UserController {
     public String showProfile(Model model){
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getById(userAccess.getId());
+        List<Hobby> userHobbies= new ArrayList<>();
         List<Event> createdEvents= new ArrayList<>();
         List<Event> userRsvpEvents= new ArrayList<>();
         List<UserEvent> isOwnerUserEvents= userEventDao.findAllByUserAndIsOwner(user,true);
         List<UserEvent> isNotOwnerUserEvents=userEventDao.findAllByUserAndIsOwner(user,false);
+
+        if (user.getUserHobbies()!=null){
+            userHobbies=user.getUserHobbies();
+        }
+        model.addAttribute("userHobbies",userHobbies);
+
+
         if(isOwnerUserEvents.size()!=0){
             for (UserEvent userEvent:isOwnerUserEvents){
              Event userCreatedEvent= eventDao.findByUserEvents(userEvent);
@@ -203,6 +208,18 @@ public class UserController {
     @GetMapping("/login")
     public String showLogin(){
         return "views/login";
+    }
+
+    @GetMapping("user/delete-hobby/{id}")
+    public String deleteUserHobby(@PathVariable long id){
+        User userAccess=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user= userDao.getById(userAccess.getId());
+        List <Hobby> userHobbies= user.getUserHobbies();
+
+        userHobbies.removeIf(hobby -> hobby.getId() == id);
+        user.setUserHobbies(userHobbies);
+        userDao.save(user);
+        return "redirect:/profile";
     }
 }
 
