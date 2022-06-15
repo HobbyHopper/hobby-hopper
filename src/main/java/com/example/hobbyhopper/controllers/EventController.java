@@ -48,7 +48,7 @@ public class EventController {
             model.addAttribute("events", events);
         }
 
-        return "views/index";
+        return "/views/index";
     }
 
     @GetMapping("/{id}")
