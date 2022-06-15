@@ -29,7 +29,7 @@
 
 
                     <!--Images Column (create)-->
-                    <div class="w-100 px-5 py-3">
+                    <div class="w-100 px-5 py-3 bg-secondary">
 
                         <!--Image input (create)-->
                         <div class="form-outline mt-3">
@@ -122,12 +122,12 @@
 
                 <!--Event details [category, hobbies, public, etc] (create)-->
 
-                <h3 class="text-center"> Event Details: </h3>
+                <h3 class="text-center my-3"> Event Details: </h3>
 
                 <div class="d-flex">
 
-                    <!--Event details, column 1: category, hobbies, expertise, reference URL-->
-                    <div>
+                    <!--Event details, Column 1: category, hobbies, and expertise-->
+                    <div class="w-100 px-3 text-center">
 
                         <!--Category (create)-->
                         <div>
@@ -169,20 +169,17 @@
                             </select>
                         </div>
 
-                        <!--Reference URL (create)-->
-                        <label for="ref-url">Reference URL</label>
-                        <input type="url" name="ref-url" id="ref-url" th:field="*{referenceUrl}">
+
 
                     <!--*** end of column 1 *** (create)-->
                     </div>
 
 
-
-                    <!--Event details, column 2: public, age, RSVPable-->
-                    <div>
+                    <!--Event details, Column 2: public, age, RSVPable-->
+                    <div class="d-flex flex-column w-100 px-3 mt-3">
 
                         <!--Is it public? (create)-->
-                        <div>
+                        <div class="mb-3">
                             <label for="public">
                                 Would you like your event to be visible to non-registered users?
                             </label>
@@ -190,7 +187,7 @@
                         </div>
 
                         <!--RSVPable (create)-->
-                        <div>
+                        <div class="mb-3">
                             <label for="rsvp">
                                 Would you like users to RSVP?
                             </label>
@@ -198,11 +195,17 @@
                         </div>
 
                         <!--Age Restriction (create)-->
-                        <div>
+                        <div class="mb-3">
                             <label for="age">
                                 Would you like your event to be visible only to registered users that are older than 18?
                             </label>
                             <input type="checkbox" id="age" name="age-restriction" th:field="*{ageRestricted}">
+                        </div>
+
+                        <!--Reference URL (create)-->
+                        <label class="text-center" for="ref-url">Reference URL</label>
+                        <div>
+                            <input class="w-100 mb-3" type="url" name="ref-url" id="ref-url" th:field="*{referenceUrl}">
                         </div>
 
                     </div>
@@ -222,8 +225,11 @@
                     currentDateElementForCreateEvent.setAttribute("value", date);
                 </script>
 
-                <button type="submit" class="btn btn-success"> Create Event </button>
-
+                <div class="d-flex justify-content-center mb-1">
+                    <button type="submit" class="btn btn-success">
+                        Create Event
+                    </button>
+                </div>
                 <!--script below stops form from submitting if required fields are empty-->
                 <script>
                     (() => {
