@@ -6,15 +6,15 @@
 
 <nav th:replace="partials/partials.html :: navbar" ></nav>
 
-<section>
-    <div class="container">
+<section class="vh-100">
+    <div class="container h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5 text-center mb-md-5 mb-lg-5 mb-xl-5">
                 <img th:src="@{/images/logo.png}"
                      class="img-fluid" alt="HobbyHopper Logo">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <h2>Log in</h2>
+                <h2 class="text-center">Log in</h2>
                 <form th:action="@{/login}" method="POST">
                     <div th:if="${param.error}">
                         Invalid Username or Password.
