@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/event")
+@RequestMapping("event")
 public class EventController {
     private final EventRepository eventDao;
     private final UserRepository userDao;
