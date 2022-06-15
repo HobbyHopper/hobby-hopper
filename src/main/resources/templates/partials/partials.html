@@ -10,10 +10,7 @@
     <script src="https://kit.fontawesome.com/8de2f0b37b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/landing.css}">
-        <script th:inline="javascript">
-            var FILESTACK_API_TOKEN=[[${@environment.getProperty('filestack.key')}]]
-            var MAPBOX_API_TOKEN=[[${@environment.getProperty('mapbox.key')}]]
-        </script>
+
 </head>
 
 <body>
@@ -94,6 +91,10 @@
 
 <!---->
 <!--this is the script to incorporate bootstrap -->
+<script th:fragment="script-keys" th:inline="javascript">
+    var FILESTACK_API_TOKEN=[[${@environment.getProperty('filestack.key')}]]
+    var MAPBOX_API_TOKEN=[[${@environment.getProperty('mapbox.key')}]]
+</script>
     <script th:fragment="bootstrap-js" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script th:fragment="file-stack" src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
     <script th:fragment="file-js" src="/js/filestack.js"></script>
