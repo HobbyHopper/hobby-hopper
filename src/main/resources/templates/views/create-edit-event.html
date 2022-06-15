@@ -122,7 +122,7 @@
 
                 <!--Event details [category, hobbies, public, etc] (create)-->
 
-                <h4 class="text-center my-3"> Event Details: </h4>
+                <h4 class="text-center mb-3 mt-5"> Event Details: </h4>
 
                 <div class="d-flex">
 
@@ -133,26 +133,23 @@
                         <label for="hobbies" class="form-label">
                             Hobby or hobbies for this event:
                         </label>
-                        <div id="hobbies" class="container d-flex mb-3">
-
+                        <div id="hobbies" class="mb-3">
                             <select class="form-select" multiple size="3" required>
-
-                                <option th:each="hobby : ${userHobbies}" th:text="${hobby.hobbyName}" th:value="${hobby.id}"></option>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please add a hobby or hobbies to your event.
-                                </div>
+                                <option th:each="hobby : ${userHobbies}" th:text="${hobby.hobbyName}" th:value="${hobby.id}" name="hobbies"></option>
                             </select>
-
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please select at least one hobby for your event.
+                            </div>
                         </div>
 
                         <!--Category (create)-->
                         <div class="mb-3">
                             <label for="categories" class="form-label">Category</label>
                             <select id="categories" class="form-select" th:field="*{categoryId}" required>
-                                <option selected disabled th:value="0">Select a category...</option>
+                                <option disabled value="0" name="category">Select a category...</option>
                                 <option name="category" value="1">Indoor</option>
                                 <option name="category" value="2">Outdoor</option>
                             </select>
@@ -160,19 +157,25 @@
                                 Looks good!
                             </div>
                             <div class="invalid-feedback">
-                                Please add a category for your event.
+                                Please select a category for your event.
                             </div>
                         </div>
 
                         <!--Expertise level (create)-->
                         <div>
-                            <label for="expertise">Expertise</label>
-                            <select id="expertise" name="expertise" class="form-select">
-                                <option selected disabled value="5">Select your level of expertise...</option>
-                                <option name="expertise" th:value="0">Beginner</option>
+                            <label for="expertise" class="form-label">Expertise</label>
+                            <select id="expertise" name="expertise" class="form-select" required>
+                                <option selected disabled value="0" name="expertise">Select your level of expertise...</option>
+                                <option name="expertise" value="1">Beginner</option>
                                 <option name="expertise" value="2">Intermediate</option>
                                 <option name="expertise" value="3">Advanced</option>
                             </select>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                Please select your expertise for your event.
+                            </div>
                         </div>
 
 
