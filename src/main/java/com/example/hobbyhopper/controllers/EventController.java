@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/event")
+@RequestMapping("event")
 public class EventController {
     private final EventRepository eventDao;
     private final UserRepository userDao;
@@ -48,7 +48,7 @@ public class EventController {
             model.addAttribute("events", events);
         }
 
-        return "/views/index";
+        return "views/index";
     }
 
     @GetMapping("/{id}")
