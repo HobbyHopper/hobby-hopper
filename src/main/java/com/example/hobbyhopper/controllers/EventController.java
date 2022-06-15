@@ -186,7 +186,7 @@ public class EventController {
         List<Image> imageList = new ArrayList<>();
 
         if(event.getEventImages() == null){
-            eventImages = imageList;
+            return "redirect:/event/create?image";
         }
         for(String url: imageUrl){
             Image image = new Image(url, event);
