@@ -22,14 +22,14 @@
 
                 <h1 class="text-center"> Create Event </h1>
 
-                <h3 class="text-center"> Event Info:</h3>
+                <h4 class="text-center"> Event Info:</h4>
 
                 <!--Flexbox container w/ two columns: Image on the left, Event info on right-->
                 <div class="d-flex justify-content-between">
 
 
                     <!--Images Column (create)-->
-                    <div class="w-100 px-5 py-3 bg-secondary">
+                    <div class="w-100 px-5 py-3 bg-light bg-gradient">
 
                         <!--Image input (create)-->
                         <div class="form-outline mt-3">
@@ -94,7 +94,7 @@
                         </div>
 
                         <!--End date and time (create)-->
-                        <label for="end-date-time"> End Date & Time </label>
+                        <label for="end-date-time"> End Date & Time (optional) </label>
                         <div id="end-date-time" class="d-flex justify-content-center mb-3">
                             <div class="px-1">
                                 <input type="date" id="end-date" name="end-time" class="form-control form-control-lg" placeholder="" th:field="*{endDate}">
@@ -122,17 +122,37 @@
 
                 <!--Event details [category, hobbies, public, etc] (create)-->
 
-                <h3 class="text-center my-3"> Event Details: </h3>
+                <h4 class="text-center my-3"> Event Details: </h4>
 
                 <div class="d-flex">
 
                     <!--Event details, Column 1: category, hobbies, and expertise-->
                     <div class="w-100 px-3 text-center">
 
+                        <!--Hobbies (create)-->
+                        <label for="hobbies" class="form-label">
+                            Hobby or hobbies for this event:
+                        </label>
+                        <div id="hobbies" class="container d-flex mb-3">
+
+                            <select class="form-select" multiple size="3" required>
+
+                                <option th:each="hobby : ${userHobbies}" th:text="${hobby.hobbyName}" th:value="${hobby.id}"></option>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please add a hobby or hobbies to your event.
+                                </div>
+                            </select>
+
+                        </div>
+
                         <!--Category (create)-->
-                        <div>
-                            <label for="categories">Category</label>
-                            <select id="categories" class="form-select form-select-lg" aria-label="Default select example" th:field="*{categoryId}" required>
+                        <div class="mb-3">
+                            <label for="categories" class="form-label">Category</label>
+                            <select id="categories" class="form-select" th:field="*{categoryId}" required>
+                                <option selected disabled th:value="0">Select a category...</option>
                                 <option name="category" value="1">Indoor</option>
                                 <option name="category" value="2">Outdoor</option>
                             </select>
@@ -144,26 +164,12 @@
                             </div>
                         </div>
 
-                        <!--Hobbies (create)-->
-                        <label for="hobbies">Hobbies</label>
-                        <div id="hobbies" class="container d-flex">
-                            <div th:each="hobby : ${userHobbies}" class="form-check">
-                                <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}" id="flexCheckDefault">
-                                <label th:text="${hobby.hobbyName}" class="form-check-label" for="flexCheckDefault"></label>
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Please add a hobby or hobbies to your event.
-                                </div>
-                            </div>
-                        </div>
-
                         <!--Expertise level (create)-->
                         <div>
                             <label for="expertise">Expertise</label>
-                            <select id="expertise" name="expertise" class="form-select form-select-lg">
-                                <option name="expertise" value="1">Beginner</option>
+                            <select id="expertise" name="expertise" class="form-select">
+                                <option selected disabled value="5">Select your level of expertise...</option>
+                                <option name="expertise" th:value="0">Beginner</option>
                                 <option name="expertise" value="2">Intermediate</option>
                                 <option name="expertise" value="3">Advanced</option>
                             </select>
@@ -176,30 +182,31 @@
 
 
                     <!--Event details, Column 2: public, age, RSVPable-->
-                    <div class="d-flex flex-column w-100 px-3 mt-3">
-
-                        <!--Is it public? (create)-->
-                        <div class="mb-3">
-                            <label for="public">
-                                Would you like your event to be visible to non-registered users?
-                            </label>
-                            <input type="checkbox" id="public" name="public" th:field="*{public}">
-                        </div>
+                    <div class="d-flex flex-column w-100 px-3 mt-3 justify-space-between">
 
                         <!--RSVPable (create)-->
-                        <div class="mb-3">
-                            <label for="rsvp">
+                        <div class="mb-3 form-check form-switch form-check-reverse">
+                            <label class="form-check-label" for="rsvp">
                                 Would you like users to RSVP?
                             </label>
-                            <input type="checkbox" id="rsvp" name="rsvp" th:field="*{rsvpAble}">
+                            <input class="form-check-input" type="checkbox" role="switch" id="rsvp" name="rsvp" th:field="*{rsvpAble}" th:checked="flag">
                         </div>
 
+                        <!--Is it public? (create)-->
+                        <div class="mb-3 form-check form-switch form-check-reverse">
+                            <label class="form-check-label" for="public">
+                                Would you like your event to be visible to non-registered users?
+                            </label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="public" name="public" th:field="*{public}">
+                        </div>
+
+
                         <!--Age Restriction (create)-->
-                        <div class="mb-3">
-                            <label for="age">
+                        <div class="mb-3 form-check form-switch form-check-reverse">
+                            <label class="form-check-label" for="age">
                                 Would you like your event to be visible only to registered users that are older than 18?
                             </label>
-                            <input type="checkbox" id="age" name="age-restriction" th:field="*{ageRestricted}">
+                            <input class="form-check-input" type="checkbox" role="switch" id="age" name="age-restriction" th:field="*{ageRestricted}">
                         </div>
 
                         <!--Reference URL (create)-->
@@ -225,7 +232,7 @@
                     currentDateElementForCreateEvent.setAttribute("value", date);
                 </script>
 
-                <div class="d-flex justify-content-center mb-1">
+                <div class="d-flex justify-content-center mb-3 mt-5">
                     <button type="submit" class="btn btn-success">
                         Create Event
                     </button>
