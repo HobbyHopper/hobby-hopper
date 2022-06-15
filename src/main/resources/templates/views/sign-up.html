@@ -6,53 +6,61 @@
 
 <nav th:replace="partials/partials.html :: navbar" ></nav>
 
-<section class="vh-100">
+<section>
     <div class="container h-custom">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5 text-center mb-md-5 mb-lg-5 mb-xl-5">
                 <img th:src="@{/images/logo.png}"
                      class="img-fluid" alt="HobbyHopper Logo">
             </div>
+
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <form th:action="@{'/sign-up?error'}" method="POST" th:object="${user}">
+                    <h2>Sign up</h2>
                     <ul>
                         <li th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></li>
                         <li th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>
                         <li th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></li>
                         <li th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}"></li>
                     </ul>
-<!--                     Username input -->
+                    <!--                     Username input -->
                     <div class="form-outline">
+                        <label for="username">Username</label>
                         <input type="text" id="username" class="form-control form-control-lg"
                                placeholder="Enter a valid user name" th:field="*{username}"/>
                     </div>
 
                     <!-- Email input -->
                     <div class="form-outline mt-3">
+                        <label for="email">Email</label>
                         <input type="email" id="email" class="form-control form-control-lg"
                                placeholder="Enter email" th:field="*{email}"/>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mt-3">
+                        <label for="password">Password</label>
                         <input type="password" id="password" class="form-control form-control-lg"
                                placeholder="Enter password" th:field="*{password}"/>
                     </div>
 
                     <!-- Confirm password input -->
                     <div class="form-outline mt-3">
+                        <label for="confirm">Confirm password</label>
                         <input type="password" id="confirm" class="form-control form-control-lg"
                                placeholder="Confirm password" th:field="*{confirm}"/>
                     </div>
 
                     <!-- location input -->
                     <div class="form-outline mt-3">
+                        <label for="location">Location</label>
                         <input type="text" id="location" class="form-control form-control-lg"
                                placeholder="Enter location" th:field="*{location}"/>
                     </div>
 
                     <!-- DOB input -->
                     <div class="form-outline mt-3">
+                        <label for="dob">Date of birth</label>
                         <input type="date" id="dob" class="form-control form-control-lg"
                                placeholder="" th:field="*{dob}" value="2015-08-09"/>
                     </div>
