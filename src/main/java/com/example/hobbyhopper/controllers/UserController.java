@@ -140,7 +140,7 @@ public class UserController {
         user.setPassword(hash);
         userDao.save(user);
 
-        return "redirect:/profile";
+        return "redirect:/login?account";
     }
 
     @GetMapping("/user/update")
