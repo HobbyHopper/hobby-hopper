@@ -18,6 +18,8 @@
 
             <!--Create Event Form-->
 
+<!--            <form th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{https://request-inspector.glitch.me/}" method="POST" class ="needs-validation" novalidate>-->
+
             <form th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{/event/create}" method="POST" class ="needs-validation" novalidate>
 
                 <h1 class="text-center"> Create Event </h1>
@@ -33,7 +35,7 @@
 
                         <!--Image input (create)-->
                         <div class="form-outline mt-3">
-                            <div th:if="${param.account}">
+                            <div th:if="${param.image}">
                                 Upload an Image
                             </div>
                             <button type="button" class="form-control form-control-lg picker">
@@ -137,15 +139,24 @@
                             Hobby or hobbies for this event:
                         </label>
                         <div id="hobbies" class="mb-3">
-                            <select class="form-select" multiple size="3" required>
-                                <option th:each="hobby : ${userHobbies}" th:text="${hobby.hobbyName}" th:value="${hobby.id}" name="hobbies"></option>
-                            </select>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
-                            <div class="invalid-feedback">
-                                Please select at least one hobby for your event.
-                            </div>
+
+<!--                            <select class="form-select" multiple size="3" required>-->
+<!--                                <option th:each="hobby : ${userHobbies}" th:text="${hobby.hobbyName}" th:value="${hobby.id}" name="hobbies"></option>-->
+<!--                            </select>-->
+<!--                            <div class="valid-feedback">-->
+<!--                                Looks good!-->
+<!--                            </div>-->
+<!--                            <div class="invalid-feedback">-->
+<!--                                Please select at least one hobby for your event.-->
+<!--                            </div>-->
+
+
+                                <div th:each="hobby : ${userHobbies}" class="form-check">
+                                    <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}" id="flexCheckDefault">
+                                    <label th:text="${hobby.hobbyName}" class="form-check-label" for="flexCheckDefault"></label>
+                                </div>
+
+
                         </div>
 
                         <!--Category (create)-->
