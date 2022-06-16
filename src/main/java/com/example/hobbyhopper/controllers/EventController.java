@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/event")
@@ -20,12 +19,12 @@ public class EventController {
     private final UserEventRepository userEventDao;
     private final ExpertiseRepository expertiseDao;
     private final HobbiesRepository hobbyDao;
-    private final CategoryController categoryDao;
+    private final CategoryRepository categoryDao;
     private final ImageRepository imageDao;
     private final EventService eventService = new EventService();
 
 
-    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao, HobbiesRepository hobbyDao, CategoryController categoryDao, ImageRepository imageDao) {
+    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao, HobbiesRepository hobbyDao, CategoryRepository categoryDao, ImageRepository imageDao) {
         this.eventDao = eventDao;
         this.userDao = userDao;
         this.userEventDao = userEventDao;

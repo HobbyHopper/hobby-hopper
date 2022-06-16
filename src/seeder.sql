@@ -165,7 +165,3 @@ INSERT INTO event_hobbies (event_id, hobby_id) VALUES (2,1),
                                                    (8,6),
                                                    (8,7),
                                                    (8,3);
-
-
-
-
