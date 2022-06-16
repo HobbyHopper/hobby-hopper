@@ -20,7 +20,7 @@
 
 <!--            <form th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{https://request-inspector.glitch.me/}" method="POST" class ="needs-validation" novalidate>-->
 
-            <form th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{/event/create}" method="POST" class ="needs-validation" novalidate>
+            <form th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{'/event/create?error'}" method="POST" class ="needs-validation" novalidate>
 
                 <h1 class="text-center"> Create Event </h1>
 
@@ -35,8 +35,8 @@
 
                         <!--Image input (create)-->
                         <div class="form-outline mt-3">
-                            <div th:if="${param.image}">
-                                Upload an Image
+                            <div th:if="${param.error}">
+                                <h2 style="color: red">Upload an Image</h2>
                             </div>
                             <button type="button" class="form-control form-control-lg picker">
                                 (+) Add images
