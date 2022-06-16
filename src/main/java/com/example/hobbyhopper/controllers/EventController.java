@@ -164,7 +164,7 @@ public class EventController {
     public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images", required = false) List<String> imageUrl, @RequestParam(name="hobbies") List<Long> hobbyIds){
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(imageUrl==null){
-            return "views/create-edit-event";
+            return "redirect:event/create";
         }
         User user = userDao.getById(userAccess.getId());
 
