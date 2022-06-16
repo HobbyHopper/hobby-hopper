@@ -5,12 +5,11 @@
 <!--    Jumbotron-->
     <nav th:replace="partials/partials.html :: navbar"></nav>
     <div class="mini-jumbo container-fluid bg-dark py-5 px-4 my-5 text-center text-white">
-        <h1 class="display-4 fw-bolder">Hobby Hoppr</h1>
-        <p class="lead fw-normal text-white-50 mb-0">Find Your Fun</p>
+        <h1 class="display-4 fw-bolder">Check out our events!</h1>
     </div>
 <!--    Cards to display event information-->
-    <section id="event-cards" class="container d-flex flex-wrap">
-        <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${events}">
+    <section id="event-cards" class="container d-flex flex-wrap justify-content-center">
+        <div class="card col-4 m-3 pb-2 mb-5" style="width: 18rem;" th:each="event : ${events}">
 
 <!--    Image carousel within card-->
             <div th:id="carouselExampleIndicators +${event.id}" class=" carousel slide overflow-hidden w-100 mx-auto" data-bs-interval="false">
@@ -64,18 +63,15 @@
 
             <div class="card-body">
                 <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
-                <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
+                <h6 class="card-subtitle my-1" th:text="${#dates.format(event.startDate,'MM/dd/yyyy')}"></h6>
                 <p class="card-text" th:text="${event.eventDescription}"></p>
-                <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
+                <a th:href="${'/event/'+ event.id}" class="btn btn-primary ">View Details</a>
             </div>
         </div>
     </section>
 
-<!--TODO: Only display public events for users that are not logged in-->
-
-<!--List<Event> findAllByIsPublic(boolean isPublic);-->
     <footer th:replace="partials/partials.html :: footer"></footer>
-<script th:replace="partials/partials.html :: bootstrap-js"></script>
+    <script th:replace="partials/partials.html :: bootstrap-js"></script>
 </body>
 
 </html>
