@@ -90,6 +90,10 @@ public class UserController {
             hobby = hobbyDao.findByHobbyName(hobby.getHobbyName());
         }
 
+        if(hobbyDao.existsByUsersAndHobbyNameIgnoreCase(hobbyUser, hobby.getHobbyName())){
+            return "redirect:/profile";
+        }
+
         if(hobbyUser.getUserHobbies() != null){
             hobbyUser.getUserHobbies().add(hobby);
         }else{
