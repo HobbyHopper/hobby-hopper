@@ -174,7 +174,7 @@ public class UserController {
             validation.addError(new FieldError("user", "email", "Email cannot be empty"));
         }
 
-        if(!user.getPassword().equals(user.getConfirm())){
+        if(!user.getPassword().equals(user.getConfirm()) || user.getPassword().isEmpty()){
             validation.addError(new FieldError("user", "confirm", "Password mismatch"));
         }
 
