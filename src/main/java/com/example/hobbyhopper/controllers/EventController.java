@@ -183,15 +183,18 @@ public class EventController {
         event.setEventHobbies(eventHobbies);
 
         List<Image> eventImages = event.getEventImages();
-        List<Image> imageList = new ArrayList<>();
 
-        if(event.getEventImages() == null){
-            eventImages = imageList;
+
+        if(imageUrl==null){
+            return "views/create-edit-event";
         }
+        if(event.getEventImages() == null){
+            eventImages =new ArrayList<>();
 
         for(String url: imageUrl){
             Image image = new Image(url, event);
             eventImages.add(image);
+         }
         }
         event.setEventImages(eventImages);
 
