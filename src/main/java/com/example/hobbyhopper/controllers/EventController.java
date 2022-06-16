@@ -161,12 +161,14 @@ public class EventController {
 
 
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images", required = false) List<String> imageUrl, @RequestParam(name="hobbies") List<Long> hobbyIds){
+    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images", required = false) List<String> imageUrl, @RequestParam(name="hobbies") List<Long> hobbyIds, Model model){
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(imageUrl==null){
-            return "redirect:event/create";
-        }
         User user = userDao.getById(userAccess.getId());
+        if(imageUrl==null){
+            List<Hobby> userHobbies = user.getUserHobbies();
+            model.addAttribute("userHobbies", userHobbies);
+            return "views/create-edit-event";
+        }
 
         Event myEvent= eventDao.save(event);
 
