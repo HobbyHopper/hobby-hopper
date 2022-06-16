@@ -69,6 +69,7 @@ a{
 .main{
     /*min-height: 100%;*/
     margin-left: 200px;
+    margin-right: 0;
 }
 .side-nav{
     position: fixed;
@@ -87,5 +88,8 @@ a{
 }
 .card-body{
     min-height: 309px;
+}
+section .event-cards{
+    margin-right: 0px;
 }
 

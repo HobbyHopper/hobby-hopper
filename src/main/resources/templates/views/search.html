@@ -6,15 +6,16 @@
 <body>
 
     <nav th:replace="partials/partials.html :: navbar" ></nav>
+    <div class="mini-jumbo container-fluid bg-dark py-5 px-4 my-5 text-center text-white">
+        <h1 class="display-4 fw-bolder">Find More Events</h1>
+    </div>
+
     <div class="container-fluid">
 <!--    categories sidebar-->
-        <div class="side-nav col-3 pt-2 p-1">
+        <div class="side-nav d-none d-sm-block col-3 pt-2 p-1">
             <ul class="list-group">
                     <li class="nav-item mb-2"><a class="" href="/event/search?search=indoor">Indoor</a></li>
                     <li class="nav-item mb-2"><a href="/event/search?search=outdoor">Outdoor</a></li>
-                    <li class="nav-item mb-2"><a href="/event/search?search=high%20activity">High Intensity</a></li>
-                    <li class="nav-item mb-2"><a href="/event/search?search=moderate%20activity">Moderate Intensity</a></li>
-                    <li class="nav-item mb-2"><a href="/event/search?search=low%20activity">Low Intensity</a></li>
             </ul>
         </div>
 
@@ -144,10 +145,6 @@
                         <div class="card-body">
                             <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
                             <h6 class="card-subtitle my-1" th:text="${#dates.format(event.startDate,'MM/dd/yyyy')}"></h6>
-                            <div th:each="event : ${event.eventHobbies}">
-
-                            </div>
-                            <p class="card-hobby" th:text="${event.eventHobbies}"></p>
                             <p class="card-text" th:text="${event.eventDescription}"></p>
                             <a th:href="${'/event/'+ event.id}" class="btn btn-primary mt-auto">View Details</a>
                         </div>

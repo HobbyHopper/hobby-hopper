@@ -6,10 +6,9 @@
     <nav th:replace="partials/partials.html :: navbar"></nav>
     <div class="mini-jumbo container-fluid bg-dark py-5 px-4 my-5 text-center text-white">
         <h1 class="display-4 fw-bolder">Check out our events!</h1>
-<!--        <p class="lead fw-normal text-white-50 mb-0">Find Your Fun</p>-->
     </div>
 <!--    Cards to display event information-->
-    <section id="event-cards" class="container d-flex flex-wrap">
+    <section id="event-cards" class="container d-flex flex-wrap justify-content-center">
         <div class="card col-4 m-3 pb-2 mb-5" style="width: 18rem;" th:each="event : ${events}">
 
 <!--    Image carousel within card-->
