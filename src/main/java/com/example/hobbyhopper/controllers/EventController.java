@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Long.parseLong;
+
 @Controller
 @RequestMapping("/event")
 public class EventController {
@@ -111,13 +113,18 @@ public class EventController {
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getById(userAccess.getId());
         Event event = eventDao.getById(id);
+        UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
+
+
         List<Image> images = event.getEventImages();
         if (images != null) {
             model.addAttribute("images", images);
         }
-        UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
+
+
         if (userEvent != null) {
             model.addAttribute("event", event);
+            model.addAttribute("userEvent", userEvent);
             return "views/create-edit-event";
         } else {
             return "redirect:/event/create-edit-event";
@@ -126,22 +133,34 @@ public class EventController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updatePost(@RequestParam(name="images", required = false) List<String> imageUrl, @PathVariable long id, @ModelAttribute Event event){
-        List<Image> imageList = new ArrayList<>();
+    public String updatePost(@RequestParam(name="images", required = false) List<String> imageUrl, @PathVariable long id, @ModelAttribute Event event, @RequestParam(name = "expertise") long expertiseId){
+        System.out.println("------------------------------------------------"  + event);
+        User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getById(userAccess.getId());
+        UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event,user,true);
+
+        Expertise expertise = expertiseDao.getById(expertiseId);
+        userEvent.setExpertise(expertise);
+        userEventDao.save(userEvent);
+
         List<Image> eventImages = event.getEventImages();
 
         eventDao.save(event);
 
-        if(event.getEventImages() == null){
-            eventImages = imageList;
-        }
+        if (imageUrl == null) {
+
+            event.setEventImages(eventImages);
+
+        } else {
+
             for(String url: imageUrl){
                 Image image = new Image(url, event);
                 eventImages.add(image);
             }
-            event.setEventImages(eventImages);
 
-            eventDao.save(event);
+        }
+
+
 
         return "redirect:/event/" + event.getId();
     }
