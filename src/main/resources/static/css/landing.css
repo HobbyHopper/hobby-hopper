@@ -85,3 +85,7 @@ a{
     position: relative;
     bottom: 0;
 }
+.card-body{
+    min-height: 309px;
+}
+
