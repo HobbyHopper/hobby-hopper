@@ -48,6 +48,7 @@ public class EventController {
 //        if user is anonymous it will show only public event
         else  {
             List <Event> events=eventDao.findAllByIsPublic(true);
+            events.sort(Comparator.comparing(Event::getStartDate));
             model.addAttribute("events", events);
         }
 

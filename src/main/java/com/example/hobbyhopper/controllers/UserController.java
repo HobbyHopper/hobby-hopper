@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -40,43 +42,53 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String showProfile(Model model){
+    public String showProfile(Model model) {
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getById(userAccess.getId());
-        List<Hobby> userHobbies= new ArrayList<>();
-        List<Event> createdEvents= new ArrayList<>();
-        List<Event> userRsvpEvents= new ArrayList<>();
-        List<UserEvent> isOwnerUserEvents= userEventDao.findAllByUserAndIsOwner(user,true);
-        List<UserEvent> isNotOwnerUserEvents=userEventDao.findAllByUserAndIsOwner(user,false);
+        List<Hobby> userHobbies = new ArrayList<>();
+        List<Event> createdEvents = new ArrayList<>();
+        List<Event> userRsvpEvents = new ArrayList<>();
+        List<UserEvent> isOwnerUserEvents = userEventDao.findAllByUserAndIsOwner(user, true);
+        List<UserEvent> isNotOwnerUserEvents = userEventDao.findAllByUserAndIsOwner(user, false);
 
-        if (user.getUserHobbies()!=null){
-            userHobbies=user.getUserHobbies();
+        Date today = new Date();
+
+        if (user.getUserHobbies() != null) {
+            userHobbies = user.getUserHobbies();
         }
-        model.addAttribute("userHobbies",userHobbies);
+        model.addAttribute("userHobbies", userHobbies);
 
 
-        if(isOwnerUserEvents.size()!=0){
-            for (UserEvent userEvent:isOwnerUserEvents){
-             Event userCreatedEvent= eventDao.findByUserEvents(userEvent);
-             createdEvents.add(userCreatedEvent);
-             if (createdEvents.size()==3){
-                 break;
-             }
+        if (isOwnerUserEvents.size() != 0) {
+            for (UserEvent userEvent : isOwnerUserEvents) {
+                Event userCreatedEvent = eventDao.findByUserEvents(userEvent);
+                if (today.before(userCreatedEvent.getStartDate())) {
+                    createdEvents.add(userCreatedEvent);
+                    if (createdEvents.size() == 3) {
+                        break;
+                    }
+                }
             }
-            createdEvents.sort(Comparator.comparing(e -> e.getStartDate()));
-         model.addAttribute("createdEvents",createdEvents);
+            if (createdEvents.size()!=0) {
+                createdEvents.sort(Comparator.comparing(Event::getStartDate));
+                model.addAttribute("createdEvents", createdEvents);
+            }
         }
-        if(isNotOwnerUserEvents.size()!=0) {
+        if (isNotOwnerUserEvents.size() != 0) {
             for (UserEvent userEvent : isNotOwnerUserEvents) {
                 Event userRsvpEvent = eventDao.findByUserEvents(userEvent);
-                userRsvpEvents.add(userRsvpEvent);
-                if(userRsvpEvents.size()==3){
+                if (today.before(userRsvpEvent.getStartDate())) {
+                    userRsvpEvents.add(userRsvpEvent);
+                }
+                if (userRsvpEvents.size() == 3) {
                     break;
                 }
             }
-            model.addAttribute("userRsvpEvents",userRsvpEvents);
+            if (userRsvpEvents.size()!=0) {
+                userRsvpEvents.sort(Comparator.comparing(Event::getStartDate));
+                model.addAttribute("userRsvpEvents", userRsvpEvents);
+            }
         }
-
 
 
         model.addAttribute("hobby", new Hobby());
@@ -84,21 +96,21 @@ public class UserController {
     }
 
     @PostMapping("/add-hobbies")
-    public String addHobbies(@ModelAttribute Hobby hobby){
+    public String addHobbies(@ModelAttribute Hobby hobby) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User hobbyUser = userDao.getById(user.getId());
 
-        if(hobbyDao.existsByHobbyNameIgnoreCase(hobby.getHobbyName())){
+        if (hobbyDao.existsByHobbyNameIgnoreCase(hobby.getHobbyName())) {
             hobby = hobbyDao.findByHobbyName(hobby.getHobbyName());
         }
 
-        if(hobbyDao.existsByUsersAndHobbyNameIgnoreCase(hobbyUser, hobby.getHobbyName())){
+        if (hobbyDao.existsByUsersAndHobbyNameIgnoreCase(hobbyUser, hobby.getHobbyName())) {
             return "redirect:/profile";
         }
 
-        if(hobbyUser.getUserHobbies() != null){
+        if (hobbyUser.getUserHobbies() != null) {
             hobbyUser.getUserHobbies().add(hobby);
-        }else{
+        } else {
             List<Hobby> hobbies = new ArrayList<>();
             hobbies.add(hobby);
             hobbyUser.setUserHobbies(hobbies);
@@ -116,9 +128,9 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public String saveUser(@Valid @ModelAttribute User user, BindingResult validation, Model model, @RequestParam(name="images", required = false) String images) {
+    public String saveUser(@Valid @ModelAttribute User user, BindingResult validation, Model model, @RequestParam(name = "images", required = false) String images) {
 
-        if(userDao.existsByUsername(user.getUsername()) || userDao.existsByEmail(user.getEmail())){
+        if (userDao.existsByUsername(user.getUsername()) || userDao.existsByEmail(user.getEmail())) {
             validation.addError(new FieldError("user", "username", "Username or email is taken"));
         }
 
@@ -132,7 +144,7 @@ public class UserController {
             validation.addError(new FieldError("user", "password", "Password needs to be 8 characters long"));
         }
 
-        if(!user.getPassword().equals(user.getConfirm())){
+        if (!user.getPassword().equals(user.getConfirm())) {
             validation.addError(new FieldError("user", "confirm", "Password mismatch"));
         }
         if (validation.hasErrors()) {
@@ -150,14 +162,14 @@ public class UserController {
     }
 
     @GetMapping("/user/update")
-    public String showUpdateForm(Model model){
+    public String showUpdateForm(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", userDao.findById(user.getId()));
         return "views/edit-user-info";
     }
 
     @PostMapping("/user/update")
-    public String updateTheForm(@Valid @ModelAttribute User user, BindingResult validation, Model model, HttpSession session, @RequestParam(name="images", required = false) String images){
+    public String updateTheForm(@Valid @ModelAttribute User user, BindingResult validation, Model model, HttpSession session, @RequestParam(name = "images", required = false) String images) {
         User userInfoPull = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User editUser = userDao.getById(userInfoPull.getId());
 
@@ -168,23 +180,23 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         editUser.setPassword(hash);
 
-        if(user.getUsername().isEmpty()){
+        if (user.getUsername().isEmpty()) {
             validation.addError(new FieldError("user", "username", "Username cannot be empty"));
         }
 
-        if(user.getEmail().isEmpty()){
+        if (user.getEmail().isEmpty()) {
             validation.addError(new FieldError("user", "email", "Email cannot be empty"));
         }
 
-        if(!user.getPassword().equals(user.getConfirm())){
+        if (!user.getPassword().equals(user.getConfirm())) {
             validation.addError(new FieldError("user", "confirm", "Password mismatch"));
         }
 
-        if(userDao.existsByUsername(user.getUsername()) && !userInfoPull.getUsername().equals(editUser.getUsername())){
+        if (userDao.existsByUsername(user.getUsername()) && !userInfoPull.getUsername().equals(editUser.getUsername())) {
             validation.addError(new FieldError("user", "username", "Username is already taken"));
         }
 
-        if(userDao.existsByEmail(user.getEmail()) && !userInfoPull.getEmail().equals(editUser.getEmail())){
+        if (userDao.existsByEmail(user.getEmail()) && !userInfoPull.getEmail().equals(editUser.getEmail())) {
             validation.addError(new FieldError("user", "email", "Email is already taken"));
         }
 
@@ -192,7 +204,7 @@ public class UserController {
             model.addAttribute("errors", validation);
             model.addAttribute("user", user);
             return "views/edit-user-info";
-        }else{
+        } else {
             userDao.save(editUser);
         }
 
@@ -201,7 +213,7 @@ public class UserController {
     }
 
     @GetMapping("/user/delete")
-    public String deleteButton(@Valid @ModelAttribute User user, HttpSession session){
+    public String deleteButton(@Valid @ModelAttribute User user, HttpSession session) {
         User userInfoPull = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User deleteUser = userDao.getById(userInfoPull.getId());
         userDao.delete(deleteUser);
@@ -212,15 +224,15 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String showLogin(){
+    public String showLogin() {
         return "views/login";
     }
 
     @GetMapping("user/delete-hobby/{id}")
-    public String deleteUserHobby(@PathVariable long id){
-        User userAccess=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user= userDao.getById(userAccess.getId());
-        List <Hobby> userHobbies= user.getUserHobbies();
+    public String deleteUserHobby(@PathVariable long id) {
+        User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getById(userAccess.getId());
+        List<Hobby> userHobbies = user.getUserHobbies();
 
         userHobbies.removeIf(hobby -> hobby.getId() == id);
         user.setUserHobbies(userHobbies);
