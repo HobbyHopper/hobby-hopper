@@ -9,9 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-import static java.lang.Long.parseLong;
+
 
 @Controller
 @RequestMapping("/event")
@@ -41,6 +42,7 @@ public class EventController {
 //pulls all events to show at landing page if the user is logged ing
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser") {
             List<Event> events = eventDao.findAll();
+            events.sort(Comparator.comparing(Event::getStartDate));
             model.addAttribute("events", events);
             System.out.println(events);}
 //        if user is anonymous it will show only public event
@@ -138,7 +140,6 @@ public class EventController {
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getById(userAccess.getId());
         UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event,user,true);
-
         Expertise expertise = expertiseDao.getById(expertiseId);
         userEvent.setExpertise(expertise);
         userEventDao.save(userEvent);
@@ -235,7 +236,7 @@ public class EventController {
     }
 
     @PostMapping("/report")
-    public String reportEvent(@RequestParam ("event-id") long eventId, Model model){
+    public String reportEvent(@RequestParam ("event-id") long eventId){
         Event event = eventDao.getById(eventId); //gets event with the event-id parameter sent from the view
         event.setReported(true); //changes event reported status
         eventDao.save(event);  //saves event
@@ -280,9 +281,7 @@ public class EventController {
                  }
              }
          }
-         for (Event event:eventsByTitle){
-             searchEvents.add(event);
-         }
+        searchEvents.addAll(eventsByTitle);
 
 //         confirm search category works
 //        for(Category category:categoryList){
