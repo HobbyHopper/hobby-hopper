@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -62,6 +63,7 @@ public class UserController {
                  break;
              }
             }
+            createdEvents.sort(Comparator.comparing(e -> e.getStartDate()));
          model.addAttribute("createdEvents",createdEvents);
         }
         if(isNotOwnerUserEvents.size()!=0) {
