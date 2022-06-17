@@ -117,6 +117,8 @@ public class EventController {
         Event event = eventDao.getById(id);
         UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
 
+        List<Hobby> eventHobbies = event.getEventHobbies();
+        model.addAttribute("eventHobbies", eventHobbies);
 
         List<Image> images = event.getEventImages();
         if (images != null) {
@@ -135,14 +137,25 @@ public class EventController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updatePost(@RequestParam(name="images", required = false) List<String> imageUrl, @PathVariable long id, @ModelAttribute Event event, @RequestParam(name = "expertise") long expertiseId){
+    public String updatePost(@RequestParam(name="images", required = false) List<String> imageUrl, @PathVariable long id, @ModelAttribute Event event, @RequestParam(name = "expertise") long expertiseId, @RequestParam(name="hobbies") List<Long> hobbyIds){
         System.out.println("------------------------------------------------"  + event);
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getById(userAccess.getId());
         UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event,user,true);
+
         Expertise expertise = expertiseDao.getById(expertiseId);
         userEvent.setExpertise(expertise);
         userEventDao.save(userEvent);
+
+        List<Hobby> eventHobbies = new ArrayList<>();
+
+        for (long hobbyId : hobbyIds) {
+            Hobby hobby = hobbyDao.getById(hobbyId);
+            eventHobbies.add(hobby);
+        }
+        event.setEventHobbies(eventHobbies);
+
+
 
         List<Image> eventImages = event.getEventImages();
 
@@ -183,6 +196,7 @@ public class EventController {
     public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images", required = false) List<String> imageUrl, @RequestParam(name="hobbies") List<Long> hobbyIds, Model model){
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getById(userAccess.getId());
+
         if(imageUrl==null){
             List<Hobby> userHobbies = user.getUserHobbies();
             model.addAttribute("userHobbies", userHobbies);
