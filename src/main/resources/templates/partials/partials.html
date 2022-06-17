@@ -22,7 +22,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-fill">
+            <ul class="navbar-nav me-auto mb-lg-0 flex-fill">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" th:href="@{/event}">Home</a>
                 </li>
@@ -35,18 +35,14 @@
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a class="nav-link" th:href="@{/profile}">My profile</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/user/update}">Update personal information</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/about}">About Us</a>
-                </li>
             </ul>
 
-            <form class="d-flex" action="/event/search" method="get">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="d-none d-lg-block">
+                <form class="d-flex" action="/event/search" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                    <button class="btn btn-primary btn-lg" type="submit">Search</button>
+                </form>
+            </div>
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li sec:authorize="isAuthenticated()" class="nav-item">
@@ -57,7 +53,16 @@
                 <li sec:authorize="!isAuthenticated()" class="nav-item">
                     <a class="nav-link" th:href="@{/login}">Login / Sign up</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/about}">About Us</a>
+                </li>
             </ul>
+            <div class="d-lg-none">
+                <form class="d-flex" action="/event/search" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                    <button class="btn btn-primary btn-lg" type="submit">Search</button>
+                </form>
+            </div>
         </div>
     </div>
 </nav>
