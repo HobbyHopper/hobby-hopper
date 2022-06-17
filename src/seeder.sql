@@ -142,14 +142,14 @@ insert into images (image_description, url, event_id) values
                                                           ('very detailed and informative image description', 'https://cdn.mos.cms.futurecdn.net/v44n2mBJgaRoCkkFGjDtRP.jpeg', 15),
                                                           ('very detailed and informative image description', 'https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Running/Articles/Benefits+of+Running/male+runner-carousel.jpg', 15);
 
-INSERT INTO user_events (is_owner, event_id, expertise_id, user_id) VALUES (true,1,1,1),
-                                                                           (true,2,1,1),
-                                                                           (true,3,1,1),
-                                                                           (true,4,1,1),
-                                                                           (FALSE,5,1,1),
-                                                                           (FALSE,5,1,1),
-                                                                           (FALSE,6,1,1),
-                                                                           (FALSE,7,1,1);
+INSERT INTO user_events (is_owner, event_id, expertise_id, user_id) VALUES (true,1,1,2),
+                                                                           (true,2,1,2),
+                                                                           (true,3,1,2),
+                                                                           (true,4,1,2),
+                                                                           (FALSE,5,1,2),
+                                                                           (FALSE,5,1,2),
+                                                                           (FALSE,6,1,2),
+                                                                           (FALSE,7,1,2);
 
 
 
