@@ -8,11 +8,10 @@
 <nav th:replace="partials/partials.html :: navbar" ></nav>
 
 <section class="vh-100" sec:authorize="isAuthenticated()">
-    <div class="container h-custom">
+    <div class="container h-custom mt-5">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5 text-center mb-md-5 mb-lg-5 mb-xl-5">
-                <img th:src="@{${#authentication.principal.image}}"  class="img-fluid" alt="Profile Pic"/>
-                <span sec:authentication="principal.username"></span>
+                <img th:src="@{${#authentication.principal.image}}" class="img-fluid" id="profile-image" alt="Profile Pic"/>
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <form th:action="@{'/user/update?error'}" method="POST" th:object="${user}">

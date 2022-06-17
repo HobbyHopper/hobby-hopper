@@ -17,6 +17,9 @@
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <form th:action="@{'/sign-up?error'}" method="POST" th:object="${user}">
                     <h2 class="text-center">Sign up</h2>
+                    <div th:if="${param.deleted}">
+                        Account was erased
+                    </div>
                     <ul>
                         <li th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></li>
                         <li th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>
