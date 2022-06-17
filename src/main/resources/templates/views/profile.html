@@ -29,6 +29,8 @@
                                        style="padding-left: 2.5rem; padding-right: 2.5rem;">
                             </div>
                         </form>
+                        <br>
+                        <div th:if="${isAdmin==true}"  ><a style="color: red" href="event/search/reported">Reported Events</a></div>
                     </div>
                 </li>
             </ul>
@@ -132,7 +134,7 @@
                 <li>
                     <div class=" text-center hobby-container d-flex flex-column"><a th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} "><span
                             th:text="${hobby.hobbyName}"></span></a></div>
-                    <div><a th:href="@{user/delete-hobby/{id}(id=${hobby.id})}">Remove Hobby</a></div>
+                    <div><a style="color: red" th:href="@{user/delete-hobby/{id}(id=${hobby.id})}">Remove Hobby</a></div>
                 </li>
             </ul>
         </div>
