@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 
@@ -118,8 +119,6 @@ public class EventController {
         Event event = eventDao.getById(id);
         UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
 
-        List<Hobby> eventHobbies = event.getEventHobbies();
-        model.addAttribute("eventHobbies", eventHobbies);
 
         List<Image> images = event.getEventImages();
         if (images != null) {
@@ -138,25 +137,14 @@ public class EventController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updatePost(@RequestParam(name="images", required = false) List<String> imageUrl, @PathVariable long id, @ModelAttribute Event event, @RequestParam(name = "expertise") long expertiseId, @RequestParam(name="hobbies") List<Long> hobbyIds){
+    public String updatePost(@RequestParam(name="images", required = false) List<String> imageUrl, @PathVariable long id, @ModelAttribute Event event, @RequestParam(name = "expertise") long expertiseId){
         System.out.println("------------------------------------------------"  + event);
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getById(userAccess.getId());
         UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event,user,true);
-
         Expertise expertise = expertiseDao.getById(expertiseId);
         userEvent.setExpertise(expertise);
         userEventDao.save(userEvent);
-
-        List<Hobby> eventHobbies = new ArrayList<>();
-
-        for (long hobbyId : hobbyIds) {
-            Hobby hobby = hobbyDao.getById(hobbyId);
-            eventHobbies.add(hobby);
-        }
-        event.setEventHobbies(eventHobbies);
-
-
 
         List<Image> eventImages = event.getEventImages();
 
@@ -197,7 +185,6 @@ public class EventController {
     public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images", required = false) List<String> imageUrl, @RequestParam(name="hobbies") List<Long> hobbyIds, Model model){
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getById(userAccess.getId());
-
         if(imageUrl==null){
             List<Hobby> userHobbies = user.getUserHobbies();
             model.addAttribute("userHobbies", userHobbies);
@@ -273,6 +260,7 @@ public class EventController {
 //       store all hobbies/categories with name matching query in a list
         List<Hobby> hobbyList = hobbyDao.searchByNameLike(search);
         List<Category> categoryList= categoryDao.searchByNameLike(search);
+        Date today = new Date();
 
 //  loop through events and find all events associated with similar hobby names
         for(Event event:allEvents) {
@@ -316,6 +304,10 @@ public class EventController {
 //        for (Hobby hobby : hobbyList) {
 //            System.out.println(hobby.getHobbyName());
 //        }
+        searchEvents.sort(Comparator.comparing(Event::getEndDate));
+        eventsByCategory.sort(Comparator.comparing(Event::getEndDate));
+        eventsByHobby.sort(Comparator.comparing(Event::getEndDate));
+        eventsByTitle.sort(Comparator.comparing(Event::getEndDate));
         model.addAttribute("searchEvents",searchEvents);
         model.addAttribute("eventsByTitle",eventsByTitle);
         model.addAttribute("eventsByCategory",eventsByCategory);
