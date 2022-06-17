@@ -62,7 +62,7 @@ public class UserController {
         if (isOwnerUserEvents.size() != 0) {
             for (UserEvent userEvent : isOwnerUserEvents) {
                 Event userCreatedEvent = eventDao.findByUserEvents(userEvent);
-                if (today.before(userCreatedEvent.getStartDate())) {
+                if (today.before(userCreatedEvent.getEndDate())) {
                     createdEvents.add(userCreatedEvent);
                     if (createdEvents.size() == 3) {
                         break;
@@ -77,7 +77,7 @@ public class UserController {
         if (isNotOwnerUserEvents.size() != 0) {
             for (UserEvent userEvent : isNotOwnerUserEvents) {
                 Event userRsvpEvent = eventDao.findByUserEvents(userEvent);
-                if (today.before(userRsvpEvent.getStartDate())) {
+                if (today.before(userRsvpEvent.getEndDate())) {
                     userRsvpEvents.add(userRsvpEvent);
                 }
                 if (userRsvpEvents.size() == 3) {
@@ -85,7 +85,7 @@ public class UserController {
                 }
             }
             if (userRsvpEvents.size()!=0) {
-                userRsvpEvents.sort(Comparator.comparing(Event::getStartDate));
+                userRsvpEvents.sort(Comparator.comparing(Event::getEndDate));
                 model.addAttribute("userRsvpEvents", userRsvpEvents);
             }
         }
