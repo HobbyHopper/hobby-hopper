@@ -117,6 +117,8 @@ public class EventController {
         Event event = eventDao.getById(id);
         UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
 
+        List<Hobby> eventHobbies = event.getEventHobbies();
+        model.addAttribute("eventHobbies", eventHobbies);
 
         List<Image> images = event.getEventImages();
         if (images != null) {
