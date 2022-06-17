@@ -50,7 +50,7 @@ public class UserController {
         List<Event> userRsvpEvents = new ArrayList<>();
         List<UserEvent> isOwnerUserEvents = userEventDao.findAllByUserAndIsOwner(user, true);
         List<UserEvent> isNotOwnerUserEvents = userEventDao.findAllByUserAndIsOwner(user, false);
-
+        Boolean userIsAdmin= user.getAdmin();
         Date today = new Date();
 
         if (user.getUserHobbies() != null) {
@@ -90,7 +90,7 @@ public class UserController {
             }
         }
 
-
+        model.addAttribute("isAdmin",userIsAdmin);
         model.addAttribute("hobby", new Hobby());
         return "views/profile";
     }
