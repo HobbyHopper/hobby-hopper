@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials/partials.html :: head ('Profile')"></head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <ul th:replace="partials/partials.html :: navbar"></ul>
 <div sec:authorize="isAuthenticated()">
     <div class="d-flex container-fluid mt-5 flex-wrap">
@@ -314,7 +314,7 @@
 
 
 </div>
-<footer th:replace="partials/partials.html :: footer"></footer>
+<footer  th:replace="partials/partials.html :: footer"></footer>
 <script th:replace="partials/partials.html :: bootstrap-js"></script>
 </body>
 </html>
