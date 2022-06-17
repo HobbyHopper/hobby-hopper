@@ -190,7 +190,6 @@ public class UserController {
 
 
         if(!user.getPassword().equals(user.getConfirm()) || user.getPassword().isEmpty()){
->>       
             validation.addError(new FieldError("user", "confirm", "Password mismatch"));
         }
 
@@ -211,17 +210,19 @@ public class UserController {
         }
 
         session.invalidate();
-        return "redirect:/event";
+        return "redirect:/login?updated";
     }
 
     @GetMapping("/user/delete")
     public String deleteButton(@Valid @ModelAttribute User user, HttpSession session) {
         User userInfoPull = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User deleteUser = userDao.getById(userInfoPull.getId());
+        List <Hobby> userHobbies= deleteUser.getUserHobbies();
+        userHobbies.removeAll(hobbyDao.findAll());
         userDao.delete(deleteUser);
         session.invalidate();
 
-        return "redirect:/event";
+        return "redirect:/event?deleted";
     }
 
 
