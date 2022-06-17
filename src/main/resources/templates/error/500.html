@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partials.html :: head (Error)"></head>
+<head th:replace="partials/partials.html :: head ('Server Error')"></head>
 
-<body id="color">
+<body class="color">
 <nav th:replace="partials/partials.html :: navbar"></nav>
 
 <section class="centered">
-    <h1>500 Server Error</h1>
-    <img src="https://static9.depositphotos.com/1658644/1219/v/950/depositphotos_12199659-stock-illustration-server-on-fire.jpg" alt="" id="server-error" class="mb-5">
+    <h1 th:text="'Ooops, ' + ${error}"></h1>
+    <img src="https://static9.depositphotos.com/1658644/1219/v/950/depositphotos_12199659-stock-illustration-server-on-fire.jpg" alt="" id="server-error" class="mb-3">
+    <div class="container text-center mb-3">
+        <h3><a href="/event" style="color: #FFFFFF">Click here to go back to events page</a></h3>
+    </div>
     <div class="container text-center">
         <span class="message" id="js-whoops"></span> <span class="message" id="js-appears"></span> <span class="message" id="js-error"></span> <span class="message" id="js-apology"></span>
         <div><span class="hidden" id="js-hidden">Sorry for the inconvenience</span></div>
