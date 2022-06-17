@@ -14,7 +14,7 @@
 
 
 
-            <!--Create Event Form-->
+            <!---------------------------------------------Create Event Form------------------------------------------>
 
 <!--            <form th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{https://request-inspector.glitch.me/}" method="POST" class ="needs-validation" novalidate>-->
 
@@ -267,7 +267,8 @@
 
 
 
-    <!--Edit Form-->
+    <!-------------------------------------------------Edit Event Form----------------------------------------------------->
+
     <div class="" th:object="${event}" th:if="*{id != null}">
 
         <h1 class="text-center"> Edit Event </h1>
@@ -275,13 +276,13 @@
         <h4 class="text-center"> Event Info:</h4>
 
 
-
-
             <!--Flexbox container w/ two columns: Images on the left, Event Info on right-->
             <div class="d-flex text-center">
 
                 <!--Column 1: images-->
                 <div class="w-100 px-5 py-3 bg-light bg-gradient">
+
+
                     <!--Upload images button-->
                     <div class="form-outline mt-3">
                         <button type="button" class="form-control form-control-lg picker">
@@ -312,7 +313,7 @@
                             <div class="carousel-caption d-none d-md-block">
                                 <form th:action="@{/event/delete-image}" method="post">
                                     <input type="hidden" th:value="${event.eventImages.get(0).id}" name="id">
-                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                    <button th:if="${event.eventImages.size() != 1}" class="btn btn-danger" type="submit">Delete</button>
                                 </form>
                             </div>
                         </div>
@@ -376,7 +377,7 @@
 
 
 
-            <form id="edit-event" th:action="@{/event/edit/{id}(id=${event.getId()})}" method="POST">
+            <form class="w-100" id="edit-event" th:action="@{/event/edit/{id}(id=${event.getId()})}" method="POST">
 <!--            <form id="edit-event" th:action="@{https://request-inspector.glitch.me/}" th:method="POST">-->
 
 
@@ -432,6 +433,7 @@
                 </div>
 
             <!--*** end of flexbox container w/ images and event info-->
+            <!--Ignore error; page layout works perfectly-->
             </div>
 
 
@@ -459,8 +461,8 @@
                         <!--                            </div>-->
 
 
-                        <div th:each="hobby : ${userHobbies}" class="form-check">
-                            <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}" id="hobbies-input-edit">
+                        <div th:each="hobby : ${eventHobbies}" class="form-check">
+                            <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}" id="hobbies-input-edit" checked>
                             <label th:text="${hobby.hobbyName}" class="form-check-label" for="hobbies-input-edit"></label>
                         </div>
                     </div>
