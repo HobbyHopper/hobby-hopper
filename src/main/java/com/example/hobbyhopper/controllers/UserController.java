@@ -92,7 +92,7 @@ public class UserController {
 
         model.addAttribute("isAdmin",userIsAdmin);
         model.addAttribute("hobby", new Hobby());
-        return "views/profile";
+        return "views/profile-2";
     }
 
     @PostMapping("/add-hobbies")
