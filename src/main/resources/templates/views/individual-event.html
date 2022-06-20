@@ -44,7 +44,7 @@
                    <input type="radio" class="btn-check" name="image-map-btn" id="image-map-btn-1" autocomplete="off" onclick="showImages()" checked>
                    <label class="btn btn-outline-primary" for="image-map-btn-1">Images</label>
 
-                   <input type="radio" class="btn-check" name="image-map-btn" id="image-map-btn-2" autocomplete="off" onclick="showImages()">
+                   <input type="radio" class="btn-check" name="image-map-btn" id="image-map-btn-2" autocomplete="off" onclick="showMap()">
                    <label class="btn btn-outline-primary" for="image-map-btn-2">Map</label>
                </div>
 
@@ -52,16 +52,18 @@
                <script>
                    function showImages(){
 					   if ($("#imageCarousel")[0].style.display == "none"){
-						   $("#imageCarousel")[0].style.display == "block";
-						   $("#map")[0].style.display == "none";
+						   $("#imageCarousel")[0].style.display = "block";
+						   $("#map")[0].style.display = "none";
                        }
+					   console.log("showImages ran");
                    }
 
 				   function showMap(){
 					   if($("#map")[0].style.display == "none"){
-						   $("#map")[0].style.display == "block";
-						   $("#imageCarousel")[0].style.display == "none";
+						   $("#map")[0].style.display = "block";
+						   $("#imageCarousel")[0].style.display = "none";
 					   }
+					   console.log("showMap ran");
 				   }
                </script>
 
