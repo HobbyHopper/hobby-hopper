@@ -8,10 +8,11 @@
         <h1 class="display-4 fw-bolder">Check out our events!</h1>
     </div>
 <!--    Cards to display event information-->
-    <section id="event-cards" class="container-fluid d-flex flex-wrap justify-content-start text-center mx-5">
+<div class="d-flex mx-auto container-fluid">
+    <section id="event-cards" class="container-fluid d-flex flex-wrap text-center justify-content-between">
         <div class="card col-4 m-3 pb-2 mb-5 mx-5" style="width: 18rem;" th:each="event : ${events}">
 
-<!--    Image carousel within card-->
+            <!--    Image carousel within card-->
             <div th:id="carouselExampleIndicators +${event.id}" class=" carousel slide overflow-hidden w-100 mx-auto" data-bs-interval="false">
                 <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
                     <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -25,7 +26,7 @@
                     <button th:if="${event.eventImages.size() > 4}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="4" aria-label="Slide 5"></button>
                 </div>
 
-<!--                Carousel images-->
+                <!--                Carousel images-->
                 <div class="carousel-item active ratio ratio-16x9">
                     <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
                 </div>
@@ -69,6 +70,7 @@
             </div>
         </div>
     </section>
+</div>
 
     <footer th:replace="partials/partials.html :: footer"></footer>
     <script th:replace="partials/partials.html :: bootstrap-js"></script>
