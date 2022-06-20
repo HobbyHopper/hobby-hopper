@@ -53,19 +53,24 @@
                    function showImages(){
 					   if ($("#imageCarousel")[0].style.display == "none"){
 						   $("#imageCarousel")[0].style.display = "block";
-						   $("#map")[0].style.display = "none";
+						   $("#mapContainer")[0].style.display = "none";
                        }
 					   console.log("showImages ran");
                    }
 
 				   function showMap(){
-					   if($("#map")[0].style.display == "none"){
-						   $("#map")[0].style.display = "block";
+					   if($("#mapContainer")[0].style.display == "none"){
+						   $("#mapContainer")[0].style.display = "block";
 						   $("#imageCarousel")[0].style.display = "none";
 					   }
 					   console.log("showMap ran");
 				   }
                </script>
+
+               <!--Map HTML Element-->
+               <div id="mapContainer" class="w-100 h-100" style="display: block">
+                   <div id='map' class="m-3 w-100 h-100"></div>
+               </div>
 
                <!--if event has no images, display hard-coded image below-->
                <div th:if="${images.size() == 0}">
@@ -74,7 +79,7 @@
 
                <!--if event has images, display carousel below-->
                <!--Image carousel-->
-               <div th:if="${images.size() > 0}" id="imageCarousel" class="carousel carousel-fade slide w-100" data-bs-ride="true" style="display: block">
+               <div th:if="${images.size() > 0}" id="imageCarousel" class="carousel carousel-fade slide w-100" data-bs-ride="true" style="display: none">
 
                    <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -245,11 +250,6 @@
 
                 </div>
             </details>
-
-            <!--Map HTML Element-->
-            <div class="w-100">
-                <div id='map' class="m-3" style="width: 20rem; height: 20rem; display: none"></div>
-            </div>
 
         </div>
 
