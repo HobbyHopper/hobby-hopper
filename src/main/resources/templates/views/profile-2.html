@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="card-body p-4 text-black">
-                        <div class="mb-5">
+                        <div class="my-5">
                             <p class="lead fw-normal mb-1">Hobbies</p>
                             <div class="p-4" style="background-color: #f8f9fa;">
                                 <form th:action="@{/add-hobbies}" method="post" th:object="${hobby}" class="container-fluid d-flex flex-wrap justify-content-start mx-5">
@@ -62,11 +62,16 @@
                                 <div th:if="${userHobbies.size()>0}" class="container-fluid d-flex flex-wrap justify-content-start mx-4">
                                     <ul th:each="hobby:${userHobbies}">
                                         <li>
-                                            <div class=" text-center hobby-container d-flex flex-column btn"><a th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} "><span
-                                                    th:text="${hobby.hobbyName}"></span></a></div>
-                                            <div><a style="color: red" th:href="@{user/delete-hobby/{id}(id=${hobby.id})}" class="btn btn-outline-dark">Remove Hobby</a></div>
+                                            <div class="text-center hobby-container d-flex flex-column btn align-items-center "><a th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} "><span
+                                                    th:text="${hobby.hobbyName}"></span></a>
+                                            <a style="color: red" th:href="@{user/delete-hobby/{id}(id=${hobby.id})}" class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></a>
+                                            </div>
                                         </li>
                                     </ul>
+                                </div>
+                                <div th:unless="${userHobbies.size()>0}" class="d-flex  justify-content-center">
+                                   <div><h5>Your Hobbies Will Appear Here As You Add Them</h5></div>
+
                                 </div>
                             </div>
                         </div>
@@ -170,13 +175,16 @@
                                 </div>
                             </section>
                         </div>
+                        <div th:unless="${createdEvents}" class="d-flex justify-content-center">
+                            <div><h5>Your Events Will Appear Here As you Create Them</h5></div>
+                        </div>
 
 
 
 <!--                        RSVP Cards-->
                         <p class="lead fw-normal mb-0">RSVP</p>
-                        <div class="d-flex-row justify-content-start p-4" style="background-color: #f8f9fa;">
-                            <section id="UserRsvpEvent-cards" class="container d-flex flex-wrap justify-content-center">
+                        <div th:if="${userRsvpEvents}" class="d-flex-row justify-content-start p-4" style="background-color: #f8f9fa;">
+                            <section id="UserRsvpEvent-cards" class="container d-flex flex-wrap justify-content-start mx-3">
                                 <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${userRsvpEvents}">
 
                                     <!--    Image carousel within card-->
@@ -254,6 +262,9 @@
                                     </div>
                                 </div>
                             </section>
+                        </div>
+                        <div th:unless="${userRsvpEvents}" class="d-flex justify-content-center">
+                            <div><h5>Upcoming Events You Have RSVP'd to Will Appear Here </h5></div>
                         </div>
                     </div>
                 </div>
