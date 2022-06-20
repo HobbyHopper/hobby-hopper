@@ -27,8 +27,12 @@
                     </div>
                     <div class="p-4 text-black" style="background-color: #f8f9fa;">
                         <div class="d-flex justify-content-end text-center py-1">
-                            <div>
+                            <div th:if="${createdEvents}">
                                 <p class="mb-1 h5"  th:text="${createdEvents.size()}"></p>
+                                <p class="small text-muted mb-0">Events</p>
+                            </div>
+                            <div th:unless="${createdEvents}">
+                                <p class="mb-1 h5">0</p>
                                 <p class="small text-muted mb-0">Events</p>
                             </div>
                             <div class="px-3">
@@ -89,7 +93,7 @@
                         <div th:if="${createdEvents}" class="d-flex-row justify-content-start p-4 mb-5" style="background-color: #f8f9fa;">
                             <section id="createdEvent-cards" class="container d-flex flex-wrap justify-content-start mx-3" >
 
-                                <div class="card col-4 m-3" style="width: 10rem;" th:each="event : ${createdEvents}">
+                                <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${createdEvents}">
 
                                     <!--    Image carousel within card-->
                                     <div th:id="carouselExampleIndicators +${event.id}"
@@ -166,6 +170,7 @@
                                 </div>
                             </section>
                         </div>
+
 
 
 <!--                        RSVP Cards-->
