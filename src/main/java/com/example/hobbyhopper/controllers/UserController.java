@@ -8,6 +8,7 @@ import com.example.hobbyhopper.repositories.EventRepository;
 import com.example.hobbyhopper.repositories.HobbiesRepository;
 import com.example.hobbyhopper.repositories.UserEventRepository;
 import com.example.hobbyhopper.repositories.UserRepository;
+import com.example.hobbyhopper.services.StringService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -30,14 +31,16 @@ public class UserController {
     private final HobbiesRepository hobbyDao;
     private final UserEventRepository userEventDao;
     private final EventRepository eventDao;
+    private final StringService stringService;
 
 
-    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, HobbiesRepository hobbyDao, UserEventRepository userEventDao, EventRepository eventDao) {
+    public UserController(UserRepository userDao, PasswordEncoder passwordEncoder, HobbiesRepository hobbyDao, UserEventRepository userEventDao, EventRepository eventDao, StringService stringService) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.hobbyDao = hobbyDao;
         this.userEventDao = userEventDao;
         this.eventDao = eventDao;
+        this.stringService = stringService;
     }
 
     @GetMapping("/profile")
@@ -51,6 +54,7 @@ public class UserController {
         List<UserEvent> isNotOwnerUserEvents = userEventDao.findAllByUserAndIsOwner(user, false);
         Boolean userIsAdmin= user.getAdmin();
         Date today = new Date();
+        model.addAttribute("stringService",stringService);
 
         if (user.getUserHobbies() != null) {
             userHobbies = user.getUserHobbies();
