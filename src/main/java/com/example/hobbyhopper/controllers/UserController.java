@@ -121,6 +121,32 @@ public class UserController {
         return "redirect:/profile";
     }
 
+    @PostMapping("/add-hobbies/create-event")
+    @ResponseBody
+    public String addHobbiesFromCreateEventForm(@RequestParam("hobby") String hobbyName) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User hobbyUser = userDao.getById(user.getId());
+        Hobby hobby = new Hobby(hobbyName);
+
+        if (hobbyDao.existsByHobbyNameIgnoreCase(hobbyName)) {
+            hobby = hobbyDao.findByHobbyName(hobbyName);
+        }
+
+        if (hobbyUser.getUserHobbies() != null) {
+            hobbyUser.getUserHobbies().add(hobby);
+        } else {
+            List<Hobby> hobbies = new ArrayList<>();
+            hobbies.add(hobby);
+            hobbyUser.setUserHobbies(hobbies);
+        }
+
+        hobbyDao.save(hobby);
+
+//        System.out.println("This is the hobby name: " + hobbyName);
+        return "partials/partials.html :: hobbies";
+//        return "";
+    }
+
     @GetMapping("/sign-up")
     public String showSignupForm(Model model) {
         model.addAttribute("user", new User());
