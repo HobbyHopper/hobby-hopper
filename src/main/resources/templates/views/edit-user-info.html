@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="partials/partials.html :: head ('Edit')" ></head>
-<body>
+<body class="gradient-custom-2">
 
 <nav th:replace="partials/partials.html :: navbar" ></nav>
 
@@ -11,7 +11,7 @@
     <div class="container h-custom mt-5">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5 text-center mb-md-5 mb-lg-5 mb-xl-5">
-                <img th:src="@{${#authentication.principal.image}}" class="img-fluid" id="profile-image" alt="Profile Pic"/>
+                <img th:src="@{${#authentication.principal.image}}" class="img-fluid" id="" alt="Profile Pic"/>
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <form th:action="@{'/user/update?error'}" method="POST" th:object="${user}">
@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <input type="submit" value="Edit" class="btn btn-primary btn-lg"
+                        <input type="submit" value="Save" class="btn btn-primary btn-lg"
                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
                     </div>
 
