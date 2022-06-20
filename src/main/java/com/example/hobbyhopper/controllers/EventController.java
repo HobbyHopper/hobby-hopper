@@ -72,6 +72,12 @@ public class EventController {
         Category category = categoryDao.getById((long) event.getCategoryId());
         model.addAttribute("category", category);
 
+        UserEvent userEvent = userEventDao.getById(event.getUserEvents().get(0).getId());
+        model.addAttribute("userEvent", userEvent);
+
+        Expertise expertise = expertiseDao.getById(userEvent.getExpertise().getId());
+        model.addAttribute("expertise", expertise);
+
         //if user is logged in...
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser"){
             User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

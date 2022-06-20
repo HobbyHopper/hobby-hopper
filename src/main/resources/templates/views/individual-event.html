@@ -7,178 +7,301 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${event.eventName}"></title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link  href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet'>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!--    Font Awesome kit link for icons-->
+    <script src="https://kit.fontawesome.com/8de2f0b37b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/landing.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
-<body>
+<body class="gradient-custom-2">
 
     <!--Nav Bar-->
     <nav th:replace="partials/partials.html :: navbar"></nav>
 
-    <!--Header-->
-    <div th:replace="partials/partials.html :: header"></div>
-
     <!--Event Details Card-->
-    <div class="card mx-auto text-center" style="width: 80rem;">
+    <div class="mx-auto" style="width: 80rem;">
 
-        <!--Event name & description-->
-        <h2 class="card-title m-1"> <span th:text="${event.eventName}"></span> </h2>
-        <div class="card-body">
-            <p class="card-text" th:text="${event.eventDescription}"></p>
-        </div>
+        <h2 class="m-3 text-center">Event Info:</h2>
 
         <!--User has RSVP'd message-->
         <div th:if="${userHasRSVPd != null}" class="alert alert-success" role="alert">
             You have RSVP'd to this event!
         </div>
 
-        <!--if event has no images, display hard-coded image below-->
+        <!--Flexbox container w two columns: left column for images, right column for event info-->
+       <div class="d-flex justify-content-between">
 
-        <div th:if="${images.size() == 0}">
-            <img th:src="@{http://dummyimage.com/110x100.png/dddddd/000000}">
+           <!--Left Column: Image Carousel-->
+           <div class="card w-100 px-5 py-3">
+
+               <!--Button for toggling between images and map-->
+               <div class="btn-group" role="group">
+                   <input type="radio" class="btn-check" name="image-map-btn" id="image-map-btn-1" autocomplete="off" onclick="showImages()" checked>
+                   <label class="btn btn-outline-primary" for="image-map-btn-1">Images</label>
+
+                   <input type="radio" class="btn-check" name="image-map-btn" id="image-map-btn-2" autocomplete="off" onclick="showMap()">
+                   <label class="btn btn-outline-primary" for="image-map-btn-2">Map</label>
+               </div>
+
+               <!--script to toggle between images and map-->
+               <script>
+                   function showImages(){
+					   if ($("#imageCarousel")[0].style.display == "none"){
+						   $("#imageCarousel")[0].style.display = "block";
+						   $("#mapContainer")[0].style.display = "none";
+                       }
+                   }
+
+				   function showMap(){
+					   if($("#mapContainer")[0].style.display == "none"){
+						   $("#mapContainer")[0].style.display = "block";
+						   $("#imageCarousel")[0].style.display = "none";
+					   }
+					   // $("#map")[0].load(location.href + " #map");
+                       map.resize();
+				   }
+               </script>
+
+               <!--Map HTML Element-->
+               <div id="mapContainer" class="w-100 ratio ratio-16x9" style="display: none;">
+                   <div id='map' class="w-100"></div>
+               </div>
+
+               <!--if event has no images, display hard-coded image below-->
+               <div th:if="${images.size() == 0}">
+                   <img th:src="@{http://dummyimage.com/110x100.png/dddddd/000000}">
+               </div>
+
+               <!--if event has images, display carousel below-->
+               <!--Image carousel-->
+               <div th:if="${images.size() > 0}" id="imageCarousel" class="carousel carousel-fade slide w-100" data-bs-ride="true" style="display: block">
+
+                   <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
+                       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+                       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+                       <button th:if="${event.eventImages.size() > 2}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+                       <button th:if="${event.eventImages.size() > 3}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+                       <button th:if="${event.eventImages.size() > 4}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                   </div>
+
+                   <!--Images from the database-->
+                   <div class="carousel-item active ratio ratio-16x9">
+                       <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
+                   </div>
+
+                   <div th:if="${event.eventImages.size() > 1}" class="carousel-item ratio ratio-16x9">
+                       <img th:src="${event.eventImages.get(1).url}" class="d-block w-100" th:alt="${event.eventImages.get(1).imageDescription}">
+                   </div>
+
+                   <div th:if="${event.eventImages.size() > 2}" class="carousel-item ratio ratio-16x9">
+                       <img th:src="${event.eventImages.get(2).url}" class="d-block w-100" th:alt="${event.eventImages.get(2).imageDescription}">
+                   </div>
+
+                   <div th:if="${event.eventImages.size() > 3}" class="carousel-item ratio ratio-16x9">
+                       <img th:src="${event.eventImages.get(3).url}" class="d-block w-100" th:alt="${event.eventImages.get(3).imageDescription}">
+                   </div>
+
+                   <div th:if="${event.eventImages.size() > 4}" class="carousel-item ratio ratio-16x9">
+                       <img th:src="${event.eventImages.get(4).url}" class="d-block w-100" th:alt="${event.eventImages.get(4).imageDescription}">
+                   </div>
+
+                   <!--Carousel navigation buttons-->
+                   <div th:if="${event.eventImages.size() > 1}">
+                       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                           <span class="visually-hidden">Previous</span>
+                       </button>
+
+                       <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                           <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                           <span class="visually-hidden">Next</span>
+                       </button>
+                   </div>
+               </div>
+           </div>
+
+            <!--Right Column: Event Info-->
+           <div class="w-100 d-flex flex-column justify-content-evenly text-center">
+
+               <!--Event Name-->
+               <h1 class="card-title m-1"> <span th:text="${event.eventName}"></span> </h1>
+
+                <!--Event Description-->
+               <div class="">
+                   <p class="" th:text="${event.eventDescription}"></p>
+               </div>
+
+               <!--date & time format for same day events-->
+               <div th:unless="${event.startDate != event.endDate}">
+                   <blockquote class="blockquote">
+                       Event starts
+                       <!--Start Day-->
+                       on <span th:text="${event.startDate.getDay()+1}"></span>
+                       <!--Start Month-->
+                       <span th:text="${startDateMonth}"></span>
+                       <!--Start Time-->
+                       from <span th:text="${EventService.formatTime(event.startTime)}"></span>
+                       <!--End Time-->
+                       to <span th:text="${EventService.formatTime(event.endTime)}"></span>
+                   </blockquote>
+               </div>
+
+               <!--date & time format for multi-day events-->
+               <div th:if="${event.startDate != event.endDate}">
+
+                   <form th:object="${event}">
+                       <!--Start date and time-->
+                       <label for="start-date-time"> Start Date & Time </label>
+                       <div id="start-date-time" class="d-flex justify-content-center">
+                           <div class="px-1">
+                               <input type="date" id="date" name="date" class="form-control form-control-lg" placeholder="" th:field="*{startDate}" readonly>
+                           </div>
+                           <div>
+                               <input type="time" id="start-time" name="date" class="form-control form-control-lg" placeholder="" th:field="*{startTime}" readonly>
+                           </div>
+                       </div>
+
+                       <!--End date and time-->
+                       <label for="end-date-time"> End Date & Time </label>
+                       <div id="end-date-time" class="d-flex justify-content-center mb-3">
+                           <div class="px-1">
+                               <input type="date" id="end-date" name="end-time" class="form-control form-control-lg" placeholder="" th:field="*{endDate}" readonly>
+                           </div>
+                           <div>
+                               <input type="time" id="end-time" name="date" class="form-control form-control-lg" placeholder="" th:field="*{endTime}" readonly>
+                           </div>
+                       </div>
+                   </form>
+               </div>
+
+
+            <!--*** end of right column: event info ***-->
+           </div>
+
+       <!--*** end of flexbox container w/ images and event info ***-->
+       </div>
+
+        <!--RSVP Button-->
+        <div sec:authorize="isAuthenticated()" th:if="${event.rsvpAble and userIsOwner==null and userHasRSVPd == null}" class="dropdown m-4 d-flex justify-content-center">
+            <div class="btn btn-success dropdown-toggle mx-auto" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                RSVP
+            </div>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                <li>
+                    <form th:action="@{/event/rsvp}" method="post">
+                        <input hidden name="event-id" th:value="${event.id}">
+                        <input hidden name="expertise" value="1">
+                        <button type="submit"> Beginner </button>
+                    </form>
+                </li>
+                <li>
+                    <form th:action="@{/event/rsvp}" method="post">
+                        <input hidden name="event-id" th:value="${event.id}">
+                        <input hidden name="expertise" value="2">
+                        <button type="submit"> Intermediate </button>
+                    </form>
+                </li>
+                <li>
+                    <form th:action="@{/event/rsvp}" method="post">
+                        <input hidden name="event-id" th:value="${event.id}">
+                        <input hidden name="expertise" value="3">
+                        <button type="submit"> Advanced </button>
+                    </form>
+                </li>
+
+            </ul>
         </div>
 
-        <!--if event has images, display carousel below-->
-            <!--Image carousel-->
-            <div th:if="${images.size() > 0}" id="carouselExampleIndicators" class="carousel carousel-fade slide w-50 mx-auto" data-bs-ride="true">
 
-                    <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <!--Flexbox container w/ 2 columns: event details on the left, map on the right-->
+        <div class="d-flex m-1">
 
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <details class="w-100">
+                <summary class="text-center m-2">
+                    Event Details:
+                </summary>
 
-                        <button th:if="${event.eventImages.size() > 2}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <!--Column Left: Hobbies, Category, Event Owner Expertise-->
+                <div>
 
-                        <button th:if="${event.eventImages.size() > 3}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-
-                        <button th:if="${event.eventImages.size() > 4}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                    <!--Hobby / Hobbies-->
+                    <div>
+                        <!--Event with one hobby-->
+                        <div th:if="${event.eventHobbies.size() == 1}" class="list-group-item" id="hobbies-just-one">
+                            Hobby:
+                            <a th:href="@{/event/search?search={name}(name=${event.eventHobbies.get(0).getHobbyName()})} ">
+                                <span th:text="${event.eventHobbies.get(0).getHobbyName()}"></span>
+                            </a>
+                        </div>
+                        <!--Event with multiple hobbies-->
+                        <div th:if="${event.eventHobbies.size() > 1}" class="list-group-item" id="hobbies-multiple">
+                            Hobbies:
+                            <ul th:each="hobby : ${event.eventHobbies}">
+                                <li>
+                                    <div class="d-flex flex-column btn text-start">
+                                        <a th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} ">
+                                            <span th:text="${hobby.hobbyName}"></span>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <!--Images from the database-->
-                    <div class="carousel-item active ratio ratio-16x9">
-                        <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
+                    <!--Category-->
+                    <div class="list-group-item">
+                        Category:
+                        <span th:text="${category.categoryName}"></span>
                     </div>
 
-                    <div th:if="${event.eventImages.size() > 1}" class="carousel-item ratio ratio-16x9">
-                        <img th:src="${event.eventImages.get(1).url}" class="d-block w-100" th:alt="${event.eventImages.get(1).imageDescription}">
+                    <!--Expertise-->
+                    <div class="list-group-item">
+                        Event Creator Expertise:
+                        <span th:text="${expertise.expertise}"></span>
                     </div>
 
-                    <div th:if="${event.eventImages.size() > 2}" class="carousel-item ratio ratio-16x9">
-                        <img th:src="${event.eventImages.get(2).url}" class="d-block w-100" th:alt="${event.eventImages.get(2).imageDescription}">
-                    </div>
+                    <!--Report Button-->
+                    <form th:action="@{/event/report}" method="post" class="">
+                        <input hidden th:value="${event.id}" name="event-id">
+                        <button type="submit" class="btn btn-danger" onclick="displayMessageWhenReported()">Report</button>
+                    </form>
+                    <!--script displays a message when the report button is pressed-->
+                    <script>
+						function displayMessageWhenReported() {
+							alert("A member of our team will review the post and take appropriate action.");
+						}
+                    </script>
 
-                    <div th:if="${event.eventImages.size() > 3}" class="carousel-item ratio ratio-16x9">
-                        <img th:src="${event.eventImages.get(3).url}" class="d-block w-100" th:alt="${event.eventImages.get(3).imageDescription}">
-                    </div>
 
-                    <div th:if="${event.eventImages.size() > 4}" class="carousel-item ratio ratio-16x9">
-                        <img th:src="${event.eventImages.get(4).url}" class="d-block w-100" th:alt="${event.eventImages.get(4).imageDescription}">
-                    </div>
-
-                    <!--Carousel navigation buttons-->
-                    <div th:if="${event.eventImages.size() > 1}">
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
 
                 </div>
 
 
-        <!--date & time format for same day events-->
-        <div>
-            <blockquote class="blockquote">
-                Event starts
-                <!--Start Day-->
-                on <span th:text="${event.startDate.getDay()}"></span>
-                <!--Start Month-->
-                <span th:text="${startDateMonth}"></span>
-                <!--Start Time-->
-                from <span th:text="${EventService.formatTime(event.startTime)}"></span>
-                <!--End Time-->
-                to <span th:text="${EventService.formatTime(event.endTime)}"></span>
-            </blockquote>
+
+            </details>
+
         </div>
 
-        <!--date & time format for multi-day events-->
-        <div th:if="${event.startDate != event.endDate}">
-            <blockquote class="blockquote">
-                Event lasts
-                <!--Start Day-->
-                from <span th:text="${event.startDate.getDay()}"></span>
-                <!--Start Month-->
-                <span th:text="${startDateMonth}"></span>
-                <!--Start Time-->
-                at <span th:text="${EventService.formatTime(event.startTime)}"></span>
-                <!--End Day-->
-                to <span th:text="${event.endDate.getDay()}"></span>
-                <!--End Month-->
-                <span th:text="${endDateMonth}"></span>
-                <!--End Time-->
-                at <span th:text="${EventService.formatTime(event.endTime)}"></span>
-            </blockquote>
-        </div>
+        <!--hidden element used to populate address on map-->
+        <div hidden class="list-group-item">Location: <span id="address" th:text="${event.address}"></span></div>
 
-
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Category: <span th:text="${category.categoryName}"></span> </li>
-            <li hidden class="list-group-item">Location: <span id="address" th:text="${event.address}"></span> </li>
-        </ul>
 
         <!--Buttons-->
-        <div class="card-body">
+        <div class="d-flex">
 
-            <!--RSVP Button-->
-            <div sec:authorize="isAuthenticated()" th:if="${event.rsvpAble and userIsOwner==null and userHasRSVPd == null}" class="dropdown">
-                <div class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    RSVP
-                </div>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                    <li>
-                        <form th:action="@{/event/rsvp}" method="post">
-                            <input hidden name="event-id" th:value="${event.id}">
-                            <input hidden name="expertise" value="1">
-                            <button type="submit"> Beginner </button>
-                        </form>
-                    </li>
-                    <li>
-                        <form th:action="@{/event/rsvp}" method="post">
-                            <input hidden name="event-id" th:value="${event.id}">
-                            <input hidden name="expertise" value="2">
-                            <button type="submit"> Intermediate </button>
-                        </form>
-                    </li>
-                    <li>
-                        <form th:action="@{/event/rsvp}" method="post">
-                            <input hidden name="event-id" th:value="${event.id}">
-                            <input hidden name="expertise" value="3">
-                            <button type="submit"> Advanced </button>
-                        </form>
-                    </li>
 
-                </ul>
-            </div>
 
-            <!--Report Button-->
-            <form th:action="@{/event/report}" method="post">
-                <input hidden th:value="${event.id}" name="event-id">
-                <button type="submit" class="btn btn-danger" onclick="displayMessageWhenReported()">Report</button>
-            </form>
-            <!--script displays a message when the report button is pressed-->
-            <script>
-                function displayMessageWhenReported() {
-					alert("A member of our team will review the post and take appropriate action.");
-				}
-            </script>
 
             <!--Edit Button-->
             <a th:if="${userIsOwner}" class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
@@ -200,14 +323,12 @@
     </div>
 
 
-    <!--Map HTML Element-->
-    <div id='map' class="mx-auto m-3" style='width: 80%; height: 300px;'></div>
+
 
     <!--Footer-->
     <div th:replace="partials/partials.html :: footer"></div>
-<!--keys through JS-->
+    <!--keys through JS-->
     <script th:replace="partials/partials.html :: script-keys" ></script>
-
     <!--Bootstrap JS Script Tag-->
     <script th:replace="partials/partials.html :: bootstrap-js"></script>
 
