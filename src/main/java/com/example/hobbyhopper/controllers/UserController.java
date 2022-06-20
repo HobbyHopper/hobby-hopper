@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -119,6 +118,30 @@ public class UserController {
 
         hobbyDao.save(hobby);
         return "redirect:/profile";
+    }
+
+    @PostMapping("/add-hobbies/create-event")
+    @ResponseBody
+    public String addHobbiesFromCreateEventForm(@RequestParam("hobby") String hobbyName) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User hobbyUser = userDao.getById(user.getId());
+        Hobby hobby = new Hobby(hobbyName);
+
+        if (hobbyDao.existsByHobbyNameIgnoreCase(hobbyName)) {
+            hobby = hobbyDao.findByHobbyName(hobbyName);
+        }
+
+        if (hobbyUser.getUserHobbies() != null) {
+            hobbyUser.getUserHobbies().add(hobby);
+        } else {
+            List<Hobby> hobbies = new ArrayList<>();
+            hobbies.add(hobby);
+            hobbyUser.setUserHobbies(hobbies);
+        }
+
+        hobbyDao.save(hobby);
+
+        return "";
     }
 
     @GetMapping("/sign-up")

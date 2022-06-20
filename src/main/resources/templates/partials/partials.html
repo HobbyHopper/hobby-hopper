@@ -17,9 +17,8 @@
 
 <!--Partials for the userHobbies-->
 <div th:fragment="hobbies" id="hobbies" class="mb-3 text-start d-flex flex-wrap" style="height: 4.5em; border: solid lightgray; overflow: scroll">
-
     <div th:each="hobby : ${userHobbies}" class="form-check w-50">
-        <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}" id="hobby">
+        <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}" id="hobby" required>
         <label th:text="${hobby.hobbyName}" class="form-check-label" for="hobby"></label>
     </div>
 </div>
