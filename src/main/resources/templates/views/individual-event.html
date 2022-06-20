@@ -153,20 +153,72 @@
             <!--*** end of right column: event info ***-->
            </div>
 
-
-
-
-
+       <!--*** end of flexbox container w/ images and event info ***-->
        </div>
 
 
+        <!--Flexbox container with event details-->
+        <div>
+            <details>
+                <summary>
+                    Event Details:
+                </summary>
+
+                <!--Column Left: Hobbies, Category, Event Owner Expertise-->
+                <div>
+
+                    <!--Hobby / Hobbies-->
+                    <div>
+                        <!--Event with one hobby-->
+                        <div th:if="${event.eventHobbies.size() == 1}" class="list-group-item" id="hobbies-just-one">
+                            Hobby:
+                            <a th:href="@{/event/search?search={name}(name=${event.eventHobbies.get(0).getHobbyName()})} ">
+                                <span th:text="${event.eventHobbies.get(0).getHobbyName()}"></span>
+                            </a>
+                        </div>
+                        <!--Event with multiple hobbies-->
+                        <div th:if="${event.eventHobbies.size() > 1}" class="list-group-item" id="hobbies-multiple">
+                            Hobbies:
+                            <ul th:each="hobby : ${event.eventHobbies}">
+                                <li>
+                                    <div class="d-flex flex-column btn text-start">
+                                        <a th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} ">
+                                            <span th:text="${hobby.hobbyName}"></span>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Category-->
+                    <div class="list-group-item">
+                        Category:
+                        <span th:text="${category.categoryName}"></span>
+                    </div>
+
+                    <!--Expertise-->
+                    <div class="list-group-item">
+                        Event Creator Expertise:
+                        <span th:text="${expertise.expertise}"></span>
+                    </div>
 
 
+                <!-- *** end of Left Column (Event Details) *** -->
+                </div>
 
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Category: <span th:text="${category.categoryName}"></span> </li>
-            <li hidden class="list-group-item">Location: <span id="address" th:text="${event.address}"></span> </li>
-        </ul>
+
+                <!--Right Column (Event Details): public, age, RSVPable-->
+                <div>
+
+
+                </div>
+            </details>
+        </div>
+
+        <!--hidden element used to populate address on map-->
+        <div hidden class="list-group-item">Location: <span id="address" th:text="${event.address}"></span></div>
+
 
         <!--Buttons-->
         <div class="card-body">
@@ -240,9 +292,8 @@
 
     <!--Footer-->
     <div th:replace="partials/partials.html :: footer"></div>
-<!--keys through JS-->
+    <!--keys through JS-->
     <script th:replace="partials/partials.html :: script-keys" ></script>
-
     <!--Bootstrap JS Script Tag-->
     <script th:replace="partials/partials.html :: bootstrap-js"></script>
 

@@ -28,9 +28,13 @@ public class Expertise {
         this.userEvents = userEvents;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
-
-
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public long getId() {
         return id;
