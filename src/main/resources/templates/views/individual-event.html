@@ -15,6 +15,7 @@
     <script src="https://kit.fontawesome.com/8de2f0b37b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/landing.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -25,7 +26,7 @@
     <!--Event Details Card-->
     <div class="mx-auto" style="width: 80rem;">
 
-        <h2 class="m-3">Event Info:</h2>
+        <h2 class="m-3 text-center">Event Info:</h2>
 
         <!--User has RSVP'd message-->
         <div th:if="${userHasRSVPd != null}" class="alert alert-success" role="alert">
@@ -38,6 +39,32 @@
            <!--Left Column: Image Carousel-->
            <div class="card w-100 px-5 py-3">
 
+               <!--Button for toggling between images and map-->
+               <div class="btn-group" role="group">
+                   <input type="radio" class="btn-check" name="image-map-btn" id="image-map-btn-1" autocomplete="off" onclick="showImages()" checked>
+                   <label class="btn btn-outline-primary" for="image-map-btn-1">Images</label>
+
+                   <input type="radio" class="btn-check" name="image-map-btn" id="image-map-btn-2" autocomplete="off" onclick="showImages()">
+                   <label class="btn btn-outline-primary" for="image-map-btn-2">Map</label>
+               </div>
+
+               <!--script to toggle between images and map-->
+               <script>
+                   function showImages(){
+					   if ($("#imageCarousel")[0].style.display == "none"){
+						   $("#imageCarousel")[0].style.display == "block";
+						   $("#map")[0].style.display == "none";
+                       }
+                   }
+
+				   function showMap(){
+					   if($("#map")[0].style.display == "none"){
+						   $("#map")[0].style.display == "block";
+						   $("#imageCarousel")[0].style.display == "none";
+					   }
+				   }
+               </script>
+
                <!--if event has no images, display hard-coded image below-->
                <div th:if="${images.size() == 0}">
                    <img th:src="@{http://dummyimage.com/110x100.png/dddddd/000000}">
@@ -45,7 +72,7 @@
 
                <!--if event has images, display carousel below-->
                <!--Image carousel-->
-               <div th:if="${images.size() > 0}" id="carouselExampleIndicators" class="carousel carousel-fade slide w-100" data-bs-ride="true">
+               <div th:if="${images.size() > 0}" id="imageCarousel" class="carousel carousel-fade slide w-100" data-bs-ride="true" style="display: block">
 
                    <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -157,10 +184,12 @@
        </div>
 
 
-        <!--Flexbox container with event details-->
-        <div>
-            <details>
-                <summary>
+
+        <!--Flexbox container w/ 2 columns: event details on the left, map on the right-->
+        <div class="d-flex m-3">
+
+            <details class="w-100">
+                <summary class="text-center m-2">
                     Event Details:
                 </summary>
 
@@ -214,6 +243,12 @@
 
                 </div>
             </details>
+
+            <!--Map HTML Element-->
+            <div class="w-100">
+                <div id='map' class="m-3" style="width: 20rem; height: 20rem; display: none"></div>
+            </div>
+
         </div>
 
         <!--hidden element used to populate address on map-->
@@ -221,7 +256,7 @@
 
 
         <!--Buttons-->
-        <div class="card-body">
+        <div class="d-flex">
 
             <!--RSVP Button-->
             <div sec:authorize="isAuthenticated()" th:if="${event.rsvpAble and userIsOwner==null and userHasRSVPd == null}" class="dropdown">
@@ -287,8 +322,7 @@
     </div>
 
 
-    <!--Map HTML Element-->
-    <div id='map' class="mx-auto m-3" style='width: 80%; height: 300px;'></div>
+
 
     <!--Footer-->
     <div th:replace="partials/partials.html :: footer"></div>
