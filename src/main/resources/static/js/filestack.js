@@ -28,4 +28,13 @@ function fileStackApi() {
 fileStackApi();
 
 
+// Delete user confirmation
+document.getElementById("erase-user").addEventListener("click", ()=>{
+    let confirmAction = confirm("Are you sure you want to delete user?");
+    if(confirmAction){
+        window.location.replace("/user/update");
+    }else{
+        window.location.reload();
+    }
+})
 
