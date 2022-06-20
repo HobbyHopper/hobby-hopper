@@ -7,9 +7,9 @@
 
 <nav th:replace="partials/partials.html :: navbar" ></nav>
 
-<section class="vh-100" sec:authorize="isAuthenticated()">
+<section class="" sec:authorize="isAuthenticated()">
     <div class="container h-custom mt-5">
-        <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-9 col-lg-6 col-xl-5 text-center mb-md-5 mb-lg-5 mb-xl-5">
                 <img th:src="@{${#authentication.principal.image}}" class="img-fluid" id="" alt="Profile Pic"/>
             </div>
@@ -73,6 +73,10 @@
         </div>
     </div>
 </section>
+
+<footer  th:replace="partials/partials.html :: footer"></footer>
+
+
 <script th:replace="partials/partials.html :: script-keys" ></script>
 <script th:replace="partials/partials.html :: bootstrap-js" ></script>
 <script th:replace="partials/partials.html :: file-stack" ></script>
