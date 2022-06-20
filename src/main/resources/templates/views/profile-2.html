@@ -63,14 +63,14 @@
                                     <ul th:each="hobby:${userHobbies}">
                                         <li>
                                             <div class="text-center hobby-container d-flex flex-column btn align-items-center "><a th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} "><span
-                                                    th:text="${hobby.hobbyName}"></span></a>
+                                                    th:text="${stringService.capitalizeWord(hobby.hobbyName) }"></span></a>
                                             <a style="color: red" th:href="@{user/delete-hobby/{id}(id=${hobby.id})}" class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></a>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                                 <div th:unless="${userHobbies.size()>0}" class="d-flex  justify-content-center">
-                                   <div><h5>Your Hobbies Will Appear Here As You Add Them</h5></div>
+                                   <div>You Have Not Added Any Hobbies</div>
 
                                 </div>
                             </div>
@@ -176,7 +176,7 @@
                             </section>
                         </div>
                         <div th:unless="${createdEvents}" class="d-flex justify-content-center">
-                            <div><h5>Your Events Will Appear Here As you Create Them</h5></div>
+                            <div>You Have Not Created Any Events</div>
                         </div>
 
 
@@ -264,7 +264,7 @@
                             </section>
                         </div>
                         <div th:unless="${userRsvpEvents}" class="d-flex justify-content-center">
-                            <div><h5>Upcoming Events You Have RSVP'd to Will Appear Here </h5></div>
+                            <div>You Have Not RSVP'd to Any Events</div>
                         </div>
                     </div>
                 </div>
