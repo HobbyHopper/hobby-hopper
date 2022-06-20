@@ -330,13 +330,17 @@ public class EventController {
             UserEvent userEvent = userEventDao.findByEventAndUserAndIsOwner(event, user, true);
             System.out.println(userEvent);
 
+            List<Hobby> hobbies = new ArrayList<>();
+            event.setEventHobbies(hobbies);
+            eventDao.save(event);
+
             //if statement below validates that the user of the event is the owner
             if (userEvent != null) {
                 eventDao.delete(event);
             }
         }
 
-        return "views/index";
+        return "redirect:/event";
 
     }
 
