@@ -18,7 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
-<body>
+<body class="gradient-custom-2">
 
     <!--Nav Bar-->
     <nav th:replace="partials/partials.html :: navbar"></nav>
@@ -55,7 +55,6 @@
 						   $("#imageCarousel")[0].style.display = "block";
 						   $("#mapContainer")[0].style.display = "none";
                        }
-					   console.log("showImages ran");
                    }
 
 				   function showMap(){
@@ -63,13 +62,14 @@
 						   $("#mapContainer")[0].style.display = "block";
 						   $("#imageCarousel")[0].style.display = "none";
 					   }
-					   console.log("showMap ran");
+					   // $("#map")[0].load(location.href + " #map");
+                       map.resize();
 				   }
                </script>
 
                <!--Map HTML Element-->
-               <div id="mapContainer" class="w-100 h-100" style="display: block">
-                   <div id='map' class="m-3 w-100 h-100"></div>
+               <div id="mapContainer" class="w-100 ratio ratio-16x9" style="display: none;">
+                   <div id='map' class="w-100"></div>
                </div>
 
                <!--if event has no images, display hard-coded image below-->
@@ -79,7 +79,7 @@
 
                <!--if event has images, display carousel below-->
                <!--Image carousel-->
-               <div th:if="${images.size() > 0}" id="imageCarousel" class="carousel carousel-fade slide w-100" data-bs-ride="true" style="display: none">
+               <div th:if="${images.size() > 0}" id="imageCarousel" class="carousel carousel-fade slide w-100" data-bs-ride="true" style="display: block">
 
                    <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -190,10 +190,41 @@
        <!--*** end of flexbox container w/ images and event info ***-->
        </div>
 
+        <!--RSVP Button-->
+        <div sec:authorize="isAuthenticated()" th:if="${event.rsvpAble and userIsOwner==null and userHasRSVPd == null}" class="dropdown m-4 d-flex justify-content-center">
+            <div class="btn btn-success dropdown-toggle mx-auto" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                RSVP
+            </div>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                <li>
+                    <form th:action="@{/event/rsvp}" method="post">
+                        <input hidden name="event-id" th:value="${event.id}">
+                        <input hidden name="expertise" value="1">
+                        <button type="submit"> Beginner </button>
+                    </form>
+                </li>
+                <li>
+                    <form th:action="@{/event/rsvp}" method="post">
+                        <input hidden name="event-id" th:value="${event.id}">
+                        <input hidden name="expertise" value="2">
+                        <button type="submit"> Intermediate </button>
+                    </form>
+                </li>
+                <li>
+                    <form th:action="@{/event/rsvp}" method="post">
+                        <input hidden name="event-id" th:value="${event.id}">
+                        <input hidden name="expertise" value="3">
+                        <button type="submit"> Advanced </button>
+                    </form>
+                </li>
+
+            </ul>
+        </div>
 
 
         <!--Flexbox container w/ 2 columns: event details on the left, map on the right-->
-        <div class="d-flex m-3">
+        <div class="d-flex m-1">
 
             <details class="w-100">
                 <summary class="text-center m-2">
@@ -239,16 +270,24 @@
                         <span th:text="${expertise.expertise}"></span>
                     </div>
 
+                    <!--Report Button-->
+                    <form th:action="@{/event/report}" method="post" class="">
+                        <input hidden th:value="${event.id}" name="event-id">
+                        <button type="submit" class="btn btn-danger" onclick="displayMessageWhenReported()">Report</button>
+                    </form>
+                    <!--script displays a message when the report button is pressed-->
+                    <script>
+						function displayMessageWhenReported() {
+							alert("A member of our team will review the post and take appropriate action.");
+						}
+                    </script>
 
-                <!-- *** end of Left Column (Event Details) *** -->
+
+
                 </div>
 
 
-                <!--Right Column (Event Details): public, age, RSVPable-->
-                <div>
 
-
-                </div>
             </details>
 
         </div>
@@ -260,49 +299,9 @@
         <!--Buttons-->
         <div class="d-flex">
 
-            <!--RSVP Button-->
-            <div sec:authorize="isAuthenticated()" th:if="${event.rsvpAble and userIsOwner==null and userHasRSVPd == null}" class="dropdown">
-                <div class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    RSVP
-                </div>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                    <li>
-                        <form th:action="@{/event/rsvp}" method="post">
-                            <input hidden name="event-id" th:value="${event.id}">
-                            <input hidden name="expertise" value="1">
-                            <button type="submit"> Beginner </button>
-                        </form>
-                    </li>
-                    <li>
-                        <form th:action="@{/event/rsvp}" method="post">
-                            <input hidden name="event-id" th:value="${event.id}">
-                            <input hidden name="expertise" value="2">
-                            <button type="submit"> Intermediate </button>
-                        </form>
-                    </li>
-                    <li>
-                        <form th:action="@{/event/rsvp}" method="post">
-                            <input hidden name="event-id" th:value="${event.id}">
-                            <input hidden name="expertise" value="3">
-                            <button type="submit"> Advanced </button>
-                        </form>
-                    </li>
 
-                </ul>
-            </div>
 
-            <!--Report Button-->
-            <form th:action="@{/event/report}" method="post">
-                <input hidden th:value="${event.id}" name="event-id">
-                <button type="submit" class="btn btn-danger" onclick="displayMessageWhenReported()">Report</button>
-            </form>
-            <!--script displays a message when the report button is pressed-->
-            <script>
-                function displayMessageWhenReported() {
-					alert("A member of our team will review the post and take appropriate action.");
-				}
-            </script>
 
             <!--Edit Button-->
             <a th:if="${userIsOwner}" class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
