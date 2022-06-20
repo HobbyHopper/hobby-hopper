@@ -3,9 +3,11 @@ header.jumbotron {
     overflow: hidden;
     padding-top: calc(7rem + 72px);
     padding-bottom: 7rem;
-    background: linear-gradient(0deg, #d2c6bc 0%, #273b1f 100%);
+    background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
     background-repeat: no-repeat;
-    background-position: center center;
+    /*background-position: center center;*/
     background-attachment: scroll;
     background-size: cover;
 }
@@ -23,7 +25,9 @@ header.jumbotron .bg-circle {
     z-index: 0;
     position: absolute;
     border-radius: 100%;
-    background: linear-gradient(0deg, #d2c6bc 0%, #273b1f 100%);
+    background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1))
 }
 header.jumbotron .bg-circle-1 {
     height: 90rem;
@@ -87,7 +91,7 @@ a{
     bottom: 0;
 }
 .card-body{
-    min-height: 309px;
+    min-height: 50px;
 }
 section .event-cards{
     margin-right: 0px;
