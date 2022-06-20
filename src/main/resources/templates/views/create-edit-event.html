@@ -125,15 +125,14 @@
                     <div class="w-100 px-3 text-center">
 
                         <!--Hobbies (create)-->
-                        <!--Ignore error: id "hobbies" is included in a fragment-->
                         <label for="hobbies" class="form-label">
                             Hobby or hobbies for this event
                         </label>
                         <div class="d-flex justify-content-center align-items-center">
-                            <form th:action="@{/add-hobbies/create-event}" th:object="${hobby}" id="add-hobby-form">
+<!--                            <form th:action="@{/add-hobbies/create-event}" th:object="${hobby}" id="add-hobby-form">-->
                                 <div class="form-outline p-1">
                                     <input type="text" id="hobby-name" name="hobby-name" class="form-control"
-                                           placeholder="Enter Hobby" th:field="*{hobbyName}" style="font-size: .85em"/>
+                                           placeholder="Enter Hobby" style="font-size: .85em"/>
                                     <input type="hidden"
                                            name="${_csrf.parameterName}"
                                            value="${_csrf.token}"/>
@@ -142,7 +141,11 @@
                                     <input value="Add hobby" class="btn btn-primary"
                                            style="font-size: .85em" id="add-hobby-btn">
                                 </div>
-                            </form>
+<!--                            </form>-->
+                        </div>
+
+                        <div id="hobbies-parent-div">
+                            <div th:replace="partials/partials.html :: hobbies" id="hobbies"></div>
                         </div>
 
                         <!--AJAX request script that updates hobbies-->
@@ -176,26 +179,26 @@
                                     data: {
                                         hobby: hobbyName
                                     },
-                                    success: function(text) {
-                                        console.log("Success: " + text);
+                                    success: function(res) {
+                                        console.log("Success: " + res);
+										$("#hobbies-parent-div").load(location.href + " #hobbies-parent-div");
                                     },
-                                    error: function (jqXHR) {
-                                        console.log("Error: " + jqXHR.status);
+                                    error: function (res) {
+                                        console.log("Error: " + res);
                                     }
                                 });
+
+								$("#hobby-name").val("");
 
 							});
 
                         </script>
 
-                        <div th:replace="partials/partials.html :: hobbies" id="hobbies"></div>
-
-
                         <!--Category (create)-->
                         <div class="mb-3">
                             <label for="categories" class="form-label">Category</label>
                             <select id="categories" class="form-select" th:field="*{categoryId}" required>
-                                <option disabled value="0" name="category">Select a category...</option>
+                                <option disabled value="0" name="category-invalid">Select a category...</option>
                                 <option name="category" value="1">Indoor</option>
                                 <option name="category" value="2">Outdoor</option>
                             </select>
@@ -286,6 +289,7 @@
                         Create Event
                     </button>
                 </div>
+
                 <!--script below stops form from submitting if required fields are empty-->
                 <script>
                     (() => {
@@ -294,9 +298,21 @@
                         // Fetch all the forms we want to apply custom Bootstrap validation styles to
                         const forms = document.querySelectorAll('.needs-validation')
 
+                        //Check that categories and expertise have required values
+                        let category = $("#categories").val();
+                        let expertise = $("#expertise").val();
+						if (category==0){
+							$("#categories").val(null);
+						}
+						if (expertise==0){
+							$("#expertise").val(null);
+						}
+
+
                         // Loop over them and prevent submission
                         Array.from(forms).forEach(form => {
                             form.addEventListener('submit', event => {
+
                                 if (!form.checkValidity()) {
                                     event.preventDefault()
                                     event.stopPropagation()

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -142,9 +141,7 @@ public class UserController {
 
         hobbyDao.save(hobby);
 
-//        System.out.println("This is the hobby name: " + hobbyName);
-        return "partials/partials.html :: hobbies";
-//        return "";
+        return "";
     }
 
     @GetMapping("/sign-up")
