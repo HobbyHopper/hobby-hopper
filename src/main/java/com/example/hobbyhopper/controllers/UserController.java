@@ -55,7 +55,8 @@ public class UserController {
         Boolean userIsAdmin= user.getAdmin();
         Date today = new Date();
         model.addAttribute("stringService",stringService);
-
+//        boolean emptyHobby=false;
+//        model.addAttribute("emptyHobby",emptyHobby);
         if (user.getUserHobbies() != null) {
             userHobbies = user.getUserHobbies();
         }
@@ -99,11 +100,14 @@ public class UserController {
     }
 
     @PostMapping("/add-hobbies")
-    public String addHobbies(@ModelAttribute Hobby hobby) {
+    public String addHobbies(@ModelAttribute Hobby hobby,Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User hobbyUser = userDao.getById(user.getId());
 
-        if (hobbyDao.existsByHobbyNameIgnoreCase(hobby.getHobbyName())) {
+
+        if(hobby.getHobbyName().equals("")){
+            hobby=hobbyDao.findByHobbyName("Having Fun");
+        }else if (hobbyDao.existsByHobbyNameIgnoreCase(hobby.getHobbyName())) {
             hobby = hobbyDao.findByHobbyName(hobby.getHobbyName());
         }
 
@@ -118,9 +122,8 @@ public class UserController {
             hobbies.add(hobby);
             hobbyUser.setUserHobbies(hobbies);
         }
+            hobbyDao.save(hobby);
 
-
-        hobbyDao.save(hobby);
         return "redirect:/profile";
     }
 
@@ -131,19 +134,24 @@ public class UserController {
         User hobbyUser = userDao.getById(user.getId());
         Hobby hobby = new Hobby(hobbyName);
 
+        if(hobbyName.equals("")) {
+            hobby = hobbyDao.findByHobbyName("Having Fun");
+        }
         if (hobbyDao.existsByHobbyNameIgnoreCase(hobbyName)) {
             hobby = hobbyDao.findByHobbyName(hobbyName);
         }
+        if (!hobbyDao.existsByUsersAndHobbyNameIgnoreCase(hobbyUser, hobby.getHobbyName())) {
+            if (hobbyUser.getUserHobbies() != null) {
+                hobbyUser.getUserHobbies().add(hobby);
+            } else {
+                List<Hobby> hobbies = new ArrayList<>();
+                hobbies.add(hobby);
+                hobbyUser.setUserHobbies(hobbies);
+            }
 
-        if (hobbyUser.getUserHobbies() != null) {
-            hobbyUser.getUserHobbies().add(hobby);
-        } else {
-            List<Hobby> hobbies = new ArrayList<>();
-            hobbies.add(hobby);
-            hobbyUser.setUserHobbies(hobbies);
+            hobbyDao.save(hobby);
+
         }
-
-        hobbyDao.save(hobby);
 
         return "";
     }
