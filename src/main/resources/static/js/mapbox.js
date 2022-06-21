@@ -18,7 +18,7 @@ function addAddressMarker(center, address) {
 
 	let popup = new mapboxgl.Popup({closeOnClick: false})
 		.setLngLat(center)
-		.setHTML("<p>" + address + "</p>")
+		.setHTML("<p> Event address: <br>" + address + "</p>")
 		.addTo(map);
 
 }
