@@ -10,13 +10,13 @@
     <h1 class="display-4 fw-bolder text-light text-center">Find More Events</h1>
 </div>
 
-<div class="container-fluid vh-100">
+<div class="container-fluid min-vh-100">
     <!--    categories sidebar-->
     <div class="side-nav d-none d-sm-block col-3 pt-2 p-1">
         <ul class="list-group">
             <li><h4 class="text-decoration-underline">Search by Categories</h4></li>
             <li class="nav-item mb-2"><a class="" href="/event/search?search=indoor">Indoor</a></li>
-            <li class="nav-item mb-2"><a href="/event/search?search=outdoor">Outdoor</a></li>
+            <li class="nav-item mb-2 pb-4"><a href="/event/search?search=outdoor">Outdoor</a></li>
         </ul>
         <ul class="list-group">
             <li><h4 class="text-decoration-underline">Search by Hobby</h4></li>
@@ -28,8 +28,8 @@
 
     <!--        event cards-->
     <div th:if="${eventsByTitle}">
-        <div class="main col-9 h-100 pb-2 mb-5">
-            <section class="event-cards justify-content-center d-flex flex-wrap">
+        <div class="main col-10 h-100 pb-2 mb-5">
+            <section class="event-cards justify-content-evenly justify-content-sm-center d-flex flex-wrap">
                 <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${eventsByTitle}">
 
                     <!--    Image carousel within card-->
@@ -112,8 +112,8 @@
         </div>
     </div>
     <div th:if="${eventsByCategory}">
-        <div class="main col-9 h-100 pb-2 mb-5">
-            <section class="main2 event-cards container d-flex flex-wrap justify-content-evenly">
+        <div class="main col-10 h-100 pb-2 mb-5">
+            <section class="main2 event-cards container d-flex flex-wrap justify-content-center">
                 <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${eventsByCategory}">
                     <!--    Image carousel within card-->
                     <div th:id="carouselExampleIndicators +${event.id}"
@@ -194,8 +194,8 @@
     </div>
 
     <div th:if="${eventsByHobby}">
-        <div class="main col-9 h-100">
-            <section class=" event-cards container d-flex flex-wrap">
+        <div class="main col-10 h-100">
+            <section class=" event-cards container d-flex flex-wrap justify-content-center">
                 <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${eventsByHobby}">
 
                     <!--    Image carousel within card-->
