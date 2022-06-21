@@ -3,6 +3,7 @@ package com.example.hobbyhopper.controllers;
 import com.example.hobbyhopper.models.*;
 import com.example.hobbyhopper.repositories.*;
 import com.example.hobbyhopper.services.EventService;
+import com.example.hobbyhopper.services.StringService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +26,11 @@ public class EventController {
     private final HobbiesRepository hobbyDao;
     private final CategoryRepository categoryDao;
     private final ImageRepository imageDao;
-    private final EventService eventService = new EventService();
+    private final EventService eventService;
+    private final StringService stringService;
 
 
-    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao, HobbiesRepository hobbyDao, CategoryRepository categoryDao, ImageRepository imageDao) {
+    public EventController(EventRepository eventDao, UserRepository userDao, UserEventRepository userEventDao, ExpertiseRepository expertiseDao, HobbiesRepository hobbyDao, CategoryRepository categoryDao, ImageRepository imageDao, EventService eventService, StringService stringService) {
         this.eventDao = eventDao;
         this.userDao = userDao;
         this.userEventDao = userEventDao;
@@ -36,6 +38,8 @@ public class EventController {
         this.hobbyDao = hobbyDao;
         this.categoryDao = categoryDao;
         this.imageDao = imageDao;
+        this.eventService = eventService;
+        this.stringService = stringService;
     }
 
     @GetMapping()
@@ -264,8 +268,10 @@ public class EventController {
 //        combine all search results into one list
         List<Event> searchEvents=new ArrayList<>();
 //       store all hobbies/categories with name matching query in a list
+        List<Hobby> allHobbies=hobbyDao.findAll();
         List<Hobby> hobbyList = hobbyDao.searchByNameLike(search);
         List<Category> categoryList= categoryDao.searchByNameLike(search);
+        model.addAttribute("stringService",stringService );
         Date today = new Date();
 
 //  loop through events and find all events associated with similar hobby names
@@ -314,6 +320,7 @@ public class EventController {
         eventsByCategory.sort(Comparator.comparing(Event::getEndDate));
         eventsByHobby.sort(Comparator.comparing(Event::getEndDate));
         eventsByTitle.sort(Comparator.comparing(Event::getEndDate));
+        model.addAttribute("allHobbies",allHobbies);
         model.addAttribute("searchEvents",searchEvents);
         model.addAttribute("eventsByTitle",eventsByTitle);
         model.addAttribute("eventsByCategory",eventsByCategory);

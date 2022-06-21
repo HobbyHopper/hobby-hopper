@@ -7,16 +7,22 @@
 
 <nav th:replace="partials/partials.html :: navbar"></nav>
 <div> <!-- class="mini-jumbo2 container-fluid py-5 px-4 my-5 text-center text-white" --->
-<h1 class="display-4 fw-bolder text-light text-center">Find More Events</h1>
+    <h1 class="display-4 fw-bolder text-light text-center">Find More Events</h1>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid vh-100">
     <!--    categories sidebar-->
     <div class="side-nav d-none d-sm-block col-3 pt-2 p-1">
         <ul class="list-group">
-            <li><h4 class="text-decoration-underline">Categories</h4></li>
+            <li><h4 class="text-decoration-underline">Search by Categories</h4></li>
             <li class="nav-item mb-2"><a class="" href="/event/search?search=indoor">Indoor</a></li>
             <li class="nav-item mb-2"><a href="/event/search?search=outdoor">Outdoor</a></li>
+        </ul>
+        <ul class="list-group">
+            <li><h4 class="text-decoration-underline">Search by Hobby</h4></li>
+            <li th:each="hobby:${allHobbies}" class="nav-item mb-2"><a class=""
+                                                                       th:href="@{/event/search?search={name}(name=${hobby.hobbyName})}"><span
+                    th:text="${stringService.capitalizeWord(hobby.hobbyName) }"></span></a></li>
         </ul>
     </div>
 
@@ -272,7 +278,6 @@
         </div>
     </div>
 </div>
-
 <footer th:replace="partials/partials.html :: footer"></footer>
 <script th:replace="partials/partials.html :: bootstrap-js"></script>
 </body>
