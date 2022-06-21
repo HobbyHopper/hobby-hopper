@@ -15,6 +15,7 @@
     <script src="https://kit.fontawesome.com/8de2f0b37b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/landing.css}">
+    <link rel="stylesheet" th:href="@{/css/marker.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
@@ -26,7 +27,7 @@
     <!--Event Details Card-->
     <div class="mx-auto" style="width: 80rem;">
 
-        <h2 class="m-3 text-center">Event Info:</h2>
+        <h2 class="m-1 text-center">Event Info:</h2>
 
         <!--User has RSVP'd message-->
         <div th:if="${userHasRSVPd != null}" class="alert alert-success" role="alert">
@@ -37,10 +38,10 @@
        <div class="d-flex justify-content-between">
 
            <!--Left Column: Image Carousel-->
-           <div class="card w-100 px-5 py-3">
+           <div class="card w-100 px-5 py-3" style="background: rgba(106,141,191,0); border: none">
 
                <!--Button for toggling between images and map-->
-               <div class="btn-group" role="group">
+               <div class="btn-group m-1" role="group">
                    <input type="radio" class="btn-check" name="image-map-btn" id="image-map-btn-1" autocomplete="off" onclick="showImages()" checked>
                    <label class="btn btn-outline-primary" for="image-map-btn-1">Images</label>
 
@@ -142,24 +143,33 @@
 
                <!--date & time format for same day events-->
                <div th:unless="${event.startDate != event.endDate}">
-                   <blockquote class="blockquote">
-                       Event starts
-                       <!--Start Day-->
-                       on <span th:text="${event.startDate.getDay()+1}"></span>
-                       <!--Start Month-->
-                       <span th:text="${startDateMonth}"></span>
-                       <!--Start Time-->
-                       from <span th:text="${EventService.formatTime(event.startTime)}"></span>
-                       <!--End Time-->
-                       to <span th:text="${EventService.formatTime(event.endTime)}"></span>
-                   </blockquote>
+                   <form th:object="${event}">
+                       <!--Start date and time-->
+                       <label for="start-date-time"> Start Date & Time </label>
+                       <div id="start-date-same-day" class="d-flex justify-content-center align-items-center p-2">
+                           <div class="px-1">
+                               <input type="date" id="date-same-day" name="date" class="form-control form-control-lg" placeholder="" th:field="*{startDate}" readonly>
+                           </div>
+                       </div>
+                       <div id="start-date-time-same-day" class="d-flex justify-content-center align-items-center">
+                           <div>
+                               <input type="time" id="start-time-same-day" name="date" class="form-control form-control-lg p-2" placeholder="" th:field="*{startTime}" readonly>
+                           </div>
+                           <div class="m-1">
+                            To
+                           </div>
+                           <div>
+                               <input type="time" id="end-time-same-day" name="date" class="form-control form-control-lg p-2" placeholder="" th:field="*{endTime}" readonly>
+                           </div>
+                       </div>
+                   </form>
                </div>
 
                <!--date & time format for multi-day events-->
                <div th:if="${event.startDate != event.endDate}">
 
                    <form th:object="${event}">
-                       <!--Start date and time-->
+                       <!--Start date-->
                        <label for="start-date-time"> Start Date & Time </label>
                        <div id="start-date-time" class="d-flex justify-content-center">
                            <div class="px-1">
@@ -299,10 +309,6 @@
         <!--Buttons-->
         <div class="d-flex">
 
-
-
-
-
             <!--Edit Button-->
             <a th:if="${userIsOwner}" class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
 
@@ -317,7 +323,6 @@
                     }
                 }
             </script>
-
 
         </div>
     </div>
