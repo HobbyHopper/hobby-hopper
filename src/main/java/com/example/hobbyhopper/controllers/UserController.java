@@ -253,7 +253,18 @@ public class UserController {
         User userInfoPull = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User deleteUser = userDao.getById(userInfoPull.getId());
         List <Hobby> userHobbies= deleteUser.getUserHobbies();
+        List<UserEvent> isOwnerUserEvents = userEventDao.findAllByUserAndIsOwner(deleteUser, true);
+        List<Hobby> empty=new ArrayList<>();
         userHobbies.removeAll(hobbyDao.findAll());
+
+
+        if (isOwnerUserEvents.size() != 0) {
+            for (UserEvent userEvent : isOwnerUserEvents) {
+                Event userCreatedEvent = eventDao.findByUserEvents(userEvent);
+                userCreatedEvent.setEventHobbies(empty);
+                eventDao.delete(userCreatedEvent);
+            }
+        }
         userDao.delete(deleteUser);
         session.invalidate();
 
