@@ -72,15 +72,15 @@ a{
 
 .main{
     /*min-height: 100%;*/
-    margin-left: 200px;
+    margin-left: 250px;
     margin-right: 0;
 }
 .side-nav{
-    position: fixed;
+    position: absolute;
     min-height: 100%;
     font-size: 25px;
     height: 100%;
-    width: 200px;
+    width: 250px;
 }
 .side-nav a:hover {
     color: #818181;
@@ -109,5 +109,6 @@ section .event-cards{
 @media screen and (min-width: 375px) and (max-width: 412px){
     .main{
         margin-left: 0px;
+        justify-content: center;
     }
 }
