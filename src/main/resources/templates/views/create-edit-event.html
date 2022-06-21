@@ -333,7 +333,7 @@
 
 
             <!--Flexbox container w/ two columns: Images on the left, Event Info on right-->
-            <div class="d-flex text-center">
+            <div class="d-flex justify-content-between flex-wrap flex-lg-nowrap flex-xl-nowrap">
 
                 <!--Column 1: images-->
                 <div class="w-100 px-5 py-3 bg-light bg-gradient">
@@ -433,12 +433,12 @@
 
 
 
-            <form class="w-100" id="edit-event" th:action="@{/event/edit/{id}(id=${event.getId()})}" method="POST">
-<!--            <form id="edit-event" th:action="@{https://request-inspector.glitch.me/}" th:method="POST">-->
+            <form class="needs-validation container" id="edit-event" th:action="@{/event/edit/{id}(id=${event.getId()})}" method="POST">
+<!--            <form id="edit-event" th:action="@{https://request-inspector.glitch.me/}" th:method="POST">--->
 
 
                 <!--Column 2: event info-->
-                <div class="w-100 d-flex flex-column text-center justify-content-evenly">
+                <div class="w-100 d-flex flex-column text-center">
                     <!--Event name (edit)-->
                     <div class="mb-3">
                         <label for="edit-title">Event Title</label>
@@ -489,13 +489,14 @@
 
             <!--*** end of flexbox container w/ images and event info-->
             <!--Ignore error; page layout works perfectly-->
+            </form>
             </div>
 
 
             <h4 class="text-center my-3"> Event Details:</h4>
 
             <!--Flexbox container w/ two columns for Event Details-->
-            <div class="d-flex">
+            <div class="d-flex flex-column flex-lg-row flex-xl-row">
 
                 <!--Left Column for Event Details: Hobbies, Category, Expertise-->
                 <div class="w-100 px-3 text-center">
