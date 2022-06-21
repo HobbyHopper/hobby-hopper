@@ -188,7 +188,11 @@ public class UserController {
             return "views/sign-up";
         }
 
-        user.setImage(images);
+        if(images == null){
+            user.setImage("https://secure.img1-fg.wfcdn.com/im/98134626/resize-h445%5Ecompr-r85/2657/26574747/Leaping+Frog+Wall+Decal.jpg");
+        } else{
+            user.setImage(images);
+        }
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         userDao.save(user);
@@ -210,7 +214,6 @@ public class UserController {
 
         editUser.setUsername(user.getUsername());
         editUser.setEmail(user.getEmail());
-        editUser.setImage(images);
         editUser.setLocation(user.getLocation());
         String hash = passwordEncoder.encode(user.getPassword());
         editUser.setPassword(hash);
@@ -241,6 +244,11 @@ public class UserController {
             model.addAttribute("user", user);
             return "views/edit-user-info";
         } else {
+            if(images == null){
+                editUser.setImage(editUser.getImage());
+            }else{
+                editUser.setImage(images);
+            }
             userDao.save(editUser);
         }
 
