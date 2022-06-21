@@ -14,19 +14,17 @@
 
 <!--            <form th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{https://request-inspector.glitch.me/}" method="POST" class ="needs-validation" novalidate>-->
 
-<form th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{'/event/create?error'}" method="POST"
-      class="needs-validation container-fluid" novalidate>
+<form  th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{'/event/create?error'}" method="POST" class=" needs-validation container-fluid" novalidate>
 
     <h1 class="text-center"> Create Event </h1>
 
-    <h4 class="text-center"> Event Info: Required Information</h4>
 
     <!--Flexbox container w/ two columns: Image on the left, Event info on right-->
-    <div class="d-flex justify-content-between flex-wrap flex-lg-nowrap flex-xl-nowrap">
-
+    <div class="d-flex flex-wrap align-items-baseline ">
 
         <!--Images Column (create)-->
-        <div class="w-100 px-5 py-3 bg-light bg-gradient">
+        <div class="d-flex flex-column align-items-center w-50 px-5 py-3 h-50 ">
+            <h4 class="text-center"> Event Info: Required Information</h4>
 
             <!--Image input (create)-->
             <div class="form-outline mt-3">
@@ -39,86 +37,87 @@
                 <div id="image-url"></div>
             </div>
 
+
+            <!--Event Info Column (create)-->
+            <div class="w-100 d-flex flex-column text-center">
+
+                <!--Event name (create)-->
+                <div class="p-3">
+                    <label for="title">Event Name</label>
+                    <input type="text" class="form-control" id="title"
+                           placeholder='"DnD marathon," "Workout buddies," "Casual soccer at the park," etc...'
+                           th:field="*{eventName}" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please add a name for your event.
+                    </div>
+                </div>
+
+                <!--Description (create)-->
+                <div class="p-3">
+                    <label for="Description">Description</label>
+                    <textarea class="form-control" id="Description" rows="3"
+                              placeholder="The more descriptive the better! You may include details such as equipment necessary, weather considerations, and any other relevant information for your event."
+                              th:field="*{eventDescription}" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please add a description for your event.
+                    </div>
+                </div>
+
+
+                <!--Start date and time (create)-->
+                <label for="start-date-time"> Start Date & Time </label>
+                <div id="start-date-time" class="d-flex justify-content-center">
+                    <div class="px-1">
+                        <input type="date" id="date" name="date" class="form-control form-control-lg" placeholder=""
+                               th:field="*{startDate}" required/>
+                    </div>
+                    <div>
+                        <input type="time" id="start-time" name="date" class="form-control form-control-lg"
+                               placeholder=""
+                               th:field="*{startTime}" required/>
+                    </div>
+                </div>
+
+                <!--End date and time (create)-->
+                <label for="end-date-time"> End Date & Time </label>
+                <div id="end-date-time" class="d-flex justify-content-center mb-3">
+                    <div class="px-1">
+                        <input type="date" id="end-date" name="end-time" class="form-control form-control-lg"
+                               placeholder=""
+                               th:field="*{endDate}" required>
+                    </div>
+                    <div>
+                        <input type="time" id="end-time" name="date" class="form-control form-control-lg" placeholder=""
+                               th:field="*{endTime}" required>
+                    </div>
+                </div>
+
+                <!--Address (create)-->
+                <label for="address-div"> Event Address </label>
+                <div id="address-div" class="px-3">
+                    <input class="w-100" type="text" name="address" id="address" th:field="*{address}"
+                           placeholder="123 street name st" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please add an address for your event.
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <!--Event Info Column (create)-->
-        <div class="w-100 d-flex flex-column text-center">
-
-            <!--Event name (create)-->
-            <div class="p-3">
-                <label for="title">Event Name</label>
-                <input type="text" class="form-control" id="title"
-                       placeholder='"DnD marathon," "Workout buddies," "Casual soccer at the park," etc...'
-                       th:field="*{eventName}" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please add a name for your event.
-                </div>
-            </div>
-
-            <!--Description (create)-->
-            <div class="p-3">
-                <label for="Description">Description</label>
-                <textarea class="form-control" id="Description" rows="3"
-                          placeholder="The more descriptive the better! You may include details such as equipment necessary, weather considerations, and any other relevant information for your event."
-                          th:field="*{eventDescription}" required></textarea>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please add a description for your event.
-                </div>
-            </div>
-
-
-            <!--Start date and time (create)-->
-            <label for="start-date-time"> Start Date & Time </label>
-            <div id="start-date-time" class="d-flex justify-content-center">
-                <div class="px-1">
-                    <input type="date" id="date" name="date" class="form-control form-control-lg" placeholder=""
-                           th:field="*{startDate}" required/>
-                </div>
-                <div>
-                    <input type="time" id="start-time" name="date" class="form-control form-control-lg" placeholder=""
-                           th:field="*{startTime}" required/>
-                </div>
-            </div>
-
-            <!--End date and time (create)-->
-            <label for="end-date-time"> End Date & Time </label>
-            <div id="end-date-time" class="d-flex justify-content-center mb-3">
-                <div class="px-1">
-                    <input type="date" id="end-date" name="end-time" class="form-control form-control-lg" placeholder=""
-                           th:field="*{endDate}" required>
-                </div>
-                <div>
-                    <input type="time" id="end-time" name="date" class="form-control form-control-lg" placeholder=""
-                           th:field="*{endTime}" required>
-                </div>
-            </div>
-
-            <!--Address (create)-->
-            <label for="address-div"> Event Address </label>
-            <div id="address-div" class="px-3">
-                <input class="w-100" type="text" name="address" id="address" th:field="*{address}"
-                       placeholder="123 street name st" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please add an address for your event.
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!--Event details [category, hobbies, public, etc] (create)-->
 
-    <h4 class="text-center mb-3 mt-5"> Event Details: Optional Information </h4>
 
-    <div class="d-flex flex-column flex-lg-row flex-xl-row">
+        <div class="d-flex flex-column align-items-center w-50 px-5 py-3 h-50 ">
+        <h4 class="text-center mb-3 mt-5"> Event Details: Optional Information </h4>
 
         <!--Event details, Column 1: category, hobbies, and expertise-->
         <div class="w-100 px-3 text-center">
@@ -285,6 +284,7 @@
         let currentDateElementForCreateEvent = document.getElementById("current-date-create");
         currentDateElementForCreateEvent.setAttribute("value", date);
     </script>
+    </div>
 
     <div class="d-flex justify-content-center mb-3 mt-5">
         <button type="submit" class="btn btn-success">
@@ -630,24 +630,24 @@
     </div>
 
     <!-- *** end of the edit form ***-->
+</div>
 
-    <!--Footer-->
-    <div th:replace="partials/partials.html :: footer"></div>
+<!--Footer-->
+<div th:replace="partials/partials.html :: footer"></div>
 
-    <!--Bootstrap JS Script Tag-->
-    <script th:replace="partials/partials.html :: script-keys"></script>
+<!--Bootstrap JS Script Tag-->
+<script th:replace="partials/partials.html :: script-keys"></script>
 
-    <script th:replace="partials/partials.html :: bootstrap-js"></script>
+<script th:replace="partials/partials.html :: bootstrap-js"></script>
 
-    <!--External Script Tags-->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
-    <script th:src="@{/js/mapbox-geocoder-utils.js}"></script>
-    <script th:replace="partials/partials.html :: bootstrap-js"></script>
-    <script th:replace="partials/partials.html :: file-stack"></script>
-    <script th:replace="partials/partials.html :: file-js"></script>
-    <script th:replace="partials/partials.html :: map-js"></script>
-    <script th:replace="partials/partials.html :: environment-keys"></script>
-
+<!--External Script Tags-->
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+<script th:src="@{/js/mapbox-geocoder-utils.js}"></script>
+<script th:replace="partials/partials.html :: bootstrap-js"></script>
+<script th:replace="partials/partials.html :: file-stack"></script>
+<script th:replace="partials/partials.html :: file-js"></script>
+<script th:replace="partials/partials.html :: map-js"></script>
+<script th:replace="partials/partials.html :: environment-keys"></script>
 
 </body>
 </html>
