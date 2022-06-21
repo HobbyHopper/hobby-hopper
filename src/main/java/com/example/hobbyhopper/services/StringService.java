@@ -9,4 +9,16 @@ public class StringService {
     public String capitalizeWord(String word){
         return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
     }
+
+    public String limitLength(String string, int limit) {
+        if(limit > string.length()) return string;
+
+        return string.substring(0, limit).substring(0,1).toUpperCase() + string.substring(1,10).toLowerCase() + "...";
+    }
+
+    public String limitLengthBig(String string, int limit) {
+        if(limit > string.length()) return string;
+
+        return string.substring(0, limit).substring(0,1).toUpperCase() + string.substring(1,10).toLowerCase() + "...";
+    }
 }
