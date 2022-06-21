@@ -201,7 +201,7 @@
                         <div class="mb-3">
                             <label for="categories" class="form-label">Category</label>
                             <select id="categories" class="form-select" th:field="*{categoryId}" required>
-                                <option disabled value="0" name="category-invalid">Select a category...</option>
+                                <option disabled value="1" name="category-invalid">Select a category...</option>
                                 <option name="category" value="1">Indoor</option>
                                 <option name="category" value="2">Outdoor</option>
                             </select>
@@ -217,7 +217,7 @@
                         <div>
                             <label for="expertise" class="form-label">Expertise</label>
                             <select id="expertise" name="expertise" class="form-select" required>
-                                <option selected disabled value="0" name="expertise">Select your level of expertise...</option>
+                                <option selected disabled value="1" name="expertise">Select your level of expertise...</option>
                                 <option name="expertise" value="1">Beginner</option>
                                 <option name="expertise" value="2">Intermediate</option>
                                 <option name="expertise" value="3">Advanced</option>

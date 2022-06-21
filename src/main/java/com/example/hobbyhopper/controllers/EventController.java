@@ -192,7 +192,7 @@ public class EventController {
 
 
     @PostMapping("/create")
-    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images", required = false) List<String> imageUrl, @RequestParam(name="hobbies") List<Long> hobbyIds, Model model){
+    public String createEvent(@ModelAttribute Event event, @RequestParam(name="expertise") long expertiseId, @RequestParam(name="images", required = false) List<String> imageUrl, @RequestParam(name="hobbies", required = false) List<Long> hobbyIds, Model model){
         User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getById(userAccess.getId());
         if(imageUrl==null){
@@ -210,10 +210,13 @@ public class EventController {
         userEventDao.save(userEvent);
 
         List<Hobby> eventHobbies = new ArrayList<>();
-
-        for (long hobbyId : hobbyIds) {
-            Hobby hobby = hobbyDao.getById(hobbyId);
-            eventHobbies.add(hobby);
+        if(hobbyIds==null||hobbyIds.size()<=0){
+            eventHobbies.add(hobbyDao.findByHobbyName("Having Fun"));
+        }else {
+            for (long hobbyId : hobbyIds) {
+                Hobby hobby = hobbyDao.getById(hobbyId);
+                eventHobbies.add(hobby);
+            }
         }
         event.setEventHobbies(eventHobbies);
 
