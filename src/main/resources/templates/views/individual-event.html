@@ -5,7 +5,7 @@
       lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${event.eventName}"></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link  href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet'>
@@ -19,13 +19,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
-<body class="gradient-custom-2">
+<body class="gradient-custom-2 vw-100">
 
     <!--Nav Bar-->
     <nav th:replace="partials/partials.html :: navbar"></nav>
 
-    <!--Event Details Card-->
-    <div class="mx-auto" style="width: 80rem;">
+    <!--Div that holds all Event Info-->
+    <div class="mx-auto min-vh-100" style="width: 80rem;">
 
         <h2 class="m-1 text-center">Event Info:</h2>
 
@@ -243,7 +243,7 @@
                 <div class="content">
 
                     <!--Hobby / Hobbies-->
-                    <div>
+                    <div style="background: rgba(225,223,223,0.11)">
                         <!--Event with one hobby-->
                         <div th:if="${event.eventHobbies.size() == 1}" class="list-group-item" id="hobbies-just-one">
                             Hobby:
@@ -279,15 +279,39 @@
                     </div>
 
                     <!--Report Button-->
-                    <form th:action="@{/event/report}" method="post" class="m-1">
-                        <input hidden th:value="${event.id}" name="event-id">
-                        <button type="submit" class="btn btn-danger" onclick="displayMessageWhenReported()">Report</button>
-                    </form>
-                    <!--script displays a message when the report button is pressed-->
+                    <div th:unless="${userIsOwner}">
+                        <form th:action="@{/event/report}" method="post" class="m-1">
+                            <input hidden th:value="${event.id}" name="event-id">
+                            <button type="submit" class="btn btn-danger" onclick="displayMessageWhenReported()">
+                                <i class="fa-solid fa-flag"></i>
+                            </button>
+                        </form>
+                        <!--script displays a message when the report button is pressed-->
+                        <script>
+                            function displayMessageWhenReported() {
+                                alert("A member of our team will review the post and take appropriate action.");
+                            }
+                        </script>
+                    </div>
+
+
+                    <!--Edit Button-->
+                    <a th:if="${userIsOwner}" class="btn btn-primary m-1" th:href="'/event/edit/' + ${event.id}" role="button">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+
+                    <!--Delete Button-->
+                    <a th:if="${userIsOwner}" onclick="confirmDeleteEvent()" id="delete-button" type="button" class="btn btn-danger m-1">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </a>
+                    <!--script below asks the user to confirm event deletion-->
                     <script>
-                        function displayMessageWhenReported() {
-                            alert("A member of our team will review the post and take appropriate action.");
-                        }
+						let eventId = [[${event.id}]];
+						function confirmDeleteEvent() {
+							if(confirm("Are you sure you want to delete your event?")){
+								window.location.replace("/event/delete/" + eventId);
+							}
+						}
                     </script>
 
                 </div>
@@ -422,25 +446,10 @@
         <!--Buttons-->
         <div class="d-flex">
 
-            <!--Edit Button-->
-            <a th:if="${userIsOwner}" class="btn btn-primary" th:href="'/event/edit/' + ${event.id}" role="button"> Edit </a>
 
-            <!--Delete Button-->
-            <a th:if="${userIsOwner}" onclick="confirmDeleteEvent()" id="delete-button" type="button" class="btn btn-dark">Delete</a>
-            <!--script below asks the user to confirm event deletion-->
-            <script>
-                let eventId = [[${event.id}]];
-                function confirmDeleteEvent() {
-                    if(confirm("Are you sure you want to delete your event?")){
-                        window.location.replace("/event/delete/" + eventId);
-                    }
-                }
-            </script>
 
         </div>
     </div>
-
-
 
 
     <!--Footer-->
