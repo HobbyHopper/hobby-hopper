@@ -14,12 +14,12 @@
     <!--    categories sidebar-->
     <div class="side-nav d-none d-sm-block col-3 pt-2 p-1">
         <ul class="list-group">
-            <li><h4 class="text-decoration-underline">Search by Categories</h4></li>
+            <li><h5>Search by Categories</h5></li>
             <li class="nav-item mb-2"><a href="/event/search?search=indoor">Indoor</a></li>
             <li class="nav-item mb-2 pb-4"><a href="/event/search?search=outdoor">Outdoor</a></li>
         </ul>
         <ul class="list-group">
-            <li><h4 class="text-decoration-underline">Search by Hobby</h4></li>
+            <li><h5>Search by Hobby</h5></li>
             <li th:each="hobby:${allHobbies}" class="nav-item mb-2"><a class=""
                    th:href="@{/event/search?search={name}(name=${hobby.hobbyName})}"><span
                     th:text="${stringService.capitalizeWord(hobby.hobbyName) }"></span></a></li>
