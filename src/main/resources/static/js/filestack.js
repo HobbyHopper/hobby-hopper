@@ -16,9 +16,9 @@ function fileStackApi() {
                     element.setAttribute("class", "image");
                     element.setAttribute("name", "images");
                     document.getElementById("image-url").appendChild(element);
-                    // let imageArr = [];
                     if(element != null){
-                        document.getElementById("uploaded").innerHTML = "Successfully uploaded"
+                        let uploaded = document.getElementById("upload");
+                        uploaded.appendChild(document.createTextNode("Successfully uploaded"))
                     }
                 }
             }
