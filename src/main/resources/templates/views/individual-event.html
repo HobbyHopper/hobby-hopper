@@ -9,6 +9,7 @@
     <title th:text="${event.eventName}"></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link  href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!--    Font Awesome kit link for icons-->
     <script src="https://kit.fontawesome.com/8de2f0b37b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -32,62 +33,65 @@
             You have RSVP'd to this event!
         </div>
 
-        <!--Flexbox container w two columns: left column for images, right column for event info-->
+        <!--Flexbox container w two columns: left column for images & map, right column for event info-->
        <div class="d-flex justify-content-between">
 
-           <!--Left Column: Image Carousel-->
+           <!--Left Column: Image Carousel & Map-->
            <div class="card w-100 px-5 py-3" style="background: rgba(106,141,191,0); border: none">
 
                <!--Button for toggling between images and map-->
                <div class="btn-group m-1" role="group">
-                   <input type="radio" class="btn-check" name="image-map-btn" id="image-map-btn-1" autocomplete="off" onclick="showImages()" checked>
-                   <label class="btn btn-outline-primary" for="image-map-btn-1">Images</label>
+                   <input type="radio" class="btn-check btn-primary" name="image-map-btn" id="image-map-btn-1" onclick="showImages()" checked>
+                   <label class="btn btn-primary" for="image-map-btn-1">Images</label>
 
-                   <input type="radio" class="btn-check" name="image-map-btn" id="image-map-btn-2" autocomplete="off" onclick="showMap()">
-                   <label class="btn btn-outline-primary" for="image-map-btn-2">Map</label>
+                   <input type="radio" class="btn-check btn-primary" name="image-map-btn" id="image-map-btn-2" onclick="showMap()">
+                   <label class="btn btn-primary" for="image-map-btn-2">Map</label>
                </div>
 
                <!--script to toggle between images and map-->
                <script>
+
                    function showImages(){
-					   if ($("#imageCarousel")[0].style.display == "none"){
-						   $("#imageCarousel")[0].style.display = "block";
-						   $("#mapContainer")[0].style.display = "none";
+					   if (document.getElementById('carousel-container').style.display === 'none'){
+						   document.getElementById('map-container').style.display = 'none';
+						   document.getElementById('carousel-container').style.display = 'block';
                        }
                    }
 
 				   function showMap(){
-					   if($("#mapContainer")[0].style.display == "none"){
-						   $("#mapContainer")[0].style.display = "block";
-						   $("#imageCarousel")[0].style.display = "none";
+					   if(document.getElementById('map-container').style.display === 'none'){
+                           document.getElementById('carousel-container').style.display = 'none';
+                           document.getElementById('map-container').style.display = 'block';
 					   }
-					   // $("#map")[0].load(location.href + " #map");
                        map.resize();
 				   }
+
                </script>
 
                <!--Map HTML Element-->
-               <div id="mapContainer" class="w-100 ratio ratio-16x9" style="display: none;">
+               <div id="map-container" class="w-100 ratio ratio-16x9" style="display: none">
                    <div id='map' class="w-100"></div>
                </div>
 
                <!--Image carousel-->
-               <div class="w-100 mx-auto">
+               <div id="carousel-container" class="w-100 mx-auto" style="display: block">
+                   <div id="carouselExampleIndicators" class="carousel slide overflow-hidden" data-bs-interval="false">
 
-                   <div th:id="carouselExampleIndicators +${event.id}" class=" carousel slide overflow-hidden w-100 mx-auto" data-bs-interval="false">
                        <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
-                           <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 
-                           <button type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 
-                           <button th:if="${event.eventImages.size() > 2}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
 
-                           <button th:if="${event.eventImages.size() > 3}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                           <button th:if="${event.eventImages.size() > 2}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
 
-                           <button th:if="${event.eventImages.size() > 4}" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                           <button th:if="${event.eventImages.size() > 3}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+                           <button th:if="${event.eventImages.size() > 4}" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+
                        </div>
 
-                       <!--                Carousel images-->
+                       <!--Carousel images-->
                        <div class="carousel-item active ratio ratio-16x9">
                            <img th:src="${event.eventImages.get(0).url}" class="d-block w-100" th:alt="${event.eventImages.get(0).imageDescription}">
                        </div>
@@ -110,22 +114,22 @@
 
                        <!--        Side button functionality-->
                        <div th:if="${event.eventImages.size() > 1}">
-                           <button class="carousel-control-prev" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="prev">
+                           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                <span class="visually-hidden">Previous</span>
                            </button>
 
-                           <button class="carousel-control-next" type="button" th:data-bs-target="'#carouselExampleIndicators'+${event.id}" data-bs-slide="next">
+                           <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                <span class="visually-hidden">Next</span>
                            </button>
                        </div>
 
                    </div>
-
                </div>
 
            </div>
+
 
             <!--Right Column: Event Info-->
            <div class="w-100 d-flex flex-column justify-content-evenly text-center">
@@ -197,32 +201,33 @@
        <!--*** end of flexbox container w/ images and event info ***-->
        </div>
 
+
         <!--RSVP Button-->
         <div sec:authorize="isAuthenticated()" th:if="${event.rsvpAble and userIsOwner==null and userHasRSVPd == null}" class="dropdown m-4 d-flex justify-content-center">
-            <div class="btn btn-success dropdown-toggle mx-auto" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="btn btn-primary dropdown-toggle mx-auto" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 RSVP
             </div>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <ul id="rsvp-buttons" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                <li>
+                <li class="rsvp-btn-dropdown">
                     <form th:action="@{/event/rsvp}" method="post">
                         <input hidden name="event-id" th:value="${event.id}">
                         <input hidden name="expertise" value="1">
-                        <button type="submit"> Beginner </button>
+                        <button type="submit" class="btn btn-primary"> Beginner </button>
                     </form>
                 </li>
-                <li>
+                <li class="rsvp-btn-dropdown">
                     <form th:action="@{/event/rsvp}" method="post">
                         <input hidden name="event-id" th:value="${event.id}">
                         <input hidden name="expertise" value="2">
-                        <button type="submit"> Intermediate </button>
+                        <button type="submit" class="btn btn-primary"> Intermediate </button>
                     </form>
                 </li>
-                <li>
+                <li class="rsvp-btn-dropdown">
                     <form th:action="@{/event/rsvp}" method="post">
                         <input hidden name="event-id" th:value="${event.id}">
                         <input hidden name="expertise" value="3">
-                        <button type="submit"> Advanced </button>
+                        <button type="submit" class="btn btn-primary"> Advanced </button>
                     </form>
                 </li>
 
@@ -232,28 +237,28 @@
 
         <div class="d-flex justify-content-center m-1 p-2 text-center">
 
-            <details class="w-40">
+            <details class="w-50">
                 <summary class="m-2">
                     Event Details:
                 </summary>
 
-                <div class="content">
+                <div class="content d-flex flex-column w-40" style="background: rgba(225,223,223,0.11)">
 
                     <!--Hobby / Hobbies-->
-                    <div style="background: rgba(225,223,223,0.11)">
+                    <div class="w-100">
                         <!--Event with one hobby-->
-                        <div th:if="${event.eventHobbies.size() == 1}" class="list-group-item" id="hobbies-just-one">
+                        <div th:if="${event.eventHobbies.size() == 1}" class="" id="hobbies-just-one">
                             Hobby:
                             <a th:href="@{/event/search?search={name}(name=${event.eventHobbies.get(0).getHobbyName()})} ">
                                 <span th:text="${event.eventHobbies.get(0).getHobbyName()}"></span>
                             </a>
                         </div>
                         <!--Event with multiple hobbies-->
-                        <div th:if="${event.eventHobbies.size() > 1}" class="list-group-item" id="hobbies-multiple">
+                        <div th:if="${event.eventHobbies.size() > 1}" class=" p-1" id="hobbies-multiple">
                             Hobbies:
-                            <ul th:each="hobby : ${event.eventHobbies}">
-                                <li>
-                                    <div class="d-flex flex-column btn text-start">
+                            <ul class="d-flex mx-auto mb-0 p-0 justify-content-center flex-wrap">
+                                <li th:each="hobby : ${event.eventHobbies}" class="m-1">
+                                    <div class="m-1 my-2">
                                         <a th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} ">
                                             <span th:text="${hobby.hobbyName}"></span>
                                         </a>
@@ -264,20 +269,20 @@
                     </div>
 
                     <!--Category-->
-                    <div class="list-group-item">
+                    <div class=" m-1 w-100">
                         Category:
                         <span th:text="${category.categoryName}"></span>
                     </div>
 
                     <!--Expertise-->
-                    <div class="list-group-item">
+                    <div class=" m-1 w-100">
                         Event Creator Expertise:
                         <span th:text="${expertise.expertise}"></span>
                     </div>
 
                     <!--Report Button-->
                     <div th:unless="${userIsOwner}">
-                        <form th:action="@{/event/report}" method="post" class="m-1">
+                        <form th:action="@{/event/report}" method="post" class="btn m-1 w-50">
                             <input hidden th:value="${event.id}" name="event-id">
                             <button type="submit" class="btn btn-danger" onclick="displayMessageWhenReported()">
                                 <i class="fa-solid fa-flag"></i>
@@ -293,14 +298,18 @@
 
 
                     <!--Edit Button-->
-                    <a th:if="${userIsOwner}" class="btn btn-primary m-1" th:href="'/event/edit/' + ${event.id}" role="button">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
+                    <div class="d-flex justify-content-center">
+                        <a th:if="${userIsOwner}" class="btn btn-primary m-1 w-50" th:href="'/event/edit/' + ${event.id}" role="button">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </div>
 
                     <!--Delete Button-->
-                    <a th:if="${userIsOwner}" onclick="confirmDeleteEvent()" id="delete-button" type="button" class="btn btn-danger m-1">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </a>
+                    <div class="d-flex justify-content-center">
+                        <a th:if="${userIsOwner}" onclick="confirmDeleteEvent()" id="delete-button" type="button" class="btn btn-danger m-1 w-50">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </div>
 <!--                    script below asks the user to confirm event deletion-->
                     <script>
 						let eventId = [[${event.id}]];
@@ -452,7 +461,7 @@
     <!--Footer-->
     <div th:replace="partials/partials.html :: footer"></div>
     <!--keys through JS-->
-<!--    <script th:replace="partials/partials.html :: script-keys" ></script>-->
+    <script th:replace="partials/partials.html :: script-keys" ></script>
     <!--Bootstrap JS Script Tag-->
     <script th:replace="partials/partials.html :: bootstrap-js"></script>
 
