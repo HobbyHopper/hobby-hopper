@@ -15,8 +15,12 @@
     <div class="side-nav bg-light bg-opacity-10 d-none d-sm-block col-3 pt-2 p-1">
         <ul class="list-group">
             <li><h5>Search by Categories</h5></li>
-            <li class="nav-item mb-2"><a href="/event/search?search=indoor">Indoor</a></li>
-            <li class="nav-item mb-2 pb-4"><a href="/event/search?search=outdoor">Outdoor</a></li>
+            <li class="nav-item mb-2" onclick="showAll()"><a href="#"> All </a></li>
+
+            <!--            <li class="nav-item mb-2"><a href="/event/search?search=indoor">Indoor</a></li>-->
+            <li class="nav-item mb-2" onclick="showIndoor()"><a href="#"> Indoor </a></li>
+<!--            <li class="nav-item mb-2 pb-4"><a href="/event/search?search=outdoor">Outdoor</a></li>-->
+            <li class="nav-item mb-2 pb-4" onclick="showOutdoor()"><a href="#"> Outdoor </a></li>
         </ul>
         <ul class="list-group">
             <li><h5>Search by Hobby</h5></li>
@@ -26,14 +30,39 @@
         </ul>
     </div>
 
-    <!--        event cards-->
+    <script>
+			//1 = indoor
+            //2 = outdoor
+
+        function showIndoor(){
+			$('div.card[data-cat=1]').show();
+			$('div.card[data-cat=2]').hide();
+
+
+		}
+
+		function showOutdoor(){
+			$('div.card[data-cat=2]').show();
+			$('div.card[data-cat=1]').hide();
+		}
+
+		function showAll(){
+			$('div.card[data-cat=2]').show();
+			$('div.card[data-cat=1]').show();
+        }
+
+    </script>
+
     <h3 th:if="${eventsByTitle.size() == 0 and eventsByHobby.size() == 0 and eventsByCategory.size() == 0}" class="text-center text-light">No similar titles found</h3>
 
+    <!-- event cards-->
     <div th:if="${eventsByTitle.size() > 0}">
         <div class="main col-10 h-100 pb-2 mb-5">
 <!--            <h2 class="text-light text-decoration-underline text-center">Title Search</h2>-->
+
             <section class="event-cards justify-content-evenly text-center justify-content-sm-center d-flex flex-wrap">
-                <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${eventsByTitle}">
+
+                <div class="card col-4 m-3 event-card-to-hide" style="width: 18rem;" th:each="event : ${eventsByTitle}" th:data-cat="${event.categoryId}">
 
                     <!--    Image carousel within card-->
                     <div th:id="carouselExampleIndicators +${event.id}"
@@ -106,6 +135,7 @@
                         <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
                         <h6 class="card-subtitle my-1" th:text="${#dates.format(event.startDate,'MM/dd/yyyy')}"></h6>
                         <p class="card-text" th:text="${event.eventDescription}"></p>
+                        <p class="card-text" th:name="${event.categoryId}" hidden></p>
                         <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
@@ -118,7 +148,7 @@
         <div class="main col-10 h-100 pb-2 mb-5">
 <!--            <h2 class="text-light text-decoration-underline text-center">Category Search</h2>-->
             <section class="main2 event-cards container text-center d-flex flex-wrap justify-content-center">
-                <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${eventsByCategory}">
+                <div class="card col-4 m-3 event-card-to-hide" style="width: 18rem;" th:each="event : ${eventsByCategory}"  th:data-cat="${event.categoryId}">
                     <!--    Image carousel within card-->
                     <div th:id="carouselExampleIndicators +${event.id}"
                          class=" carousel slide overflow-hidden w-100 mx-auto" data-bs-interval="false">
@@ -185,11 +215,11 @@
                         </div>
 
                     </div>
-
                     <div class="card-body">
                         <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
                         <h6 class="card-subtitle my-1" th:text="${#dates.format(event.startDate,'MM/dd/yyyy')}"></h6>
                         <p class="card-text" th:text="${event.eventDescription}"></p>
+                        <p class="card-text" th:name="${event.categoryId}" hidden></p>
                         <a th:href="${'/event/'+ event.id}" class="btn btn-primary mt-auto">View Details</a>
                     </div>
                 </div>
@@ -201,7 +231,7 @@
         <div class="main col-10 h-100">
 <!--            <h2 class="text-light text-decoration-underline text-center">Hobby Search</h2>-->
             <section class=" event-cards container d-flex text-center flex-wrap justify-content-center">
-                <div class="card col-4 m-3" style="width: 18rem;" th:each="event : ${eventsByHobby}">
+                <div class="card col-4 m-3 event-card-to-hide" style="width: 18rem;" th:each="event : ${eventsByHobby}" th:data-cat="${event.categoryId}">
 
                     <!--    Image carousel within card-->
                     <div th:id="carouselExampleIndicators +${event.id}"
@@ -274,6 +304,7 @@
                         <h5 class="card-title mb-2" th:text="${event.eventName}"></h5>
                         <h6 class="card-subtitle my-1" th:text="${event.startDate}"></h6>
                         <p class="card-text" th:text="${event.eventDescription}"></p>
+                        <p class="card-text" th:name="${event.categoryId}" hidden></p>
                         <a th:href="${'/event/'+ event.id}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
