@@ -91,7 +91,12 @@ h1 {
 
 .gradient-custom-3 {
     color: white;
-    background-color: #89d8d3;
-    background-image: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
+    background-color: #263b3b;
+    /*background-image: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);*/
 
+}
+
+.error-color {
+    color: #D8000C;
+    background-color: #FFD2D2;
 }

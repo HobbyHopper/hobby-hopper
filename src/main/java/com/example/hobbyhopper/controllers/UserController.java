@@ -165,17 +165,17 @@ public class UserController {
     @PostMapping("/sign-up")
     public String saveUser(@Valid @ModelAttribute User user, BindingResult validation, Model model, @RequestParam(name = "images", required = false) String images) {
 
-        if (userDao.existsByUsername(user.getUsername()) || userDao.existsByEmail(user.getEmail())) {
+        if (userDao.existsByUsername(user.getUsername()) || userDao.existsByEmail(user.getEmail()) ) {
             validation.addError(new FieldError("user", "username", "Username or email is taken"));
         }
 
-        if (user.getUsername().length() < 3) {
-            validation.addError(new FieldError("user", "username", "Username needs to be at least 3 characters long"));
+        if (user.getUsername().length() < 3 || user.getUsername().contains(" ") || user.getUsername().isBlank() || user.getUsername().isEmpty() || user.getUsername().length() < 15) {
+            validation.addError(new FieldError("user", "username", "Username needs to be at least 3 characters long and cannot contain spaces or be longer than 15 characters"));
         }
-        if (user.getEmail().isEmpty()) {
+        if (user.getEmail().isEmpty() || user.getEmail().isBlank() || user.getEmail().contains(" ")) {
             validation.addError(new FieldError("user", "email", "Email cannot be empty"));
         }
-        if (user.getPassword().length() < 8) {
+        if (user.getPassword().length() < 8 || user.getPassword().isBlank()) {
             validation.addError(new FieldError("user", "password", "Password needs to be 8 characters long"));
         }
 
@@ -218,17 +218,17 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         editUser.setPassword(hash);
 
-        if (user.getUsername().isEmpty()) {
-            validation.addError(new FieldError("user", "username", "Username cannot be empty"));
+        if (user.getUsername().contains(" ") || user.getUsername().isBlank() || user.getUsername().isEmpty() || user.getUsername().length() < 15) {
+            validation.addError(new FieldError("user", "username", "Username cannot be empty or have any spaces"));
         }
 
-        if (user.getEmail().isEmpty()) {
+        if (user.getEmail().isEmpty() || user.getEmail().isBlank() || user.getEmail().contains(" ")) {
             validation.addError(new FieldError("user", "email", "Email cannot be empty"));
         }
 
 
-        if(!user.getPassword().equals(user.getConfirm()) || user.getPassword().isEmpty()){
-            validation.addError(new FieldError("user", "confirm", "Password mismatch"));
+        if(!user.getPassword().equals(user.getConfirm()) || user.getPassword().isEmpty() || user.getPassword().isBlank() || user.getPassword().length() < 8){
+            validation.addError(new FieldError("user", "confirm", "Password mismatch and cannot be empty"));
         }
 
         if (userDao.existsByUsername(user.getUsername()) && !userInfoPull.getUsername().equals(editUser.getUsername())) {
