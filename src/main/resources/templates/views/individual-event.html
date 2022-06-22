@@ -270,12 +270,12 @@
                     </div>
 
                     <!--Reference URL-->
-                    <div th:if="${event.referenceUrl != null || event.referenceUrl != ''}" class="m-1 mt-2 w-100">
+                    <div th:if="${event.referenceUrl != ''}" class="m-1 mt-2 w-100">
                         <a th:href="${event.referenceUrl}" class="btn btn-primary"> Learn More... </a>
                     </div>
 
                     <!--Report Button-->
-                    <div th:unless="${userIsOwner}">
+                    <div sec:authorize="isAuthenticated()" th:unless="${userIsOwner}">
                         <form th:action="@{/event/report}" method="post" class="btn m-1 w-50 mt-3">
                             <input hidden th:value="${event.id}" name="event-id">
                             <button type="submit" class="btn btn-danger" onclick="displayMessageWhenReported()">
