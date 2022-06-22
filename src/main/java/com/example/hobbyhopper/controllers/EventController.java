@@ -9,11 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-
+import java.util.*;
 
 
 @Controller
@@ -324,7 +320,9 @@ public class EventController {
         eventsByCategory.sort(Comparator.comparing(Event::getEndDate));
         eventsByHobby.sort(Comparator.comparing(Event::getEndDate));
         eventsByTitle.sort(Comparator.comparing(Event::getEndDate));
-        model.addAttribute("allHobbies",allHobbies);
+        allHobbies.sort(Comparator.comparing((h1) -> h1.getEvents().size()));
+        Collections.reverse(allHobbies);
+        model.addAttribute("allHobbies",allHobbies.subList(0,10));
         model.addAttribute("searchEvents",searchEvents);
         model.addAttribute("eventsByTitle",eventsByTitle);
         model.addAttribute("eventsByCategory",eventsByCategory);
