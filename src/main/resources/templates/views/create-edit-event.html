@@ -127,7 +127,6 @@
                 Hobby or hobbies for this event
             </label>
             <div class="d-flex flex-column flex-lg-row flex-xl-row justify-content-center align-items-center">
-                <!--                            <form th:action="@{/add-hobbies/create-event}" th:object="${hobby}" id="add-hobby-form">-->
                 <div class="form-outline p-1">
                     <input type="text" id="hobby-name" name="hobby-name" class="form-control"
                            placeholder="Enter Hobby" style="font-size: .85em"/>
@@ -139,14 +138,15 @@
                     <input type="submit" value="Add hobby" class="btn btn-primary mb-2 mb-lg-0 mb-xl-0"
                            style="font-size: .85em" id="add-hobby-btn">
                 </div>
-                <!--                            </form>-->
             </div>
 
-            <div th:fragment="hobbies" id="hobbies" class="mb-3 text-start d-flex flex-wrap"
-                 style="height: 4.5em; border: solid lightgray; overflow: scroll">
-                <div th:each="hobby : ${userHobbies}" class="form-check w-50">
-                    <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}" id="hobby">
-                    <label th:text="${hobby.hobbyName}" class="form-check-label" for="hobby"></label>
+            <div id="hobbies-parent-div">
+                <div th:fragment="hobbies" id="hobbies" class="mb-3 text-start d-flex flex-wrap"
+                     style="height: 4.5em; border: solid lightgray; overflow: scroll">
+                    <div th:each="hobby : ${userHobbies}" class="form-check w-50">
+                        <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}" id="hobby">
+                        <label th:text="${hobby.hobbyName}" class="form-check-label" for="hobby"></label>
+                    </div>
                 </div>
             </div>
 
@@ -183,8 +183,8 @@
                         },
                         success: function (res) {
                             console.log("Success: " + res);
-                            $("#hobbies-parent-div").prepend(location.href + " #hobbies-parent-div");
-                            $("ul#lists li:first").fadeIn("slow");
+                            $("#hobbies-parent-div").load(location.href + " #hobbies-parent-div");
+                            // $("ul#lists li:first").fadeIn("slow");
                         },
                         error: function (res) {
                             console.log("Error: " + res);
