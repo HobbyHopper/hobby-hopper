@@ -233,12 +233,12 @@
                 <div class="content d-flex flex-column w-40" style="background: rgba(225,223,223,0.11)">
 
                     <!--Hobby / Hobbies-->
-                    <div class="w-100">
+                    <div class="w-100 mt-2">
                         <!--Event with one hobby-->
                         <div th:if="${event.eventHobbies.size() == 1}" class="" id="hobbies-just-one">
                             Hobby:
                             <a th:href="@{/event/search?search={name}(name=${event.eventHobbies.get(0).getHobbyName()})} ">
-                                <span th:text="${event.eventHobbies.get(0).getHobbyName()}"></span>
+                                <span th:text="${stringService.capitalizeWord(event.eventHobbies.get(0).getHobbyName())}"></span>
                             </a>
                         </div>
                         <!--Event with multiple hobbies-->
@@ -248,7 +248,7 @@
                                 <li th:each="hobby : ${event.eventHobbies}" class="m-1">
                                     <div class="m-1 my-2">
                                         <a th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} ">
-                                            <span th:text="${hobby.hobbyName}"></span>
+                                            <span th:text="${stringService.capitalizeWord(hobby.hobbyName)}"></span>
                                         </a>
                                     </div>
                                 </li>
@@ -259,18 +259,24 @@
                     <!--Category-->
                     <div class=" m-1 w-100">
                         Category:
-                        <span th:text="${category.categoryName}"></span>
+                        <span th:text="${stringService.capitalizeWord(category.categoryName)}"></span>
                     </div>
 
                     <!--Expertise-->
                     <div class=" m-1 w-100">
                         Event Creator Expertise:
-                        <span th:text="${expertise.expertise}"></span>
+                        <span th:text="${stringService.capitalizeWord(expertise.expertise)}"></span>
+                        <div class="m-2" th:text="${expertise.getDescription()}"></div>
+                    </div>
+
+                    <!--Reference URL-->
+                    <div th:if="${event.referenceUrl != null || event.referenceUrl != ''}" class="m-1 mt-2 w-100">
+                        <a th:href="${event.referenceUrl}" class="btn btn-primary"> Learn More... </a>
                     </div>
 
                     <!--Report Button-->
                     <div th:unless="${userIsOwner}">
-                        <form th:action="@{/event/report}" method="post" class="btn m-1 w-50">
+                        <form th:action="@{/event/report}" method="post" class="btn m-1 w-50 mt-3">
                             <input hidden th:value="${event.id}" name="event-id">
                             <button type="submit" class="btn btn-danger" onclick="displayMessageWhenReported()">
                                 <i class="fa-solid fa-flag"></i>
@@ -287,7 +293,7 @@
 
                     <!--Edit Button-->
                     <div class="d-flex justify-content-center">
-                        <a th:if="${userIsOwner}" class="btn btn-primary m-1 w-50" th:href="'/event/edit/' + ${event.id}" role="button">
+                        <a th:if="${userIsOwner}" class="btn btn-primary m-1 mt-3 w-50" th:href="'/event/edit/' + ${event.id}" role="button">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </div>
@@ -298,7 +304,7 @@
                             <i class="fa-solid fa-trash-can"></i>
                         </a>
                     </div>
-<!--                    script below asks the user to confirm event deletion-->
+                    <!--script below asks the user to confirm event deletion-->
                     <script>
 						let eventId = [[${event.id}]];
 						function confirmDeleteEvent() {

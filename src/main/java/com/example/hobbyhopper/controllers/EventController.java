@@ -63,6 +63,7 @@ public class EventController {
     @GetMapping("/{id}")
     public String individualEvent(@PathVariable long id, Model model) {
         model.addAttribute("EventService", eventService);
+        model.addAttribute("stringService", stringService);
 
         Event event = eventDao.getById(id);
         model.addAttribute("event", event);
