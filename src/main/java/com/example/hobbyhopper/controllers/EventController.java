@@ -262,6 +262,9 @@ public class EventController {
     @GetMapping("/search")
     public String searchEvents(@RequestParam(name = "search") String search, Model model) {
 //        Get all events
+        if (search.equals("")){
+            search="fun";
+        }
         List<Event> allEvents=eventDao.findAll();
 //        search all events by title and store them
         List<Event> eventsByTitle = eventDao.searchByTitleLike(search);
@@ -277,6 +280,8 @@ public class EventController {
         List<Category> categoryList= categoryDao.searchByNameLike(search);
         model.addAttribute("stringService",stringService );
         Date today = new Date();
+
+
 
 //  loop through events and find all events associated with similar hobby names
         for(Event event:allEvents) {
