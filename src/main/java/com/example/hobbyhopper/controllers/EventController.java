@@ -211,7 +211,7 @@ public class EventController {
 
         List<Hobby> eventHobbies = new ArrayList<>();
         if(hobbyIds==null||hobbyIds.size()<=0){
-            eventHobbies.add(hobbyDao.findByHobbyName("Having Fun"));
+            eventHobbies.add(hobbyDao.findByHobbyName("Fun"));
         }else {
             for (long hobbyId : hobbyIds) {
                 Hobby hobby = hobbyDao.getById(hobbyId);

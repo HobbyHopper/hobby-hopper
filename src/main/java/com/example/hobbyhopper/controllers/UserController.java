@@ -106,7 +106,7 @@ public class UserController {
 
 
         if(hobby.getHobbyName().equals("")){
-            hobby=hobbyDao.findByHobbyName("Having Fun");
+            hobby=hobbyDao.findByHobbyName("Fun");
         }else if (hobbyDao.existsByHobbyNameIgnoreCase(hobby.getHobbyName())) {
             hobby = hobbyDao.findByHobbyName(hobby.getHobbyName());
         }
@@ -135,7 +135,7 @@ public class UserController {
         Hobby hobby = new Hobby(hobbyName);
 
         if(hobbyName.equals("")) {
-            hobby = hobbyDao.findByHobbyName("Having Fun");
+            hobby = hobbyDao.findByHobbyName("Fun");
         }
         if (hobbyDao.existsByHobbyNameIgnoreCase(hobbyName)) {
             hobby = hobbyDao.findByHobbyName(hobbyName);
