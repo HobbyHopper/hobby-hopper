@@ -169,7 +169,7 @@ public class UserController {
             validation.addError(new FieldError("user", "username", "Username or email is taken"));
         }
 
-        if (user.getUsername().length() < 3 || user.getUsername().contains(" ") || user.getUsername().isBlank() || user.getUsername().isEmpty() || user.getUsername().length() < 15) {
+        if (user.getUsername().length() < 3 || user.getUsername().contains(" ") || user.getUsername().isBlank() || user.getUsername().isEmpty() || user.getUsername().length() > 15) {
             validation.addError(new FieldError("user", "username", "Username needs to be at least 3 characters long and cannot contain spaces or be longer than 15 characters"));
         }
         if (user.getEmail().isEmpty() || user.getEmail().isBlank() || user.getEmail().contains(" ")) {
@@ -218,8 +218,8 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         editUser.setPassword(hash);
 
-        if (user.getUsername().contains(" ") || user.getUsername().isBlank() || user.getUsername().isEmpty() || user.getUsername().length() < 15) {
-            validation.addError(new FieldError("user", "username", "Username cannot be empty or have any spaces"));
+        if (user.getUsername().contains(" ") || user.getUsername().isBlank() || user.getUsername().isEmpty() || user.getUsername().length() > 15) {
+            validation.addError(new FieldError("user", "username", "Username cannot be empty or have any spaces or be more than 15 characters long"));
         }
 
         if (user.getEmail().isEmpty() || user.getEmail().isBlank() || user.getEmail().contains(" ")) {
