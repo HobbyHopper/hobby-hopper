@@ -17,8 +17,8 @@ VALUES ('painting'),
        ('lawn darts'),
        ('collecting bottle caps'),
        ('dnd'),
-       ('carpentry'),
-       ('Having Fun');
+('carpentry'),
+       ('Fun');
 
 INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
                     is_age_restricted, is_public, is_reported, reference_url, rsvp_able, start_date, start_time)
