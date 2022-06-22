@@ -13,7 +13,7 @@ public class StringService {
     public String limitLength(String string, int limit) {
         if(limit > string.length()) return string;
 
-        return string.substring(0, limit).substring(0,1).toUpperCase() + string.substring(1,10).toLowerCase() + "...";
+        return string.substring(0, limit).substring(0,1).toUpperCase() + string.substring(1,6).toLowerCase() + "...";
     }
 
     public String limitLengthBig(String string, int limit) {

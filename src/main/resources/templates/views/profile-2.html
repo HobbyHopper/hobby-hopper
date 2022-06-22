@@ -49,7 +49,7 @@
                         <div class="my-5">
                             <p class="lead fw-normal mb-1">Hobbies</p>
                             <div class="p-4" style="background-color: #f8f9fa;">
-                                <form th:action="@{/add-hobbies}" method="post" th:object="${hobby}" class="container-fluid d-flex flex-wrap justify-content-center mx-xl-5 mx-lg-5">
+                                <form th:action="@{/add-hobbies}" method="post" th:object="${hobby}" class="container-fluid d-flex flex-wrap justify-content-center justify-content-lg-start justify-content-xl-start">
                                     <div class="form-outline mb-3">
                                         <input type="text" id="username" class="form-control"
                                                placeholder="Enter Hobby" th:field="*{hobbyName}"/>
@@ -63,11 +63,11 @@
                                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
                                     </div>
                                 </form>
-                                <div th:if="${userHobbies.size()>0}" class="d-flex flex-wrap justify-content-start">
+                                <div th:if="${userHobbies.size()>0}" class="d-flex flex-wrap justify-content-center justify-content-lg-start justify-content-xl-start">
                                     <ul th:each="hobby:${userHobbies}">
                                         <li>
-                                            <div class="text-center hobby-container d-flex flex-column btn align-items-center "><a th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} "><span class=""
-                                                    th:text="${stringService.limitLength(hobby.hobbyName, 10)}"></span></a>
+                                            <div class="text-center hobby-container d-flex flex-column btn align-items-center w-50"><a th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} "><span class=""
+                                                    th:text="${stringService.capitalizeWord(hobby.hobbyName)}"></span></a>
                                             <a style="color: red" th:href="@{user/delete-hobby/{id}(id=${hobby.id})}" class="btn btn-outline-dark"><i class="fa-solid fa-trash-can"></i></a>
                                             </div>
                                         </li>
