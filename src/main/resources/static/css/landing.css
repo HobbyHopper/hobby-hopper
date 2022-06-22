@@ -21,26 +21,26 @@ header.jumbotron .jumbotron-content .jumbotron-heading {
 header.jumbotron .jumbotron-content .jumbotron-subheading {
     font-size: 2rem;
 }
-/*header.jumbotron .bg-circle {*/
-/*    z-index: 0;*/
-/*    position: absolute;*/
-/*    border-radius: 100%;*/
-/*    background: -webkit-linear-gradient(to right, rgb(143, 176, 144), rgba(166, 193, 238, 1));*/
-/*    !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
-/*    background: linear-gradient(to right, rgb(143, 176, 144), rgba(166, 193, 238, 1))*/
-/*}*/
-/*header.jumbotron .bg-circle-1 {*/
-/*    height: 90rem;*/
-/*    width: 90rem;*/
-/*    bottom: -55rem;*/
-/*    left: -55rem;*/
-/*}*/
-/*header.jumbotron .bg-circle-2 {*/
-/*    height: 50rem;*/
-/*    width: 50rem;*/
-/*    top: -25rem;*/
-/*    right: -25rem;*/
-/*}*/
+header.jumbotron .bg-circle {
+    z-index: 0;
+    position: absolute;
+    border-radius: 100%;
+    background: -webkit-linear-gradient(to right, rgb(143, 176, 144), rgba(166, 193, 238, 1));
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(143, 176, 144, 0.51), rgba(166, 193, 238, 0.51))
+}
+header.jumbotron .bg-circle-1 {
+    height: 90rem;
+    width: 90rem;
+    bottom: -55rem;
+    left: -55rem;
+}
+header.jumbotron .bg-circle-2 {
+    height: 50rem;
+    width: 50rem;
+    top: -25rem;
+    right: -25rem;
+}
 .btn{
     font-weight: 400;
     line-height: 1.5;
