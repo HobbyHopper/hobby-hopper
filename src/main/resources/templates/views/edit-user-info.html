@@ -15,32 +15,31 @@
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <form th:action="@{'/user/update?error'}" method="POST" th:object="${user}">
-                    <ul>
-                        <li th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></li>
-                        <li th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>
-                        <li th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}"></li>
-                    </ul>
                     <!--                     Username input -->
                     <div class="form-outline">
                         <input type="text" id="username" class="form-control form-control-lg"
                                placeholder="Enter a valid user name" th:field="*{username}"/>
+                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-color"></p>
                     </div>
 
                     <!-- Email input -->
                     <div class="form-outline mt-3">
                         <input type="email" id="email" class="form-control form-control-lg"
                                placeholder="Enter email" th:field="*{email}"/>
+                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-color"></p>
                     </div>
 
 <!--                    Password-->
                     <div class="form-outline mt-3">
                         <input type="password" id="password" class="form-control form-control-lg"
                                placeholder="Enter password" th:field="*{password}"/>
+                        <p th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}" class="error-color"></p>
                     </div>
 
                     <div class="form-outline mt-3">
                         <input type="password" id="confirm" class="form-control form-control-lg"
                                placeholder="Confirm password" th:field="*{confirm}"/>
+                        <p th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}" class="error-color"></p>
                     </div>
 
                     <!-- location input -->
