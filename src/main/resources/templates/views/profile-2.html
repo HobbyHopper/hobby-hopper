@@ -35,8 +35,12 @@
                                 <p class="mb-1 h5">0</p>
                                 <p class="small text-muted mb-0">Events</p>
                             </div>
-                            <div class="px-3">
-                                <p class="mb-1 h5"> 4</p>
+                            <div class="px-3" th:if="${userRsvpEvents}">
+                                <p class="mb-1 h5" th:text="${userRsvpEvents.size()}"></p>
+                                <p class="small text-muted mb-0">RSVP</p>
+                            </div>
+                            <div class="px-3" th:unless="${userRsvpEvents}">
+                                <p class="mb-1 h5">0</p>
                                 <p class="small text-muted mb-0">RSVP</p>
                             </div>
                             <div>
