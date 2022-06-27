@@ -56,7 +56,7 @@
     <h3 th:if="${eventsByTitle.size() == 0 and eventsByHobby.size() == 0 and eventsByCategory.size() == 0}" class="text-center text-light">No similar titles found</h3>
 
     <!-- event cards-->
-    <div th:if="${eventsByTitle.size() > 0}">
+    <div class="d-flex justify-content-center" th:if="${eventsByTitle.size() > 0}">
         <div class="main col-10 h-100 pb-2 mb-5">
 <!--            <h2 class="text-light text-decoration-underline text-center">Title Search</h2>-->
 
@@ -144,7 +144,7 @@
 
         </div>
     </div>
-    <div th:if="${eventsByCategory.size() > 0}">
+    <div class="d-flex justify-content-center" th:if="${eventsByCategory.size() > 0}">
         <div class="main col-10 h-100 pb-2 mb-5">
 <!--            <h2 class="text-light text-decoration-underline text-center">Category Search</h2>-->
             <section class="main2 event-cards container text-center d-flex flex-wrap justify-content-center">
@@ -227,7 +227,7 @@
         </div>
     </div>
 
-    <div th:if="${eventsByHobby.size() > 0}">
+    <div class="d-flex justify-content-center" th:if="${eventsByHobby.size() > 0}">
         <div class="main col-10 h-100">
 <!--            <h2 class="text-light text-decoration-underline text-center">Hobby Search</h2>-->
             <section class=" event-cards container d-flex text-center flex-wrap justify-content-center">
