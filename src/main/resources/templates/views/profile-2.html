@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials/partials.html :: head ('Profile')"></head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 gradient-custom-2">
 <ul th:replace="partials/partials.html :: navbar"></ul>
 <section sec:authorize="isAuthenticated()" class="h-100 gradient-custom-2">
     <div class="py-5 h-100">
