@@ -246,6 +246,16 @@ public class EventController {
 
         return "redirect:/event/"+eventId;
     }
+    @PostMapping("/cancel-rsvp")
+    public String cancelRsvpToEvent(@RequestParam("event-id") long id){
+        User userAccess = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user=userDao.getById(userAccess.getId());
+        Event event=eventDao.getById(id);
+        UserEvent userEvent=userEventDao.findByEventAndUserAndIsOwner(event,user,false);
+       userEventDao.delete(userEvent);
+        return "redirect:/event/"+event.getId();
+
+    }
 
     @PostMapping("/report")
     public String reportEvent(@RequestParam ("event-id") long eventId){

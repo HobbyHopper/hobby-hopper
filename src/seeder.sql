@@ -12,13 +12,14 @@ VALUES ('beginner', 'I am still new to this hobby and would appreciate help and/
 INSERT INTO hobbies (hobby_name)
 VALUES ('painting'),
        ('fishing'),
-       ('disk golf'),
+       ('disc golf'),
        ('skating'),
        ('lawn darts'),
        ('collecting bottle caps'),
        ('dnd'),
-('carpentry'),
-       ('Fun');
+		('carpentry'),
+       ('Fun'),
+       ('running');
 
 INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
                     is_age_restricted, is_public, is_reported, reference_url, rsvp_able, start_date, start_time)
