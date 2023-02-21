@@ -7,7 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class StringService {
     public String capitalizeWord(String word){
-        return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+        if(word.length() > 30 ){
+            return  word.substring(0, 1).toUpperCase() + word.substring(1,29).toLowerCase() + "...";
+        } else {
+            return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+        }
     }
 
     public String limitLength(String string, int limit) {
