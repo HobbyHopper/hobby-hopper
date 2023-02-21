@@ -100,3 +100,18 @@ h1 {
     color: #D8000C;
     background-color: #FFD2D2;
 }
+
+.hobby-cards {
+    min-width: 50px;
+}
+
+.card-b {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.abc {
+    /*margin-top: 20px;*/
+}

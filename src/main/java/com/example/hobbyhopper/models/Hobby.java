@@ -1,6 +1,7 @@
 package com.example.hobbyhopper.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -14,7 +15,8 @@ public class Hobby {
     private long id;
 
     @NotBlank
-    @Min(3)
+    @Min(2)
+    @Max(30)
     private String hobbyName;
 
     @ManyToMany(mappedBy = "userHobbies")

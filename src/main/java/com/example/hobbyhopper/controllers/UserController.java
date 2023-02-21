@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.lang.Object;
 
 @Controller
 public class UserController {
@@ -104,8 +105,7 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User hobbyUser = userDao.getById(user.getId());
 
-
-        if(hobby.getHobbyName().equals("")){
+        if(hobby.getHobbyName().matches("^\\s*$")){
             hobby=hobbyDao.findByHobbyName("Fun");
         }else if (hobbyDao.existsByHobbyNameIgnoreCase(hobby.getHobbyName())) {
             hobby = hobbyDao.findByHobbyName(hobby.getHobbyName());
@@ -114,6 +114,7 @@ public class UserController {
         if (hobbyDao.existsByUsersAndHobbyNameIgnoreCase(hobbyUser, hobby.getHobbyName())) {
             return "redirect:/profile";
         }
+
 
         if (hobbyUser.getUserHobbies() != null) {
             hobbyUser.getUserHobbies().add(hobby);
