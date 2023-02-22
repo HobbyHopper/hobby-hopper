@@ -22,7 +22,7 @@ $("#add-hobby-btn").click(function (event) {
 
     $.ajax({
         type: 'POST',
-        url: "/add-hobbies/create-event",
+        url: "/add-hobbies",
         data: {
             hobby: hobbyName
         },

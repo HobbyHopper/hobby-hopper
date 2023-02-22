@@ -101,41 +101,13 @@ public class UserController {
     }
 
     @PostMapping("/add-hobbies")
-    public String addHobbies(@ModelAttribute Hobby hobby,Model model) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User hobbyUser = userDao.getById(user.getId());
-
-        if(hobby.getHobbyName().matches("^\\s*$")){
-            hobby=hobbyDao.findByHobbyName("Fun");
-        }else if (hobbyDao.existsByHobbyNameIgnoreCase(hobby.getHobbyName())) {
-            hobby = hobbyDao.findByHobbyName(hobby.getHobbyName());
-        }
-
-        if (hobbyDao.existsByUsersAndHobbyNameIgnoreCase(hobbyUser, hobby.getHobbyName())) {
-            return "redirect:/profile";
-        }
-
-
-        if (hobbyUser.getUserHobbies() != null) {
-            hobbyUser.getUserHobbies().add(hobby);
-        } else {
-            List<Hobby> hobbies = new ArrayList<>();
-            hobbies.add(hobby);
-            hobbyUser.setUserHobbies(hobbies);
-        }
-            hobbyDao.save(hobby);
-
-        return "redirect:/profile";
-    }
-
-    @PostMapping("/add-hobbies/create-event")
     @ResponseBody
-    public String addHobbiesFromCreateEventForm(@RequestParam("hobby") String hobbyName) {
+    public String addHobbies(@RequestParam("hobby") String hobbyName) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User hobbyUser = userDao.getById(user.getId());
         Hobby hobby = new Hobby(hobbyName);
 
-        if(hobbyName.equals("")) {
+        if(hobby.getHobbyName().matches("^\\s*$")) {
             hobby = hobbyDao.findByHobbyName("Fun");
         }
         if (hobbyDao.existsByHobbyNameIgnoreCase(hobbyName)) {
@@ -149,14 +121,10 @@ public class UserController {
                 hobbies.add(hobby);
                 hobbyUser.setUserHobbies(hobbies);
             }
-
             hobbyDao.save(hobby);
-
         }
-
         return "";
     }
-
     @GetMapping("/sign-up")
     public String showSignupForm(Model model) {
         model.addAttribute("user", new User());
