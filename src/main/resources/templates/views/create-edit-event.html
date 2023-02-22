@@ -1,32 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
-
 <head th:if="*{id == null}" th:replace="partials/partials.html :: head ('Create Event')"></head>
 <head th:if="*{id != null}" th:replace="partials/partials.html :: head ('Edit Event')"></head>
 
-
 <body class="gradient-custom-2">
-
-<!--Nav Bar-->
 <nav th:replace="partials/partials.html :: navbar"></nav>
-
 <!---------------------------------------------Create Event Form------------------------------------------>
-
-<!--            <form th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{https://request-inspector.glitch.me/}" method="POST" class ="needs-validation" novalidate>-->
-
-<form  th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{'/event/create?error'}" method="POST" class=" needs-validation container-fluid" novalidate>
-
+<form th:object="${event}" th:if="*{id == null}" id="create-event" th:action="@{'/event/create?error'}" method="POST"
+      class=" needs-validation container-fluid" novalidate>
     <h1 class="text-center"> Create Event </h1>
-
-
-    <!--Flexbox container w/ two columns: Image on the left, Event info on right-->
     <div class="d-flex flex-wrap align-items-baseline justify-content-center">
-
-        <!--Images Column (create)-->
         <div class="d-flex flex-column align-items-center col-12 col-lg-5 col-xl-5">
             <h4 class="text-center"> Event Info: Required Information</h4>
-
-            <!--Image input (create)-->
             <div class="form-outline mt-3">
                 <div th:if="${param.error}">
                     Upload an Image
@@ -37,12 +22,7 @@
                 <div id="image-url"></div>
                 <div id="upload"></div>
             </div>
-
-
-            <!--Event Info Column (create)-->
             <div class="w-100 d-flex flex-column text-center">
-
-                <!--Event name (create)-->
                 <div class="p-3">
                     <label for="title">Event Name</label>
                     <input type="text" class="form-control" id="title"
@@ -55,8 +35,6 @@
                         Please add a name for your event.
                     </div>
                 </div>
-
-                <!--Description (create)-->
                 <div class="p-3">
                     <label for="Description">Description</label>
                     <textarea class="form-control" id="Description" rows="3"
@@ -69,9 +47,6 @@
                         Please add a description for your event.
                     </div>
                 </div>
-
-
-                <!--Start date and time (create)-->
                 <label for="start-date-time"> Start Date & Time </label>
                 <div id="start-date-time" class="d-flex justify-content-center">
                     <div class="px-1">
@@ -84,8 +59,6 @@
                                th:field="*{startTime}" required/>
                     </div>
                 </div>
-
-                <!--End date and time (create)-->
                 <label for="end-date-time"> End Date & Time </label>
                 <div id="end-date-time" class="d-flex justify-content-center mb-3">
                     <div class="px-1">
@@ -98,8 +71,6 @@
                                th:field="*{endTime}" required>
                     </div>
                 </div>
-
-                <!--Address (create)-->
                 <label for="address-div"> Event Address </label>
                 <div id="address-div" class="px-3">
                     <input class="w-100" type="text" name="address" id="address" th:field="*{address}"
@@ -113,252 +84,112 @@
                 </div>
             </div>
         </div>
-
-    <!--Event details [category, hobbies, public, etc] (create)-->
-
-
         <div class="d-flex flex-column align-items-center">
-        <h4 class="text-center mb-3 mt-5"> Event Details: Optional Information </h4>
-
-        <!--Event details, Column 1: category, hobbies, and expertise-->
-        <div class="w-100 px-3 text-center">
-
-            <!--Hobbies (create)-->
-            <label for="hobbies" class="form-label">
-                Hobby or hobbies for this event
-            </label>
-            <div class="d-flex flex-column flex-lg-row flex-xl-row justify-content-center align-items-center">
-                <div class="form-outline p-1">
-                    <input type="text" id="hobby-name" name="hobby-name" class="form-control"
-                           placeholder="Enter Hobby" style="font-size: .85em"/>
-                    <input type="hidden"
-                           name="${_csrf.parameterName}"
-                           value="${_csrf.token}"/>
+            <h4 class="text-center mb-3 mt-5"> Event Details: Optional Information </h4>
+            <div class="w-100 px-3 text-center">
+                <label for="hobbies" class="form-label">
+                    Hobby or hobbies for this event
+                </label>
+                <div class="d-flex flex-column flex-lg-row flex-xl-row justify-content-center align-items-center">
+                    <div class="form-outline p-1">
+                        <input type="text" id="hobby-name" name="hobby-name" class="form-control"
+                               placeholder="Enter Hobby" style="font-size: .85em"/>
+                        <input type="hidden"
+                               name="${_csrf.parameterName}"
+                               value="${_csrf.token}"/>
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" value="Add hobby" class="btn btn-primary mb-2 mb-lg-0 mb-xl-0"
+                               style="font-size: .85em" id="add-hobby-btn">
+                    </div>
                 </div>
-                <div class="text-center">
-                    <input type="submit" value="Add hobby" class="btn btn-primary mb-2 mb-lg-0 mb-xl-0"
-                           style="font-size: .85em" id="add-hobby-btn">
-                </div>
-            </div>
 
-            <div id="hobbies-parent-div">
-                <div th:fragment="hobbies" id="hobbies" class="mb-3 text-start d-flex flex-wrap"
-                     style="height: 4.5em; border: solid lightgray; overflow: scroll">
-                    <div th:each="hobby : ${userHobbies}" class="form-check w-50">
-                        <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}" id="hobby">
-                        <label th:text="${hobby.hobbyName}" class="form-check-label" for="hobby"></label>
+                <div id="hobbies-parent-div">
+                    <div th:fragment="hobbies" id="hobbies" class="mb-3 text-start d-flex flex-wrap"
+                         style="height: 4.5em; border: solid lightgray; overflow: scroll">
+                        <div th:each="hobby : ${userHobbies}" class="form-check w-50">
+                            <input name="hobbies" class="form-check-input" type="checkbox" th:value="${hobby.id}"
+                                   id="hobby">
+                            <label th:text="${hobby.hobbyName}" class="form-check-label" for="hobby"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="categories" class="form-label">Select A Category</label>
+                    <select id="categories" class="form-select" th:field="*{categoryId}" required>
+                        <option name="category" value="1" selected>Indoor</option>
+                        <option name="category" value="2">Outdoor</option>
+                    </select>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please select a category for your event.
+                    </div>
+                </div>
+                <div>
+                    <label for="expertise" class="form-label">Chose Your Level of Experience</label>
+                    <select id="expertise" name="expertise" class="form-select" required>
+
+                        <option name="expertise" value="1" selected>Beginner</option>
+                        <option name="expertise" value="2">Intermediate</option>
+                        <option name="expertise" value="3">Advanced</option>
+                    </select>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please select your expertise for your event.
                     </div>
                 </div>
             </div>
-
-            <!--AJAX request script that updates hobbies-->
-            <script>
-
-                let hobbyName = "";
-                console.log("hobbyName (pre ajax req): " + hobbyName);
-
-                $("#add-hobby-btn").click(function (event) {
-
-                    // Stop form from submitting normally
-                    event.preventDefault();
-
-                    hobbyName = $("#hobby-name").val();
-                    console.log("hobbyName: (post ajax req): " + hobbyName);
-
-                    let token = $("meta[name='_csrf']").attr("content");
-                    let header = $("meta[name='_csrf_header']").attr("content");
-
-                    console.log(token);
-                    console.log(header);
-
-
-                    $(document).ajaxSend(function (e, xhr, options) {
-                        xhr.setRequestHeader(header, token);
-                    });
-
-                    $.ajax({
-                        type: 'POST',
-                        url: "/add-hobbies/create-event",
-                        data: {
-                            hobby: hobbyName
-                        },
-                        success: function (res) {
-                            console.log("Success: " + res);
-                            $("#hobbies-parent-div").load(location.href + " #hobbies-parent-div");
-                            // $("ul#lists li:first").fadeIn("slow");
-                        },
-                        error: function (res) {
-                            console.log("Error: " + res);
-                        }
-                    });
-
-                    $("#hobby-name").val("");
-
-                });
-
-            </script>
-
-            <!--Category (create)-->
-            <div class="mb-3">
-                <label for="categories" class="form-label">Select A Category</label>
-                <select id="categories" class="form-select" th:field="*{categoryId}" required>
-                    <option name="category" value="1" selected>Indoor</option>
-                    <option name="category" value="2">Outdoor</option>
-                </select>
-                <div class="valid-feedback">
-                    Looks good!
+            <div class="d-flex flex-column w-100 px-3 mt-3 justify-space-between">
+                <div class="mb-3 form-check form-switch form-check-reverse">
+                    <label class="form-check-label" for="rsvp">
+                        Would you like users to RSVP?
+                    </label>
+                    <input class="form-check-input" type="checkbox" role="switch" id="rsvp" name="rsvp"
+                           th:field="*{rsvpAble}" th:checked="flag">
                 </div>
-                <div class="invalid-feedback">
-                    Please select a category for your event.
+                <div class="mb-3 form-check form-switch form-check-reverse">
+                    <label class="form-check-label" for="public">
+                        Would you like your event to be visible to non-registered users?
+                    </label>
+                    <input class="form-check-input" type="checkbox" role="switch" id="public" name="public"
+                           th:field="*{public}">
+                </div>
+                <div class="mb-3 form-check form-switch form-check-reverse">
+                    <label class="form-check-label" for="age">
+                        Would you like your event to be visible only to registered users that are older than 18?
+                    </label>
+                    <input class="form-check-input" type="checkbox" role="switch" id="age" name="age-restriction"
+                           th:field="*{ageRestricted}">
+                </div>
+                <label class="text-center" for="ref-url">Reference URL</label>
+                <div>
+                    <input class="w-100 mb-3" type="url" name="ref-url" id="ref-url" th:field="*{referenceUrl}">
                 </div>
             </div>
-
-            <!--Expertise level (create)-->
-            <div>
-                <label for="expertise" class="form-label">Chose Your Level of Experience</label>
-                <select id="expertise" name="expertise" class="form-select" required>
-
-                    <option name="expertise" value="1" selected>Beginner</option>
-                    <option name="expertise" value="2">Intermediate</option>
-                    <option name="expertise" value="3">Advanced</option>
-                </select>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please select your expertise for your event.
-                </div>
-            </div>
-            <!--*** end of column 1 *** (create)-->
         </div>
-
-
-        <!--Event details, Column 2: public, age, RSVPable-->
-        <div class="d-flex flex-column w-100 px-3 mt-3 justify-space-between">
-
-            <!--RSVPable (create)-->
-            <div class="mb-3 form-check form-switch form-check-reverse">
-                <label class="form-check-label" for="rsvp">
-                    Would you like users to RSVP?
-                </label>
-                <input class="form-check-input" type="checkbox" role="switch" id="rsvp" name="rsvp"
-                       th:field="*{rsvpAble}" th:checked="flag">
-            </div>
-
-            <!--Is it public? (create)-->
-            <div class="mb-3 form-check form-switch form-check-reverse">
-                <label class="form-check-label" for="public">
-                    Would you like your event to be visible to non-registered users?
-                </label>
-                <input class="form-check-input" type="checkbox" role="switch" id="public" name="public"
-                       th:field="*{public}">
-            </div>
-
-
-            <!--Age Restriction (create)-->
-            <div class="mb-3 form-check form-switch form-check-reverse">
-                <label class="form-check-label" for="age">
-                    Would you like your event to be visible only to registered users that are older than 18?
-                </label>
-                <input class="form-check-input" type="checkbox" role="switch" id="age" name="age-restriction"
-                       th:field="*{ageRestricted}">
-            </div>
-
-            <!--Reference URL (create)-->
-            <label class="text-center" for="ref-url">Reference URL</label>
-            <div>
-                <input class="w-100 mb-3" type="url" name="ref-url" id="ref-url" th:field="*{referenceUrl}">
-            </div>
-
-        </div>
-        <!--*** end of column 2 *** (create)-->
-
-
+        <input hidden id="current-date-create" name="current-date" th:field="*{createdEvent}">
     </div>
-    <!--*** end of event details *** (create)-->
-
-    <!--Creation date (hidden input)-->
-    <input hidden id="current-date-create" name="current-date" th:field="*{createdEvent}">
-    <!--script below gets the current date and assigns the value to the element above-->
-    <script>
-        var today = new Date();
-        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        let currentDateElementForCreateEvent = document.getElementById("current-date-create");
-        currentDateElementForCreateEvent.setAttribute("value", date);
-    </script>
-    </div>
-
     <div class="d-flex justify-content-center mb-3 mt-5">
         <button type="submit" class="btn btn-primary btn-lg">
             Create Event
         </button>
     </div>
-
-    <!--script below stops form from submitting if required fields are empty-->
-    <script>
-        (() => {
-            'use strict'
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
-
-            //Check that categories and expertise have required values
-            let category = $("#categories").val();
-            let expertise = $("#expertise").val();
-            if (category == 0) {
-                $("#categories").val(null);
-            }
-            if (expertise == 0) {
-                $("#expertise").val(null);
-            }
-
-
-            // Loop over them and prevent submission
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })()
-    </script>
-
+    <script th:replace="partials/partials.html :: fecthAll"></script>
 </form>
-<!--End of the Create Form-->
-
 
 <!-------------------------------------------------Edit Event Form----------------------------------------------------->
-
 <div class="container" th:object="${event}" th:if="*{id != null}">
-
     <h1 class="text-center"> Edit Event </h1>
-
     <h4 class="text-center"> Event Info:</h4>
-
-
-    <!--Flexbox container w/ two columns: Images on the left, Event Info on right-->
-<!--    <div class="form-outline my-3 col-12 col-lg-6 col-xl-6 mx-auto">-->
-<!--        <button type="button" class="form-control form-control-lg picker">-->
-<!--            (+) Add images-->
-<!--        </button>-->
-<!--        <div id="image-url"></div>-->
-<!--    </div>-->
-
-    <div class="d-flex justify-content-between flex-wrap flex-lg-nowrap flex-xl-nowrap">
-
-        <!--Column 1: images-->
+    <div class="d-flex justify-content-between flex-wrap flex-lg-nowrap flex-xl-nowrap">>
         <div class="w-100 px-5 py-3 bg-light bg-transparent">
 
-
-            <!--Upload images button-->
-
-            <!--Image carousel-->
-            <div th:if="${images.size() > 0}" id="carouselExampleIndicators" class="carousel slide w-100 mx-auto overflow-hidden"
+            <div th:if="${images.size() > 0}" id="carouselExampleIndicators"
+                 class="carousel slide w-100 mx-auto overflow-hidden"
                  data-bs-ride="true">
 
                 <div th:if="${event.eventImages.size() > 1}" class="carousel-indicators">
@@ -381,8 +212,6 @@
                             aria-label="Slide 5"></button>
                 </div>
 
-
-                <!--Images from the database-->
                 <div class="carousel-item active ratio ratio-16x9">
                     <img th:src="${event.eventImages.get(0).url}" class="d-block w-100"
                          th:alt="${event.eventImages.get(0).imageDescription}">
@@ -395,7 +224,6 @@
                         </form>
                     </div>
                 </div>
-
                 <div th:if="${event.eventImages.size() > 1}" class="carousel-item ratio ratio-16x9">
                     <img th:src="${event.eventImages.get(1).url}" class="d-block w-100"
                          th:alt="${event.eventImages.get(1).imageDescription}">
@@ -406,7 +234,6 @@
                         </form>
                     </div>
                 </div>
-
                 <div th:if="${event.eventImages.size() > 2}" class="carousel-item ratio ratio-16x9">
                     <img th:src="${event.eventImages.get(2).url}" class="d-block w-100"
                          th:alt="${event.eventImages.get(2).imageDescription}">
@@ -417,7 +244,6 @@
                         </form>
                     </div>
                 </div>
-
                 <div th:if="${event.eventImages.size() > 3}" class="carousel-item ratio ratio-16x9">
                     <img th:src="${event.eventImages.get(3).url}" class="d-block w-100"
                          th:alt="${event.eventImages.get(3).imageDescription}">
@@ -428,7 +254,6 @@
                         </form>
                     </div>
                 </div>
-
                 <div th:if="${event.eventImages.size() > 4}" class="carousel-item ratio ratio-16x9">
                     <img th:src="${event.eventImages.get(4).url}" class="d-block w-100"
                          th:alt="${event.eventImages.get(4).imageDescription}">
@@ -439,8 +264,6 @@
                         </form>
                     </div>
                 </div>
-
-                <!--Carousel navigation buttons-->
                 <div th:if="${event.eventImages.size() > 1}">
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                             data-bs-slide="prev">
@@ -455,34 +278,21 @@
                     </button>
                 </div>
             </div>
-
-            <!-- *** end of column 1: images-->
         </div>
-
-
         <form class="needs-validation container" id="edit-event" th:action="@{/event/edit/{id}(id=${event.getId()})}"
               method="POST">
-            <!--            <form id="edit-event" th:action="@{https://request-inspector.glitch.me/}" th:method="POST">--->
-
-
-            <!--Column 2: event info-->
             <div class="w-100 d-flex flex-column text-center">
-                <!--Event name (edit)-->
                 <div class="mb-3">
                     <label for="edit-title">Event Title</label>
                     <input type="text" class="form-control" id="edit-title" placeholder="Event Title"
                            th:field="*{eventName}">
                 </div>
-
-                <!--Description (edit)-->
                 <div class="mb-3">
                     <label for="Description">Description</label><textarea class="form-control" id="edit-description"
                                                                           rows="3"
                                                                           placeholder="Event description. You may include details such as equipment necessary, weather considerations, and any other relevant information to the event."
                                                                           th:field="*{eventDescription}"></textarea>
                 </div>
-
-                <!--Start date and time (edit)-->
                 <label for="start-date-time"> Start Date & Time </label>
                 <div id="start-date-time-edit" class="d-flex justify-content-center">
                     <div class="px-1">
@@ -494,8 +304,6 @@
                                placeholder="" th:field="*{startTime}" required/>
                     </div>
                 </div>
-
-                <!--End date and time (edit)-->
                 <label for="end-date-time"> End Date & Time </label>
                 <div id="end-date-time-edit" class="d-flex justify-content-center mb-3">
                     <div class="px-1">
@@ -507,8 +315,6 @@
                                placeholder="" th:field="*{endTime}" required>
                     </div>
                 </div>
-
-                <!--Address (edit)-->
                 <label for="address-div"> Event Address </label>
                 <div id="address-div-edit" class="px-3">
                     <input class="w-100" type="text" name="address" id="address-edit" th:field="*{address}"
@@ -520,38 +326,23 @@
                         Please add an address for your event.
                     </div>
                 </div>
-
-                <!-- *** end of column 2: event info-->
             </div>
-
-            <!--*** end of flexbox container w/ images and event info-->
-            <!--Ignore error; page layout works perfectly-->
         </form>
-
     </div>
-
-
     <h4 class="text-center my-3"> Event Details:</h4>
-
-    <!--Flexbox container w/ two columns for Event Details-->
     <div class="d-flex flex-column flex-lg-row flex-xl-row">
-
-        <!--Left Column for Event Details: Hobbies, Category, Expertise-->
         <div class="w-100 px-3 text-center">
-
-            <!--Hobbies (edit)-->
             <label for="hobbies-edit" class="form-label">
                 Hobby or hobbies for this event
             </label>
-            <div id="hobbies-edit" class="mb-3 text-start d-flex flex-wrap" style="height: 4.5em; border: solid lightgray; overflow: scroll">
+            <div id="hobbies-edit" class="mb-3 text-start d-flex flex-wrap"
+                 style="height: 4.5em; border: solid lightgray; overflow: scroll">
                 <div th:each="hobby : ${event.eventHobbies}" class="form-check w-50">
                     <input name="hobbies" class="form-check-input m-1" type="checkbox" th:value="${hobby.id}"
                            id="hobbies-input-edit" checked>
                     <label th:text="${hobby.hobbyName}" class="form-check-label" for="hobbies-input-edit"></label>
                 </div>
             </div>
-
-            <!--Expertise (edit)-->
             <div>
                 <label for="edit-expertise">Category</label>
                 <select id="edit-expertise" class="form-select" th:field="${userEvent.expertise}">
@@ -560,8 +351,6 @@
                     <option name="expertise" value="3">Advanced</option>
                 </select>
             </div>
-
-            <!--Category (edit)-->
             <div>
                 <label for="edit-categories">Category</label>
                 <select id="edit-categories" class="form-select" th:field="*{categoryId}">
@@ -569,14 +358,8 @@
                     <option name="category" value="2">Outdoor</option>
                 </select>
             </div>
-
-            <!-- *** end of left column for Event Details (edit) *** -->
         </div>
-
-        <!--Right Column for Event Details: public, rsvp, age restriction, reference URL-->
         <div class="w-100 px-3">
-
-            <!--Is it public? (edit)-->
             <div class="mb-3 form-check form-switch form-check-reverse">
                 <label class="form-check-label" for="public-edit">
                     Would you like your event to be visible to non-registered users?
@@ -584,8 +367,6 @@
                 <input class="form-check-input" type="checkbox" role="switch" id="public-edit" name="public"
                        th:field="*{public}">
             </div>
-
-            <!--RSVPable (edit)-->
             <div class="mb-3 form-check form-switch form-check-reverse">
                 <label class="form-check-label" for="rsvp-edit">
                     Would you like users to RSVP?
@@ -593,8 +374,6 @@
                 <input class="form-check-input" type="checkbox" role="switch" id="rsvp-edit" name="rsvp"
                        th:field="*{rsvpAble}" th:checked="flag">
             </div>
-
-            <!--Age Restriction (edit)-->
             <div class="mb-3 form-check form-switch form-check-reverse">
                 <label class="form-check-label" for="age-edit">
                     Would you like your event to be visible only to registered users that are older than 18?
@@ -602,55 +381,29 @@
                 <input class="form-check-input" type="checkbox" role="switch" id="age-edit" name="age-restriction"
                        th:field="*{ageRestricted}">
             </div>
-
-            <!--Reference URL (create)-->
             <label class="text-center" for="ref-url-edit">Reference URL</label>
             <div>
                 <input class="w-100 mb-3" type="url" name="ref-url" id="ref-url-edit" th:field="*{referenceUrl}">
             </div>
-
-            <!-- *** end of right column for Event Details (edit) *** -->
         </div>
-
-
     </div>
-
-    <!--Creation date (hidden input)-->
     <input hidden id="current-date-edit" name="current-date" th:field="*{updatedEvent}">
-    <!--script below gets the current date and assigns the value to the element above-->
-    <script>
-        let today = new Date();
-        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        let currentDateElementForEditEvent = document.getElementById("current-date-edit");
-        currentDateElementForEditEvent.setAttribute("value", date);
-    </script>
-
     <div class="form-outline my-3 col-12 col-lg-6 col-xl-6">
         <button type="button" class="form-control form-control-lg picker">
             (+) Add images
         </button>
         <div id="image-url"></div>
         <div id="upload"></div>
-
     </div>
-
     <div class="d-flex justify-content-center mt-5 mb-2">
         <button type="submit" class="btn btn-primary"> Submit Changes</button>
     </div>
     </form>
-
-    <!-- *** end of the edit form ***-->
 </div>
 
-<!--Footer-->
 <div th:replace="partials/partials.html :: footer"></div>
-
-<!--Bootstrap JS Script Tag-->
 <script th:replace="partials/partials.html :: script-keys"></script>
-
 <script th:replace="partials/partials.html :: bootstrap-js"></script>
-
-<!--External Script Tags-->
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
 <script th:src="@{/js/mapbox-geocoder-utils.js}"></script>
 <script th:replace="partials/partials.html :: bootstrap-js"></script>
@@ -658,6 +411,8 @@
 <script th:replace="partials/partials.html :: file-js"></script>
 <script th:replace="partials/partials.html :: map-js"></script>
 <script th:replace="partials/partials.html :: environment-keys"></script>
+<script th:replace="partials/partials.html :: hobbies"></script>
+<script th:replace="partials/partials.html :: time"></script>
 
 </body>
 </html>
