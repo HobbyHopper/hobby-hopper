@@ -77,7 +77,6 @@
                                                 <div class="card-body card-b">
                                                     <a
                                                         th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} ">
-
                                                         <p class="card-text" style="max-width: 100px; max-height: 100px" th:text="${stringService.capitalizeWord(hobby.hobbyName)}"></p>
                                                     </a>
                                                     <a style="color: red"
@@ -89,9 +88,26 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div th:unless="${userHobbies.size()>0}" class="d-flex  justify-content-center">
-                                    <div>You Have Not Added Any Hobbies</div>
-
+                                <div th:unless="${userHobbies.size()>0}" class="d-flex flex-wrap justify-content-center justify-content-lg-start justify-content-xl-start" id="hobbies-parent-div">
+                                    <ul th:each="hobby:${userHobbies}">
+                                        <li>
+                                            <div class="text-center hobby-container d-flex flex-column btn align-items-center card" style="height: 150px; width: 150px">
+                                                <div class="card-body card-b">
+                                                    <a
+                                                            th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} ">
+                                                        <p class="card-text" style="max-width: 100px; max-height: 100px" th:text="${stringService.capitalizeWord(hobby.hobbyName)}"></p>
+                                                    </a>
+                                                    <a style="color: red"
+                                                       th:href="@{user/delete-hobby/{id}(id=${hobby.id})}"
+                                                       class="btn btn-outline-dark abc"><i
+                                                            class="fa-solid fa-trash-can"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="d-flex justify-content-center mb-5">
+                                        <p >You Have Not Added Any Hobbies</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
