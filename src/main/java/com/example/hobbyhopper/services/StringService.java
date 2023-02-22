@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class StringService {
     public String capitalizeWord(String word){
         if(word.length() > 30 ){
-            return  word.substring(0, 1).toUpperCase() + word.substring(1,29).toLowerCase() + "...";
+            return  word.substring(0, 1).toUpperCase() + word.substring(1,25).toLowerCase() + "...";
         } else {
             return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
         }
