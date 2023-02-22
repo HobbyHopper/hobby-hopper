@@ -73,7 +73,7 @@
                                      class="d-flex flex-wrap justify-content-center justify-content-lg-start justify-content-xl-start" id="hobbies-parent-div">
                                     <ul th:each="hobby:${userHobbies}">
                                         <li>
-                                            <div class="text-center hobby-container d-flex flex-column btn align-items-center card" style="height: 150px; width: 150px" th:fragment="hobbies" id="hobbies">
+                                            <div class="text-center hobby-container d-flex flex-column btn align-items-center card" style="height: 150px; width: 150px">
                                                 <div class="card-body card-b">
                                                     <a
                                                         th:href="@{/event/search?search={name}(name=${hobby.hobbyName})} ">
@@ -302,7 +302,6 @@
 
 <script th:replace="partials/partials.html :: bootstrap-js"></script>
 <script th:replace="partials/partials.html :: environment-keys"></script>
-<script th:replace="partials/partials.html :: hobbies"></script>
-<script th:replace="partials/partials.html :: time"></script>
+<script th:replace="partials/partials.html :: hobby"></script>
 </body>
 </html>
