@@ -17,70 +17,70 @@ VALUES ('painting'),
        ('lawn darts'),
        ('collecting bottle caps'),
        ('dnd'),
-		('carpentry'),
+       ('carpentry'),
        ('Fun'),
        ('running');
 
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, rsvpable, start_date_time)
-VALUES ('184 Logan Street', 1, '2022-05-31', '2021-10-31 05:02','Hidradenitis', 'Yodo', TRUE, FALSE, TRUE,
-        'http://dummyimage.com/180x100.png/5fa2dd/ffffff', FALSE, '2021-12-27 07:45');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('7759 Jana Way', 1, '2021-06-25', '2021-07-11 17:07', 'Hx-laryngeal malignancy', 'Demimbu', TRUE, TRUE, TRUE,
-        'http://dummyimage.com/160x100.png/ff4444/ffffff', FALSE, '2021-08-12 16:51');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('8 Mcbride Court', 1, '2021-09-24', '2021-09-07 01:06', 'Fx larynx/trachea-open', 'Blogpad', FALSE, TRUE,
-        FALSE, 'http://dummyimage.com/128x100.png/cc0000/ffffff', TRUE, '2021-07-28 09:30');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('8231 Toban Hill', 2, '2021-08-02', '2021-07-03 10:46', 'Vasc dementia w depressn', 'Skidoo', TRUE, FALSE,
-        TRUE, 'http://dummyimage.com/172x100.png/ff4444/ffffff', TRUE, '2022-06-15 04:15');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('745 Sunfield Street', 2, '2021-11-26', '2022-06-03 09:30', 'Acc poison-shellfish', 'Twimm', FALSE, TRUE,
-        TRUE, 'http://dummyimage.com/161x100.png/5fa2dd/ffffff', TRUE, '2022-03-13 12:24');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('415 Manley Trail', 1, '2022-04-18', '2022-02-07 23:30', 'Whipple''s disease', 'Browsebug', TRUE, TRUE,
-        FALSE, 'http://dummyimage.com/125x100.png/5fa2dd/ffffff', TRUE, '2021-08-22 16:26');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('4755 Green Ridge Road', 2, '2021-10-23', '2021-07-10 10:30', 'Ocular lacera w prolapse', 'Trilith', TRUE,
-        FALSE, FALSE, 'http://dummyimage.com/188x100.png/ff4444/ffffff', TRUE, '2022-05-11 15:22');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('8846 Forest Way', 2, '2022-04-16', '2022-01-13 06:15', 'Nonvenomous snake bite', 'Leenti', TRUE, FALSE,
-        FALSE, 'http://dummyimage.com/173x100.png/dddddd/000000', FALSE, '2022-01-24 01:58');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('84 Ridge Oak Point', 2, '2021-10-16', '2021-12-23 20:00', 'Ant disloc prox tibia-cl', 'Yacero', TRUE, FALSE,
-        TRUE, 'http://dummyimage.com/163x100.png/cc0000/ffffff', TRUE, '2022-03-31 16:33');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('7546 Evergreen Road', 2, '2021-08-29', '2022-06-09 06:30', 'Hematocele, female NEC', 'Abata', FALSE, TRUE,
-        FALSE, 'http://dummyimage.com/244x100.png/ff4444/ffffff', TRUE, '2022-03-17 13:10');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('7 Maple Wood Parkway', 1, '2022-04-20', '2022-03-11 00:17', 'Pigment epitheliopathy', 'Twiyo', TRUE, TRUE,
-        TRUE, 'http://dummyimage.com/159x100.png/ff4444/ffffff', TRUE, '2021-11-30 18:23');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('6218 Westerfield Place', 1, '2021-09-09', '2022-05-28 03:59', 'Contusion shoulder & arm', 'Cogidoo', FALSE,
-        TRUE, TRUE, 'http://dummyimage.com/202x100.png/dddddd/000000', TRUE, '2021-10-13 02:18');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('4110 Atwood Plaza', 2, '2021-12-26', '2022-01-19 04:06', 'Irreg sleep-wake rhy NOS', 'Skiptube', FALSE,
-        FALSE, FALSE, 'http://dummyimage.com/169x100.png/cc0000/ffffff', TRUE, '2021-10-07 02:16');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('5 Blackbird Parkway', 2, '2022-05-10', '2022-02-15 07:35', 'Hx-cervical malignancy', 'Yoveo', FALSE, FALSE,
-        TRUE, 'http://dummyimage.com/120x100.png/5fa2dd/ffffff', FALSE, '2022-05-10 10:50');
-INSERT INTO events (address, category_id, created_event, end_date_time, event_description, event_name,
-                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date_time)
-VALUES ('9560 Canary Pass', 2, '2021-06-21', '2022-04-12 22:44', 'Mal carcinoid midgut NOS', 'Jetpulse', FALSE, TRUE,
-        TRUE, 'http://dummyimage.com/208x100.png/ddddd/000000', TRUE, '2022-05-29 20:46');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, rsvpable, start_date, start_time)
+VALUES ('184 Logan Street', 1, '2022-05-31', '2021-10-31', '05:02','Hidradenitis', 'Yodo', TRUE, FALSE, TRUE,
+        'http://dummyimage.com/180x100.png/5fa2dd/ffffff', FALSE, '2021-12-27', '07:45');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('7759 Jana Way', 1, '2021-06-25', '2021-07-11', '7:07', 'Hx-laryngeal malignancy', 'Demimbu', TRUE, TRUE, TRUE,
+        'http://dummyimage.com/160x100.png/ff4444/ffffff', FALSE, '2021-08-12', '16:51');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('8 Mcbride Court', 1, '2021-09-24', '2021-09-07', '01:06', 'Fx larynx/trachea-open', 'Blogpad', FALSE, TRUE,
+        FALSE, 'http://dummyimage.com/128x100.png/cc0000/ffffff', TRUE, '2021-07-28', '09:30');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('8231 Toban Hill', 2, '2021-08-02', '2021-07-03', '0:46', 'Vasc dementia w depressn', 'Skidoo', TRUE, FALSE,
+        TRUE, 'http://dummyimage.com/172x100.png/ff4444/ffffff', TRUE, '2022-06-15', '04:15');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('745 Sunfield Street', 2, '2021-11-26', '2022-06-03', '09:30', 'Acc poison-shellfish', 'Twimm', FALSE, TRUE,
+        TRUE, 'http://dummyimage.com/161x100.png/5fa2dd/ffffff', TRUE, '2022-03-13', '12:24');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('415 Manley Trail', 1, '2022-04-18', '2022-02-07', '3:30', 'Whipple''s disease', 'Browsebug', TRUE, TRUE,
+        FALSE, 'http://dummyimage.com/125x100.png/5fa2dd/ffffff', TRUE, '2021-08-22', '16:26');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('4755 Green Ridge Road', 2, '2021-10-23', '2021-07-10', '10:30', 'Ocular lacera w prolapse', 'Trilith', TRUE,
+        FALSE, FALSE, 'http://dummyimage.com/188x100.png/ff4444/ffffff', TRUE, '2022-05-11', '15:22');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('8846 Forest Way', 2, '2022-04-16', '2022-01-13', '6:15', 'Nonvenomous snake bite', 'Leenti', TRUE, FALSE,
+        FALSE, 'http://dummyimage.com/173x100.png/dddddd/000000', FALSE, '2022-01-24', '01:58');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('84 Ridge Oak Point', 2, '2021-10-16', '2021-12-23', '20:00', 'Ant disloc prox tibia-cl', 'Yacero', TRUE, FALSE,
+        TRUE, 'http://dummyimage.com/163x100.png/cc0000/ffffff', TRUE, '2022-03-31', '16:33');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('7546 Evergreen Road', 2, '2021-08-29', '2022-06-09', '6:30', 'Hematocele, female NEC', 'Abata', FALSE, TRUE,
+        FALSE, 'http://dummyimage.com/244x100.png/ff4444/ffffff', TRUE, '2022-03-17', '13:10');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('7 Maple Wood Parkway', 1, '2022-04-20', '2022-03-11', '00:17', 'Pigment epitheliopathy', 'Twiyo', TRUE, TRUE,
+        TRUE, 'http://dummyimage.com/159x100.png/ff4444/ffffff', TRUE, '2021-11-30', '18:23');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('6218 Westerfield Place', 1, '2021-09-09', '2022-05-28', '3:59', 'Contusion shoulder & arm', 'Cogidoo', FALSE,
+        TRUE, TRUE, 'http://dummyimage.com/202x100.png/dddddd/000000', TRUE, '2021-10-13', '02:18');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('4110 Atwood Plaza', 2, '2021-12-26', '2022-01-19', '04:06', 'Irreg sleep-wake rhy NOS', 'Skiptube', FALSE,
+        FALSE, FALSE, 'http://dummyimage.com/169x100.png/cc0000/ffffff', TRUE, '2021-10-07', '02:16');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('5 Blackbird Parkway', 2, '2022-05-10', '2022-02-15', '7:35', 'Hx-cervical malignancy', 'Yoveo', FALSE, FALSE,
+        TRUE, 'http://dummyimage.com/120x100.png/5fa2dd/ffffff', FALSE, '2022-05-10', '10:50');
+INSERT INTO events (address, category_id, created_event, end_date, end_time, event_description, event_name,
+                    is_age_restricted, is_public, is_reported, reference_url, RSVPable, start_date, start_time)
+VALUES ('9560 Canary Pass', 2, '2021-06-21', '2022-04-12', '22:44', 'Mal carcinoid midgut NOS', 'Jetpulse', FALSE, TRUE,
+        TRUE, 'http://dummyimage.com/208x100.png/ddddd/000000', TRUE, '2022-05-29', '20:46');
 
 INSERT INTO users (dob, email, image, is_admin, location, password, username)
 VALUES ('2022-04-06', 'dskelly0@go.com', 'http://dummyimage.com/180x100.png/dddddd/000000', FALSE,
