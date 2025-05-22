@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS events(
                                      end_time TIME,
                                      is_age_restricted BOOLEAN,
                                      is_public BOOLEAN,
-                                     RSVPable BOOLEAN,
+                                     rsvp_able BOOLEAN,
                                      image_url VARCHAR(225),
                                      is_reported BOOLEAN,
                                      category_id INT,
