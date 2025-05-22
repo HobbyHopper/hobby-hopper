@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS hobby_hopper;
+DROP DATABASE IF EXISTS hobby_hopper_db;
 
-CREATE DATABASE IF NOT EXISTS hobby_hopper;
+CREATE DATABASE IF NOT EXISTS hobby_hopper_db;
 
-USE hobby_hopper;
+USE hobby_hopper_db;
 
 CREATE TABLE IF NOT EXISTS users(
                                     id INT AUTO_INCREMENT NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS events(
                                      reference_url VARCHAR(1000),
                                      address VARCHAR(255),
                                      start_date_time DATETIME,
-                                     end_date_tme DATETIME,
+                                     end_date_time DATETIME,
                                      is_age_restricted BOOLEAN,
                                      is_public BOOLEAN,
                                      RSVPable BOOLEAN,
@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS events_hobbies(
 CREATE TABLE IF NOT EXISTS expertise(
                                         id INT NOT NULL AUTO_INCREMENT,
                                         expertise VARCHAR(255),
+                                        description VARCHAR(500),
                                         PRIMARY KEY (id)
 );
 
