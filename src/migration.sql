@@ -6,7 +6,7 @@ USE hobby_hopper_db;
 
 CREATE TABLE IF NOT EXISTS users(
                                     id INT AUTO_INCREMENT NOT NULL,
-                                    username INT NOT NULL,
+                                    username VARCHAR(30),
                                     email VARCHAR(255),
                                     password VARCHAR(255),
                                     location VARCHAR(255),
